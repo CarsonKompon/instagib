@@ -1,0 +1,33 @@
+{
+  "RootObject": {
+    "__guid": "a8ca153c-b31e-4c22-9673-af6ee3004032",
+    "Flags": 0,
+    "Name": "beam",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "ceedaaf4-401e-4389-9453-d4c2dba30a9c",
+        "__enabled": false,
+        "BodyGroups": 18446744073709551615,
+        "MaterialOverride": "materials/beam_mat.vmat",
+        "Model": "models/dev/box.vmdl",
+        "RenderType": "On",
+        "Tint": "1,0,0,1"
+      },
+      {
+        "__type": "Beam",
+        "__guid": "316ca585-39c9-4098-a8e5-e1b1015772c7"
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

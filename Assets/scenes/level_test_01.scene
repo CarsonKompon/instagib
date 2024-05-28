@@ -1,0 +1,370 @@
+{
+  "__guid": "df313c7c-911b-4afa-9910-a8d186ede171",
+  "GameObjects": [
+    {
+      "__guid": "8354c997-d33a-480d-b3d7-386ad2430a02",
+      "Flags": 0,
+      "Name": "Main Camera",
+      "Position": "-300,0,100",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "8612fbc1-e135-4b13-a408-843611914180",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 90,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        },
+        {
+          "__type": "Sandbox.ChromaticAberration",
+          "__guid": "993c4b83-71cc-460b-b520-6c6999d1c249",
+          "Offset": "4,6,0",
+          "Scale": 0
+        },
+        {
+          "__type": "Sandbox.Bloom",
+          "__guid": "592991f1-4867-41f0-9cfe-6b3ae09372ca",
+          "BloomColor": {
+            "color": [
+              {
+                "c": "1,1,1,1"
+              },
+              {
+                "t": 1,
+                "c": "1,1,1,1"
+              }
+            ],
+            "alpha": []
+          },
+          "BloomCurve": [
+            {
+              "y": 0.5
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "Mode": "Additive",
+          "Strength": 1,
+          "Threshold": 0.5,
+          "ThresholdWidth": 0
+        },
+        {
+          "__type": "Sandbox.Pixelate",
+          "__guid": "a9333e33-be81-4e24-801b-0399dfa36070",
+          "Scale": 0.01
+        },
+        {
+          "__type": "CameraManager",
+          "__guid": "e88d5310-1da8-460a-850d-f9f973a652cb"
+        }
+      ]
+    },
+    {
+      "__guid": "cf85cb93-be46-4ae1-a8a5-356e9e1c6e6b",
+      "Flags": 0,
+      "Name": "Directional Light",
+      "Position": "0,0,200",
+      "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
+      "Tags": "light_directional,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.DirectionalLight",
+          "__guid": "1d514d01-c903-4c3f-ba47-13cdf46624ad",
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Shadows": true,
+          "SkyColor": "0.05882,0.07451,0.08235,1"
+        }
+      ]
+    },
+    {
+      "__guid": "fec7ce4e-8a4f-4868-8365-97e40c46a493",
+      "Flags": 0,
+      "Name": "Player",
+      "Position": "0,0,32",
+      "Tags": "player",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Parkour.Player",
+          "__guid": "238fedfa-b18f-4e0e-94c1-07517a88554d",
+          "AirControl": 5,
+          "BeamPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/beam.prefab"
+          },
+          "Body": {
+            "_type": "gameobject",
+            "go": "cea18582-c0e8-45db-9c47-aef51df3b75b"
+          },
+          "DashTimer": 1,
+          "Gravity": "0,0,-800",
+          "GroundControl": 8,
+          "Head": {
+            "_type": "gameobject",
+            "go": "d78142a0-622f-465f-b89c-8ee881041448"
+          },
+          "JumpForce": 400,
+          "Speed": 590
+        },
+        {
+          "__type": "Sandbox.CharacterController",
+          "__guid": "791b02cb-20fb-4c66-af92-35f4959a4d6f",
+          "Acceleration": 10,
+          "Bounciness": 0.3,
+          "GroundAngle": 45,
+          "Height": 64,
+          "IgnoreLayers": "",
+          "Radius": 6.98,
+          "StepHeight": 18,
+          "UseCollisionRules": false
+        },
+        {
+          "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+          "__guid": "57e8cfe3-38da-4e47-b9c7-98e035d0b0fa",
+          "BodyWeight": 1,
+          "EyesWeight": 1,
+          "HeadWeight": 1,
+          "LookAtEnabled": false,
+          "Target": {
+            "_type": "component",
+            "component_id": "e70d3017-9a88-4ee1-8318-e2a59a618d25",
+            "go": "cea18582-c0e8-45db-9c47-aef51df3b75b",
+            "component_type": "SkinnedModelRenderer"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "cea18582-c0e8-45db-9c47-aef51df3b75b",
+          "Flags": 0,
+          "Name": "Body",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.SkinnedModelRenderer",
+              "__guid": "e70d3017-9a88-4ee1-8318-e2a59a618d25",
+              "BodyGroups": 341,
+              "CreateBoneObjects": false,
+              "Model": "models/citizen/citizen.vmdl",
+              "RenderType": "On",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "d78142a0-622f-465f-b89c-8ee881041448",
+          "Flags": 0,
+          "Name": "Head",
+          "Position": "0,0,64",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true
+        }
+      ]
+    },
+    {
+      "__guid": "fb925c6b-7540-4b88-9ac0-32a1f2a21b30",
+      "Flags": 0,
+      "Name": "Box",
+      "Position": "0,0,16.00806",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "3e41726d-813c-4527-864f-e68bae28d0eb",
+          "Collision": "Mesh",
+          "Color": "1,1,1,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2Qiw6CUAxDh1flgg/wAfr/X2pP0iWLJA25W9t16xHxFc4C30E4\u002Bt2FWbgKd2Ew4NTvIZxcb9ZH4b5db\u002Bb9z/oUzVh8m7lPc9FOzjRYQ8ZXyXxxXvrw4e72wvtWdoEPdzMXj8We9OHDXcvO7EqdN396eKaeLHjkLciePeYxi4z0mMFtMisablFvRXZ2Tj158KQOF78f9WSROMQBAAA=",
+            "Positions": [
+              "-512,-1024,16.00806",
+              "512,-1024,16.00806",
+              "512,1024,16.00806",
+              "-512,1024,16.00806",
+              "-512,1024,-16.00806",
+              "512,1024,-16.00806",
+              "512,-1024,-16.00806",
+              "-512,-1024,-16.00806"
+            ],
+            "TextureCoord": [
+              "4,8",
+              "-4,-0.2501259",
+              "4,-8",
+              "-8,-0.2501259",
+              "-4,-8",
+              "-4,-0.2501259",
+              "-4,8",
+              "-8,-0.2501259",
+              "4,-8",
+              "4,0",
+              "4,8",
+              "8,0",
+              "-4,8",
+              "4,0",
+              "-4,-8",
+              "8,0",
+              "8,-0.2501259",
+              "-4,0",
+              "-8,0",
+              "4,-0.2501259",
+              "-8,0",
+              "4,-0.2501259",
+              "8,-0.2501259",
+              "-4,0"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,-0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,-0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "-0,0,-1",
+              "0,0,-1",
+              "-0,0,-1"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0"
+            ],
+            "MaterialIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/dev/reflectivity_30.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "ef775925-b539-4922-a92d-a2d2269917af",
+      "Flags": 0,
+      "Name": "Bounce Indicator",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpriteRenderer",
+          "__guid": "09d19286-45ac-4e89-856d-06aecc33c8fd",
+          "Additive": false,
+          "CastShadows": false,
+          "Color": "1,1,1,1",
+          "DepthFeather": 0,
+          "FlipHorizontal": false,
+          "FlipVertical": false,
+          "FogStrength": 1,
+          "Opaque": false,
+          "Size": "10,10",
+          "Texture": "materials/bounce_indicator.vtex"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "level_test_01",
+  "Description": "",
+  "LastSaved": "2024-05-28T11:08:56.9782052-04:00",
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
