@@ -1,0 +1,34 @@
+{
+  "RootObject": {
+    "__guid": "bed88937-3d49-4929-ac45-b6c04d485a74",
+    "Flags": 0,
+    "Name": "bounce indicator",
+    "Scale": "2,2,2",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.SpriteRenderer",
+        "__guid": "e36e2135-1db9-4ac8-a239-736d9baf2203",
+        "Additive": false,
+        "CastShadows": false,
+        "Color": "1,1,1,1",
+        "DepthFeather": 0,
+        "FlipHorizontal": false,
+        "FlipVertical": false,
+        "FogStrength": 1,
+        "Opaque": false,
+        "Size": "10,10",
+        "Texture": "materials/bounce_indicator.vtex"
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

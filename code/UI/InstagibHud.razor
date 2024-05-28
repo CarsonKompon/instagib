@@ -1,0 +1,32 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@namespace Instagib
+@inherits PanelComponent
+
+<root>
+	<div class="crosshair" />
+	<div class="leaderboard">
+		<h1>Scoreboard</h1>
+		<div class="entries">
+			@if(true)
+			{
+				var clients = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills).ToList();
+				@for( var i=0; i<MathF.Min(clients.Count, 5); i++)
+				{
+					var client = clients[i];
+					<div class="entry @(client.Network.IsOwner ? "isme" : "")">
+						<div class="name">@client.GameObject.Name</div>
+						<div class="score">@client.Kills</div>
+					</div>
+				}
+			}
+		</div>
+	</div>
+</root>
+
+@code
+{
+
+	protected override int BuildHash() => System.HashCode.Combine( Time.Now );
+}

@@ -1,0 +1,67 @@
+InstagibHud
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	font-family: Prompt;
+	color: white;
+	font-size: 24px;
+
+	.crosshair
+	{
+		top: 50%;
+		left: 50%;
+		position: absolute;
+		transform: translate(-50%, -50%);
+		width: 2px;
+		height: 2px;
+		background-color: white;
+	}
+
+	.leaderboard
+	{
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		width: 250px;
+		flex-direction: column;
+		padding: 8px;
+		background-color: rgba(black, 0.2);
+
+		h1
+		{
+			font-weight: bolder;
+			font-size: 28px;
+			align-self: center;
+		}
+
+		.entries
+		{
+			flex-direction: column;
+
+			.entry
+			{
+				font-size: 18px;
+
+				.name
+				{
+					flex-grow: 1;
+					text-overflow: ellipsis;
+					overflow: hidden;
+				}
+
+				.score
+				{
+					flex-shrink: 0;
+				}
+
+				&.isme
+				{
+					color: yellow;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,23 @@
+{
+  "RootObject": {
+    "__guid": "a0e2223e-62e9-41e5-b939-7e57a952a8a9",
+    "Flags": 0,
+    "Name": "Client",
+    "Position": "-2659.654,3060.544,540.8666",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Instagib.Client",
+        "__guid": "73bd57b4-8f5c-437e-88c5-a7af39e353f7"
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}
