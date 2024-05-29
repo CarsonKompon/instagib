@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "63901e18-9312-41bb-98bb-79a304e9c97a",
+    "__guid": "2784aa3d-9a16-4fd3-8572-14081edbff1d",
     "Flags": 0,
     "Name": "player",
     "Tags": "player",
@@ -10,23 +10,15 @@
     "Components": [
       {
         "__type": "Instagib.HumanController",
-        "__guid": "a33db2f2-5123-4d60-8845-fab29855e9c1"
+        "__guid": "64856787-b7fd-4406-81b4-268eed49ea66"
       },
       {
         "__type": "Instagib.Player",
-        "__guid": "b66266fc-e10d-4bcc-8f33-24e88985105b",
+        "__guid": "58e73a99-1985-4dc2-ad79-ede37c96d95d",
         "AirControl": 0.8,
-        "BeamPrefab": {
-          "_type": "gameobject",
-          "prefab": "prefabs/beam.prefab"
-        },
         "Body": {
           "_type": "gameobject",
-          "go": "4dbbd6de-41ff-4823-a3e5-be985a237ea6"
-        },
-        "BounceParticle": {
-          "_type": "gameobject",
-          "prefab": "prefabs/particles/bounce particle.prefab"
+          "go": "d291f121-258f-4a20-bb65-376d932316c6"
         },
         "BounceRange": 150,
         "BounceTimer": 0.8,
@@ -35,26 +27,18 @@
         "GroundControl": 8,
         "Head": {
           "_type": "gameobject",
-          "go": "e76f4d17-06bf-48b5-9906-c584408e7a77"
+          "go": "8d9d6184-212c-4662-84dc-709ae632fac5"
         },
         "JumpForce": 400,
-        "LaserDustParticle": {
-          "_type": "gameobject",
-          "prefab": "prefabs/particles/laser particle.prefab"
-        },
-        "ReticlePrefab": {
-          "_type": "gameobject",
-          "prefab": "prefabs/bounce indicator.prefab"
-        },
         "Shadow": {
           "_type": "gameobject",
-          "go": "748790e9-bde8-4317-97fd-4b2f3246a61e"
+          "go": "fdface43-cf89-4b52-8a74-63938aeddef8"
         },
         "Speed": 590
       },
       {
         "__type": "Sandbox.CharacterController",
-        "__guid": "18c939ee-b2f1-425f-84c7-0a0525bffeec",
+        "__guid": "a7e213e4-1e58-4321-920c-4d2c8d193d01",
         "Acceleration": 10,
         "Bounciness": 0.3,
         "GroundAngle": 45,
@@ -66,21 +50,21 @@
       },
       {
         "__type": "Sandbox.Citizen.CitizenAnimationHelper",
-        "__guid": "79598fe9-aa27-47b6-92d7-eed1740c91eb",
+        "__guid": "28772c0b-37ff-4ce4-be18-8aa013c08b1f",
         "BodyWeight": 1,
         "EyesWeight": 1,
         "HeadWeight": 1,
         "LookAtEnabled": false,
         "Target": {
           "_type": "component",
-          "component_id": "d22f9d62-679c-46e5-9c03-ea508e4d0fee",
-          "go": "4dbbd6de-41ff-4823-a3e5-be985a237ea6",
+          "component_id": "bd8818b6-3aac-42ef-995e-d763d82bbc2f",
+          "go": "d291f121-258f-4a20-bb65-376d932316c6",
           "component_type": "SkinnedModelRenderer"
         }
       },
       {
         "__type": "Sandbox.BoxCollider",
-        "__guid": "0e720bdc-6f3f-4184-906e-95fc71db4225",
+        "__guid": "42addee4-f7e2-4896-a1b1-5dd81fe1ff0e",
         "Center": "0,0,35",
         "IsTrigger": false,
         "Scale": "25,25,70",
@@ -89,7 +73,7 @@
     ],
     "Children": [
       {
-        "__guid": "4dbbd6de-41ff-4823-a3e5-be985a237ea6",
+        "__guid": "d291f121-258f-4a20-bb65-376d932316c6",
         "Flags": 0,
         "Name": "Body",
         "Enabled": true,
@@ -98,7 +82,7 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "d22f9d62-679c-46e5-9c03-ea508e4d0fee",
+            "__guid": "bd8818b6-3aac-42ef-995e-d763d82bbc2f",
             "BodyGroups": 341,
             "CreateBoneObjects": false,
             "Model": "models/citizen/citizen.vmdl",
@@ -107,7 +91,7 @@
           },
           {
             "__type": "Sandbox.HighlightOutline",
-            "__guid": "00351150-28b9-452f-b986-0f09097da122",
+            "__guid": "d1906af5-16cf-477d-9efc-51ea91c9966d",
             "Color": "1,1,1,1",
             "InsideColor": "0,0,0,0",
             "InsideObscuredColor": "0,0,0,0",
@@ -117,7 +101,7 @@
         ]
       },
       {
-        "__guid": "e76f4d17-06bf-48b5-9906-c584408e7a77",
+        "__guid": "8d9d6184-212c-4662-84dc-709ae632fac5",
         "Flags": 0,
         "Name": "Head",
         "Position": "0,0,64",
@@ -126,7 +110,7 @@
         "NetworkInterpolation": true
       },
       {
-        "__guid": "748790e9-bde8-4317-97fd-4b2f3246a61e",
+        "__guid": "fdface43-cf89-4b52-8a74-63938aeddef8",
         "Flags": 0,
         "Name": "Shadow",
         "Enabled": true,
@@ -135,7 +119,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "6ff296a3-f2df-4787-957f-2c6229e63ac6",
+            "__guid": "29589cab-1e08-4535-9db1-6ddd8e4af2c3",
             "BodyGroups": 18446744073709551615,
             "MaterialOverride": "materials/effects/gradient_circle.vmat",
             "Model": "models/dev/plane.vmdl",
@@ -144,13 +128,35 @@
           },
           {
             "__type": "Instagib.FixTransparency",
-            "__guid": "2ce19a63-0701-4175-bd81-71450e721305",
+            "__guid": "02e0728c-8411-42da-ba16-26c0bdfa72e4",
             "modelRenderer": {
               "_type": "component",
-              "component_id": "6ff296a3-f2df-4787-957f-2c6229e63ac6",
-              "go": "748790e9-bde8-4317-97fd-4b2f3246a61e",
+              "component_id": "29589cab-1e08-4535-9db1-6ddd8e4af2c3",
+              "go": "fdface43-cf89-4b52-8a74-63938aeddef8",
               "component_type": "ModelRenderer"
             }
+          }
+        ]
+      },
+      {
+        "__guid": "555246af-d3b0-4e94-8ea2-ddf876960e1b",
+        "Flags": 0,
+        "Name": "Voice",
+        "Position": "147.8761,32.14449,40.17331",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Voice",
+            "__guid": "bfccf77f-b04e-4c36-abc2-01fa63cdf838",
+            "Loopback": false,
+            "Mode": "PushToTalk",
+            "MorphScale": 3,
+            "MorphSmoothTime": 0.1,
+            "PushToTalkInput": "voice",
+            "Volume": 1,
+            "WorldspacePlayback": false
           }
         ]
       }

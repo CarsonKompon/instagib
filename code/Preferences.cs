@@ -45,6 +45,10 @@ public class InstagibSettings
 {
     public float VolumeMusic { get; set; } = 40f;
     public float VolumeSFX { get; set; } = 60f;
+
+    public float FieldOfView { get; set; } = 100f;
+    public float ZoomedFieldOfView { get; set; } = 40f;
+    public float ZoomedSensitivity { get; set; } = 0.4f;
 }
 
 public class ChatSettings

@@ -57,6 +57,7 @@ public class Client : Component
 
             if ( Network.IsOwner )
             {
+                Scene.Camera.FieldOfView = Scene.Camera.FieldOfView.LerpTo( 100, 10 * Time.Delta );
                 if ( Deaths == 0 )
                 {
                     var spawnPoints = Scene.GetAllComponents<SpawnPoint>();

@@ -45,6 +45,7 @@ public sealed class Player : Component
 	public bool CanDash => timeSinceLastDash >= DashTimer;
 	public bool CanFire => timeSinceLastFire >= 0.6f;
 	public bool CanBounce { get; private set; } = false;
+	public bool IsInvulnerable => timeSinceSpawned < 3f;
 	public Vector3 WishVelocity = Vector3.Zero;
 	public Angles Direction = Angles.Zero;
 	public Client Client { get; set; }
@@ -59,6 +60,7 @@ public sealed class Player : Component
 	private TimeSince timeSinceLastBounce = 0;
 	private TimeSince timeSinceLastDash = 0;
 	private TimeSince timeSinceLastKill = 0;
+	private TimeSince timeSinceSpawned = 0;
 	private SpriteRenderer bounceIndicator = null;
 
 	protected override void OnAwake()
@@ -96,6 +98,8 @@ public sealed class Player : Component
 				outline.ObscuredColor = Color.Transparent;
 			}
 		}
+
+		timeSinceSpawned = 0f;
 	}
 
 	protected override void OnUpdate()
@@ -121,6 +125,17 @@ public sealed class Player : Component
 			timeSinceLastKill = 0;
 		}
 
+		if ( Components.TryGet<HighlightOutline>( out var outline, FindMode.EnabledInSelfAndChildren ) )
+		{
+			if ( IsInvulnerable )
+			{
+				outline.InsideColor = Color.Transparent;
+			}
+			else
+			{
+				outline.InsideColor = Color;
+			}
+		}
 		BodyRenderer.RenderType = Network.IsOwner ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 	}
 
@@ -176,23 +191,29 @@ public sealed class Player : Component
 
 	void UpdateCamera()
 	{
-		var _input = Input.AnalogLook * Preferences.Sensitivity;
+		var _input = Input.AnalogLook * (Preferences.Sensitivity * (Input.Down( "Zoom" ) ? InstagibPreferences.Settings.ZoomedSensitivity : 1f));
 		Direction.pitch += _input.pitch / 20f;
 		Direction.yaw += _input.yaw / 20f;
 		Direction.roll = 0f;
 		Direction.pitch = Direction.pitch.Clamp( -89.9f, 89.9f );
 
 		visualDirection = Direction;
-		var _shake = CharacterController.Velocity.Length / Speed;
-		visualDirection.pitch += MathF.Sin( Time.Now * 10f ) * _shake;
-		visualDirection.yaw += MathF.Sin( Time.Now * 9.5f ) * _shake;
-		headRoll = headRoll.LerpTo( (Input.AnalogMove.y - _input.yaw / 8f) * -1f, Time.Delta * 10f );
+		float _shake = 0;
+		if ( !Input.Down( "Zoom" ) )
+		{
+			_shake = CharacterController.Velocity.Length / Speed;
+			visualDirection.pitch += MathF.Sin( Time.Now * 10f ) * _shake;
+			visualDirection.yaw += MathF.Sin( Time.Now * 9.5f ) * _shake;
+		}
+
+		headRoll = headRoll.LerpTo( (Input.AnalogMove.y - _input.yaw / 8f) * -1f, 1f - MathF.Pow( 0.5f, Time.Delta * 10f ) );
 		visualDirection.roll = headRoll;
 
 		if ( Scene.Camera is not null )
 		{
 			Scene.Camera.Transform.Position = Head.Transform.Position;
 			Scene.Camera.Transform.Rotation = visualDirection;
+			Scene.Camera.FieldOfView = Scene.Camera.FieldOfView.LerpTo( Input.Down( "Zoom" ) ? InstagibPreferences.Settings.ZoomedFieldOfView : InstagibPreferences.Settings.FieldOfView, 10 * Time.Delta );
 		}
 	}
 
@@ -240,6 +261,7 @@ public sealed class Player : Component
 		if ( tr.Hit && tr.GameObject is not null && tr.GameObject.Components.TryGet<Player>( out var hitPlayer ) )
 		{
 			if ( hitPlayer.GameObject.Id == GameObject.Id ) return;
+			if ( hitPlayer.IsInvulnerable ) return;
 			hitPlayer?.Kill( Client.GameObject.Name );
 			timeSinceLastKill = 0;
 			if ( !Network.IsProxy )
