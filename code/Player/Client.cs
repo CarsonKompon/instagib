@@ -88,6 +88,11 @@ public class Client : Component
                         lookAt = nearestPlayer.Transform.Position;
                         TimeSinceLastLookAt = 0f;
                     }
+                    else if ( Scene.GetAllComponents<InstagibGib>().OrderBy( x => x.Transform.Position.Distance( Scene.Camera.Transform.Position ) ).FirstOrDefault() is InstagibGib gib && Scene.Camera.Transform.Position.Distance( gib.Transform.Position ) < 700 )
+                    {
+                        lookAt = gib.Transform.Position;
+                        TimeSinceLastLookAt = 0f;
+                    }
                     else if ( TimeSinceLastLookAt > 3f )
                     {
                         lookAt = Scene.Camera.Transform.Position + new Vector3(
@@ -96,6 +101,7 @@ public class Client : Component
                             0
                         );
                     }
+
                     if ( lookAt != Vector3.Zero )
                     {
                         deadCamRotation = Rotation.LookAt( lookAt - Scene.Camera.Transform.Position, Vector3.Up );
