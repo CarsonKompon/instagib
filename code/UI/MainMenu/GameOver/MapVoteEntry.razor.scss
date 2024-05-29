@@ -1,0 +1,64 @@
+MapVoteEntry
+{
+	width: 200px;
+	height: 200px;
+	flex-shrink: 0;
+	transition: all 0.05s ease-out;
+	cursor: pointer;
+	overflow: hidden;
+	border-radius: 8px;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+
+	img
+	{
+		border-radius: 8px;
+	}
+
+	.votes
+	{
+		position: absolute;
+		top: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		width: 32px;
+		height: 32px;
+		border-radius: 0px 8px 0px 8px;
+		justify-content: center;
+		align-items: center;
+		font-size: 16px;
+	}
+
+	.name
+	{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		padding: 8px;
+		border-radius: 0px 0px 8px 8px;
+		text-align: center;
+		font-size: 16px;
+	}
+
+	&.selected
+	{
+		box-shadow: 0 0 16px rgba(255, 255, 255, 0.5);
+	}
+
+	&:hover
+	{
+		img
+		{
+			border: 2px solid white;
+		}
+
+		sound-in: ui.button.over;
+	}
+
+	&:active
+	{
+		transform: scale( 0.95 );
+	}
+
+}

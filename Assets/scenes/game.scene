@@ -59,6 +59,12 @@
             "_type": "gameobject",
             "prefab": "prefabs/particles/laser particle.prefab"
           },
+          "MapInstance": {
+            "_type": "component",
+            "component_id": "ee180b64-37ca-4109-b2e3-eada7603d03c",
+            "go": "fb925c6b-7540-4b88-9ac0-32a1f2a21b30",
+            "component_type": "MapInstance"
+          },
           "PlayerPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/player.prefab"
@@ -139,10 +145,6 @@
           "Scale": 0.01
         },
         {
-          "__type": "CameraManager",
-          "__guid": "e88d5310-1da8-460a-850d-f9f973a652cb"
-        },
-        {
           "__type": "Sandbox.Highlight",
           "__guid": "bb339a73-4250-4671-b9ac-9ad967c1ba7c"
         }
@@ -211,6 +213,10 @@
         {
           "__type": "Instagib.Chatbox",
           "__guid": "521224c1-54f4-405e-a4a3-719691fb4230"
+        },
+        {
+          "__type": "Instagib.GameOverScreen",
+          "__guid": "477d0445-6706-4c95-a9b5-b02cb09ac43e"
         }
       ]
     }
@@ -238,7 +244,7 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-05-29T15:33:16.7524798-04:00",
+  "LastSaved": "2024-05-29T17:51:53.4006173-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

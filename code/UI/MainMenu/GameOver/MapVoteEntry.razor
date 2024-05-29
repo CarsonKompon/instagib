@@ -1,0 +1,57 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@namespace Instagib
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="@(GetDidVote() ? "selected" : "")" onclick=@Click>
+    @if (MapPackage is null) return;
+
+    <img src=@MapPackage.Thumb />
+    <div class="votes">
+        @VoteCount
+    </div>
+    <div class="name">
+        @MapPackage.Title
+    </div>
+</root>
+
+@code
+{
+    public KeyValuePair<string, int> Votes
+    {
+        set
+        {
+            FetchMapPackage(value);
+        }
+    }
+
+    Package MapPackage = null;
+    int VoteCount = 1;
+
+    void Click()
+    {
+        if (MapPackage is null) return;
+        if (GetDidVote()) return;
+
+        GameManager.Instance.VoteMap(Client.Local.GameObject.Id, MapPackage.FullIdent);
+    }
+    async void FetchMapPackage(KeyValuePair<string, int> votes)
+    {
+        MapPackage = await Package.Fetch(votes.Key, true);
+        VoteCount = votes.Value;
+    }
+
+    bool GetDidVote()
+    {
+        foreach (var vote in GameManager.Instance.MapVotes)
+        {
+            if (vote.Key == Client.Local.GameObject.Id && vote.Value == MapPackage.FullIdent)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+}

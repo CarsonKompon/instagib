@@ -20,10 +20,18 @@ public partial class GameManager : Component, Component.INetworkListener
 
     [Property] GameObject ClientPrefab { get; set; }
     [Property] GameObject PlayerPrefab { get; set; }
+    [Property] public MapInstance MapInstance { get; set; }
     [Property] List<GameObject> SpawnPoints { get; set; }
 
+    [Sync] public Gamemode Gamemode { get; set; } = Gamemode.Deathmatch;
+    [Sync] public bool InGame { get; set; } = false;
+    [Sync] public TimeUntil MapVoteTimer { get; set; } = 60;
     [Sync] public TimeUntil Timer { get; set; } = 60;
     [Sync] public int FragLimit { get; set; } = 30;
+    [Sync] public NetDictionary<Guid, string> MapVotes { get; set; } = new();
+
+    [Sync] public bool ServerLoading { get; set; } = true;
+    public bool ClientLoading { get; set; } = true;
 
     [Group( "Prefabs" ), Property] public GameObject BeamPrefab { get; set; }
     [Group( "Prefabs" ), Property] public GameObject ReticlePrefab { get; set; }
@@ -38,6 +46,11 @@ public partial class GameManager : Component, Component.INetworkListener
         Instance = this;
     }
 
+    protected override void OnStart()
+    {
+        MapInstance.OnMapLoaded += OnMapLoaded;
+    }
+
     protected override async Task OnLoad()
     {
         if ( Scene.IsEditor )
@@ -48,8 +61,7 @@ public partial class GameManager : Component, Component.INetworkListener
             LoadingScreen.Title = "Creating Lobby";
             await Task.DelayRealtimeSeconds( 0.1f );
             GameNetworkSystem.CreateLobby();
-            Timer = InstagibPreferences.Settings.TimeLimit * 60f;
-            FragLimit = InstagibPreferences.Settings.FragLimit;
+            StartGame();
         }
     }
 
@@ -60,6 +72,115 @@ public partial class GameManager : Component, Component.INetworkListener
 
         var client = ClientPrefab.Clone( global::Transform.Zero, name: channel.DisplayName );
         client.NetworkSpawn( channel );
+    }
+
+    protected override void OnFixedUpdate()
+    {
+        if ( !Networking.IsHost ) return;
+
+        if ( InGame && Timer <= 0 )
+        {
+            EndGame();
+        }
+        else if ( !InGame && !ServerLoading && MapVoteTimer <= 0 )
+        {
+            StartGame();
+        }
+    }
+
+    [Broadcast]
+    public void OnKill()
+    {
+        if ( !Networking.IsHost ) return;
+        foreach ( var client in Scene.GetAllComponents<Client>() )
+        {
+            if ( client.Kills >= FragLimit )
+            {
+                EndGame();
+                return;
+            }
+        }
+    }
+
+    public void StartGame()
+    {
+        if ( !Networking.IsHost ) return;
+        if ( InGame ) return;
+
+        Log.Info( "STARTING GAME!" );
+
+        var map = MapInstance.MapName;
+        if ( MapVotes.Count() > 0 )
+        {
+            // Choose randomly with weight of int
+            var votes = GetVotedMaps();
+            var totalVotes = votes.Values.Sum();
+            var random = Random.Shared.Next( 0, totalVotes );
+            var current = 0;
+            foreach ( var vote in votes )
+            {
+                current += vote.Value;
+                if ( random < current )
+                {
+                    map = vote.Key;
+                    break;
+                }
+            }
+            MapVotes.Clear();
+        }
+
+        ServerLoading = true;
+        InGame = true;
+        Timer = 1000f;
+        ChangeMap( map );
+    }
+
+    public void EndGame()
+    {
+        if ( !Networking.IsHost ) return;
+        if ( !InGame ) return;
+
+        Log.Info( "ENDING GAME!" );
+
+        foreach ( var player in Scene.GetAllComponents<Player>() )
+        {
+            player.Kill();
+        }
+
+        MapVotes.Clear();
+        InGame = false;
+        MapVoteTimer = 20f;
+    }
+
+    [Broadcast]
+    void ChangeMap( string map )
+    {
+        Log.Info( "CHANGING MAP (LOADING!!)" );
+        ClientLoading = true;
+
+        if ( MapInstance.MapName != map )
+        {
+            MapInstance.UnloadMap();
+            MapInstance.MapName = map;
+        }
+        else
+        {
+            OnMapLoaded();
+        }
+    }
+
+    public void OnMapLoaded()
+    {
+        Log.Info( "MAP LOADED!" );
+        ClientLoading = false;
+        if ( Networking.IsHost )
+        {
+            ServerLoading = false;
+
+            Gamemode = InstagibPreferences.Settings.Gamemode;
+            Timer = InstagibPreferences.Settings.TimeLimit * 60f;
+            FragLimit = InstagibPreferences.Settings.FragLimit;
+        }
     }
 
     [Broadcast]
@@ -79,6 +200,38 @@ public partial class GameManager : Component, Component.INetworkListener
             player.Components.Create<BotController>();
         }
         player.NetworkSpawn( client.Network.OwnerConnection );
+    }
+
+    [Broadcast]
+    public void VoteMap( Guid clientId, string mapName )
+    {
+        if ( !Networking.IsHost ) return;
+
+        if ( MapVotes.ContainsKey( clientId ) )
+        {
+            MapVotes[clientId] = mapName;
+        }
+        else
+        {
+            MapVotes.Add( clientId, mapName );
+        }
+    }
+
+    public Dictionary<string, int> GetVotedMaps()
+    {
+        var votes = new Dictionary<string, int>();
+        foreach ( var vote in MapVotes.Values )
+        {
+            if ( votes.ContainsKey( vote ) )
+            {
+                votes[vote]++;
+            }
+            else
+            {
+                votes.Add( vote, 1 );
+            }
+        }
+        return votes;
     }
 
     Transform FindSpawnLocation()

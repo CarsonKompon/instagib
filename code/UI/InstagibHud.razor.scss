@@ -93,4 +93,43 @@ InstagibHud
 			font-weight: bolder;
 		}
 	}
+
+	.loading
+	{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		right: 0px;
+		bottom: 0px;
+		justify-content: center;
+		align-items: center;
+		background-color: rgba(black, 0.9);
+		flex-direction: column;
+		pointer-events: all;
+
+		h1
+		{
+			font-size: 128px;
+			font-weight: bolder;
+		}
+	
+		i
+		{
+			top: 32px;
+			font-size: 92px;
+			animation: spin 1s linear infinite;
+		}
+	}
+}
+
+@keyframes spin
+{
+	from
+	{
+		transform: rotate(0deg);
+	}
+	to
+	{
+		transform: rotate(360deg);
+	}
 }

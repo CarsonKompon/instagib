@@ -120,13 +120,18 @@ public sealed class Player : Component
 		}
 		if ( IsInvulnerable )
 		{
-			BodyRenderer.Tint = Color.White;
+			BodyRenderer.Tint = Color.WithAlpha( 0.2f );
 		}
 		else
 		{
 			BodyRenderer.Tint = Color;
 		}
 		BodyRenderer.RenderType = Network.IsOwner ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
+
+		if ( Transform.Position.z < -1000 )
+		{
+			Kill();
+		}
 	}
 
 	public void BuildWishVelocity( Vector2 input, bool respectDirection = true )
@@ -269,6 +274,7 @@ public sealed class Player : Component
 			}
 		}
 
+		Client.Shots++;
 		CharacterController.Punch( dir.Forward * -(400f * (1f - (distance / 5000f))) );
 
 		BroadcastBeam( tr.StartPosition + tr.Direction * 15f, endPos );
@@ -307,6 +313,7 @@ public sealed class Player : Component
 			Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
 			Client.TimeSinceLastDeath = 0;
 			Client.Deaths++;
+			GameManager.Instance.OnKill();
 			GameObject.Destroy();
 		}
 	}

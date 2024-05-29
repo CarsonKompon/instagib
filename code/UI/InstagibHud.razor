@@ -5,6 +5,25 @@
 @inherits PanelComponent
 
 <root>
+	@if (!GameManager.Instance.InGame) return;
+	@if (GameManager.Instance.ClientLoading)
+	{
+		<div class="loading">
+			<h1>LOADING...</h1>
+			<label>Downloading map @(GameManager.Instance.MapInstance.MapName)...</label>
+			<i>refresh</i>
+		</div>
+		return;
+	}
+	else if (GameManager.Instance.ServerLoading)
+	{
+		<div class="loading">
+			<h1>LOADING...</h1>
+			<label>Waiting for host to download map...</label>
+		</div>
+		return;
+	}
+
 	<div class="crosshair" />
 
 	<div class="top-bar">

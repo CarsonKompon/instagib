@@ -1,0 +1,99 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@inherits PanelComponent
+@namespace Instagib
+
+<root class="@(GameManager.Instance.InGame ? "hidden" : "")">
+	@if (true)
+	{
+		var clients = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills);
+		var winner = clients.FirstOrDefault();
+
+		<div class="winner" style="color: @(winner.ColorString)">
+			<h1>@winner.Name</h1>
+			<label> reigns victorious</label>
+		</div>
+		<div class="container">
+			<div class="scoreboard">
+				<div class="header">
+					<label class="name">Player</label>
+					<label class="aim">Aim</label>
+					<label class="kills">Kills</label>
+					<label class="deaths">Deaths</label>
+				</div>
+				<div class="entries">
+					@foreach (var client in clients)
+					{
+						<div class="entry @(client.Network.IsOwner ? "isme" : "")"
+							style="background-color: @(client.ColorString)">
+							@if (client.IsBot)
+							{
+								<img src="ui/icons/bot.png" class="avatar" />
+							}
+							else
+							{
+								<img src="@($"avatar:{client.Network.OwnerConnection.SteamId}")" class="avatar" />
+							}
+							<label class="name">@client.GameObject.Name</label>
+							<label class="aim">@client.Aim.ToString("P")</label>
+							<label class="kills">@client.Kills</label>
+							<label class="deaths">@client.Deaths</label>
+						</div>
+
+					}
+				</div>
+			</div>
+			<div class="mapvote">
+				<div class="maps">
+					<h2>Vote for a map:</h2>
+					<PackageList ShowFilters="@true" Query="type:map sort:trending" OnSelected="@OnPackageSelected"
+						Take=@(50) />
+				</div>
+				<div class="voted-maps">
+					<h2>Voted maps:</h2>
+					@if (true)
+					{
+						var maps = GameManager.Instance.GetVotedMaps();
+						<div class="content">
+							@if (maps.Count() == 0)
+							{
+								<div class="popup empty">No maps voted yet.</div>
+							}
+							else
+							{
+								@foreach (var votes in maps)
+								{
+									<MapVoteEntry Votes="@votes" />
+								}
+							}
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+		<div class="timer">
+			Next game starts in @(GetMapVoteTimer())...
+		</div>
+	}
+</root>
+
+@code
+{
+
+	void OnPackageSelected(Package package)
+	{
+		GameManager.Instance.VoteMap(Client.Local.GameObject.Id, package.FullIdent);
+	}
+
+	string GetMapVoteTimer()
+	{
+		var time = MathF.Floor(GameManager.Instance.MapVoteTimer);
+		var minutes = MathF.Floor(time / 60);
+		var seconds = time % 60;
+
+		return $"{minutes:00}:{seconds:00}";
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine(GameManager.Instance.InGame);
+}
