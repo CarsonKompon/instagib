@@ -44,6 +44,7 @@ InstagibHud
 			.entry
 			{
 				font-size: 18px;
+				padding: 2px;
 
 				.name
 				{
@@ -59,9 +60,31 @@ InstagibHud
 
 				&.isme
 				{
-					color: yellow;
+					// color: yellow;
+					background-color: rgba(white, 0.05);
 				}
 			}
+		}
+	}
+
+	.banner
+	{
+		position: absolute;
+		top: 50%;
+		left: 0%;
+		width: 100%;
+		background-color: rgba(black, 0.5);
+		padding: 16px;
+		border-radius: 8px;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+
+		h1
+		{
+			font-size: 48px;
+			font-weight: bolder;
 		}
 	}
 }

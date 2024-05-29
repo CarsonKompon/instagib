@@ -1,5 +1,5 @@
 {
-  "__guid": "df313c7c-911b-4afa-9910-a8d186ede171",
+  "__guid": "4d2f57a5-c808-4087-b55d-e382f64f0ce4",
   "GameObjects": [
     {
       "__guid": "b58f574a-089c-46f3-a767-92a95a4adeeb",
@@ -13,13 +13,59 @@
         {
           "__type": "Instagib.GameManager",
           "__guid": "2a51772c-5045-408e-a7c3-68db4a52a95e",
+          "BeamPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/beam.prefab"
+          },
+          "BounceParticle": {
+            "_type": "gameobject",
+            "prefab": "prefabs/particles/bounce particle.prefab"
+          },
+          "CitizenGibs": [
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/gibs/gib head.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/gibs/gib pelvis.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/gibs/gib torso.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/gibs/gib hand left.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/gibs/gib hand right.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/gibs/gib foot left.prefab"
+            },
+            {
+              "_type": "gameobject",
+              "prefab": "prefabs/gibs/gib foot right.prefab"
+            }
+          ],
           "ClientPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/client.prefab"
           },
+          "LaserDustParticle": {
+            "_type": "gameobject",
+            "prefab": "prefabs/particles/laser particle.prefab"
+          },
           "PlayerPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/player.prefab"
+          },
+          "ReticlePrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/bounce indicator.prefab"
           },
           "SpawnPoints": []
         }
@@ -95,6 +141,10 @@
         {
           "__type": "CameraManager",
           "__guid": "e88d5310-1da8-460a-850d-f9f973a652cb"
+        },
+        {
+          "__type": "Sandbox.Highlight",
+          "__guid": "bb339a73-4250-4671-b9ac-9ad967c1ba7c"
         }
       ]
     },
@@ -163,15 +213,6 @@
           "__guid": "521224c1-54f4-405e-a4a3-719691fb4230"
         }
       ]
-    },
-    {
-      "__guid": "296dede8-cc67-4357-98a7-5558f587db39",
-      "Flags": 0,
-      "Name": "Player Explosion",
-      "Position": "-5824.006,3708.418,362.4651",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true
     }
   ],
   "SceneProperties": {
@@ -197,7 +238,7 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-05-28T15:04:51.3492728-04:00",
+  "LastSaved": "2024-05-29T10:52:25.8731287-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "17cbccc7-7cc8-4704-ba5e-8e8bca106806",
+    "__guid": "63901e18-9312-41bb-98bb-79a304e9c97a",
     "Flags": 0,
     "Name": "player",
     "Tags": "player",
@@ -10,11 +10,11 @@
     "Components": [
       {
         "__type": "Instagib.HumanController",
-        "__guid": "cbe07357-3f35-4e0c-ae08-f3e8f3daa41d"
+        "__guid": "a33db2f2-5123-4d60-8845-fab29855e9c1"
       },
       {
         "__type": "Instagib.Player",
-        "__guid": "09d42859-653a-42ac-b9a7-57f6a2213729",
+        "__guid": "b66266fc-e10d-4bcc-8f33-24e88985105b",
         "AirControl": 0.8,
         "BeamPrefab": {
           "_type": "gameobject",
@@ -22,7 +22,7 @@
         },
         "Body": {
           "_type": "gameobject",
-          "go": "294566ef-ec4f-4d35-88e1-234ead3f63a6"
+          "go": "4dbbd6de-41ff-4823-a3e5-be985a237ea6"
         },
         "BounceParticle": {
           "_type": "gameobject",
@@ -35,7 +35,7 @@
         "GroundControl": 8,
         "Head": {
           "_type": "gameobject",
-          "go": "45764f7e-b935-48a0-beeb-79a519b4e122"
+          "go": "e76f4d17-06bf-48b5-9906-c584408e7a77"
         },
         "JumpForce": 400,
         "LaserDustParticle": {
@@ -48,48 +48,48 @@
         },
         "Shadow": {
           "_type": "gameobject",
-          "go": "b5fd9a5a-94cc-45ff-9248-abef0b7f8d8d"
+          "go": "748790e9-bde8-4317-97fd-4b2f3246a61e"
         },
         "Speed": 590
       },
       {
         "__type": "Sandbox.CharacterController",
-        "__guid": "97fbfb01-1e0d-498f-8a0b-c29df737c658",
+        "__guid": "18c939ee-b2f1-425f-84c7-0a0525bffeec",
         "Acceleration": 10,
         "Bounciness": 0.3,
         "GroundAngle": 45,
         "Height": 64,
-        "IgnoreLayers": "",
+        "IgnoreLayers": "gib",
         "Radius": 6.98,
         "StepHeight": 18,
         "UseCollisionRules": false
       },
       {
         "__type": "Sandbox.Citizen.CitizenAnimationHelper",
-        "__guid": "62810896-f878-4404-abe3-811fcc36817e",
+        "__guid": "79598fe9-aa27-47b6-92d7-eed1740c91eb",
         "BodyWeight": 1,
         "EyesWeight": 1,
         "HeadWeight": 1,
         "LookAtEnabled": false,
         "Target": {
           "_type": "component",
-          "component_id": "dccd88e4-1252-49b5-81dc-f4f5377f5145",
-          "go": "294566ef-ec4f-4d35-88e1-234ead3f63a6",
+          "component_id": "d22f9d62-679c-46e5-9c03-ea508e4d0fee",
+          "go": "4dbbd6de-41ff-4823-a3e5-be985a237ea6",
           "component_type": "SkinnedModelRenderer"
         }
       },
       {
         "__type": "Sandbox.BoxCollider",
-        "__guid": "90f23032-611d-4d00-9107-2c56284807c3",
+        "__guid": "0e720bdc-6f3f-4184-906e-95fc71db4225",
         "Center": "0,0,35",
         "IsTrigger": false,
-        "Scale": "20,20,70",
+        "Scale": "25,25,70",
         "Static": false
       }
     ],
     "Children": [
       {
-        "__guid": "294566ef-ec4f-4d35-88e1-234ead3f63a6",
+        "__guid": "4dbbd6de-41ff-4823-a3e5-be985a237ea6",
         "Flags": 0,
         "Name": "Body",
         "Enabled": true,
@@ -98,17 +98,26 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "dccd88e4-1252-49b5-81dc-f4f5377f5145",
+            "__guid": "d22f9d62-679c-46e5-9c03-ea508e4d0fee",
             "BodyGroups": 341,
             "CreateBoneObjects": false,
             "Model": "models/citizen/citizen.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "Sandbox.HighlightOutline",
+            "__guid": "00351150-28b9-452f-b986-0f09097da122",
+            "Color": "1,1,1,1",
+            "InsideColor": "0,0,0,0",
+            "InsideObscuredColor": "0,0,0,0",
+            "ObscuredColor": "0,0,0,0",
+            "Width": 0.25
           }
         ]
       },
       {
-        "__guid": "45764f7e-b935-48a0-beeb-79a519b4e122",
+        "__guid": "e76f4d17-06bf-48b5-9906-c584408e7a77",
         "Flags": 0,
         "Name": "Head",
         "Position": "0,0,64",
@@ -117,7 +126,7 @@
         "NetworkInterpolation": true
       },
       {
-        "__guid": "b5fd9a5a-94cc-45ff-9248-abef0b7f8d8d",
+        "__guid": "748790e9-bde8-4317-97fd-4b2f3246a61e",
         "Flags": 0,
         "Name": "Shadow",
         "Enabled": true,
@@ -126,20 +135,20 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "2246d581-8268-4b80-bd08-699bcf15451a",
+            "__guid": "6ff296a3-f2df-4787-957f-2c6229e63ac6",
             "BodyGroups": 18446744073709551615,
             "MaterialOverride": "materials/effects/gradient_circle.vmat",
             "Model": "models/dev/plane.vmdl",
-            "RenderType": "On",
+            "RenderType": "Off",
             "Tint": "0,0,0,0.83"
           },
           {
             "__type": "Instagib.FixTransparency",
-            "__guid": "1ad6a07d-e0a3-4612-98b5-3a7d5fa5d580",
+            "__guid": "2ce19a63-0701-4175-bd81-71450e721305",
             "modelRenderer": {
               "_type": "component",
-              "component_id": "2246d581-8268-4b80-bd08-699bcf15451a",
-              "go": "b5fd9a5a-94cc-45ff-9248-abef0b7f8d8d",
+              "component_id": "6ff296a3-f2df-4787-957f-2c6229e63ac6",
+              "go": "748790e9-bde8-4317-97fd-4b2f3246a61e",
               "component_type": "ModelRenderer"
             }
           }

@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "a8ca153c-b31e-4c22-9673-af6ee3004032",
+    "__guid": "ea09131e-a58a-49d3-974c-2568d1686e70",
     "Flags": 0,
     "Name": "beam",
     "Enabled": true,
@@ -9,7 +9,7 @@
     "Components": [
       {
         "__type": "Sandbox.ModelRenderer",
-        "__guid": "ceedaaf4-401e-4389-9453-d4c2dba30a9c",
+        "__guid": "d20e81a3-d4fe-4f1b-9e52-245e74312691",
         "__enabled": false,
         "BodyGroups": 18446744073709551615,
         "MaterialOverride": "materials/beam_mat.vmat",
@@ -19,10 +19,32 @@
       },
       {
         "__type": "Beam",
-        "__guid": "316ca585-39c9-4098-a8e5-e1b1015772c7"
+        "__guid": "5cec8179-71b9-43d5-bbf6-d95856ebb35e"
       }
     ],
-    "Children": []
+    "Children": [
+      {
+        "__guid": "fefc8486-b51d-43b0-b921-938ce3b45e89",
+        "Flags": 0,
+        "Name": "beam",
+        "Scale": "-1,-1,-1",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "82e82df3-ae05-4539-88df-cde43eaed39e",
+            "__enabled": false,
+            "BodyGroups": 18446744073709551615,
+            "MaterialOverride": "materials/beam_mat.vmat",
+            "Model": "models/dev/box.vmdl",
+            "RenderType": "On",
+            "Tint": "1,0,0,1"
+          }
+        ]
+      }
+    ]
   },
   "ShowInMenu": false,
   "MenuPath": null,

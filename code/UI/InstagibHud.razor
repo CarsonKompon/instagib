@@ -6,16 +6,17 @@
 
 <root>
 	<div class="crosshair" />
+
 	<div class="leaderboard">
 		<h1>Scoreboard</h1>
 		<div class="entries">
-			@if(true)
+			@if (true)
 			{
 				var clients = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills).ToList();
-				@for( var i=0; i<MathF.Min(clients.Count, 5); i++)
+				@for (var i = 0; i < MathF.Min(clients.Count, 5); i++)
 				{
 					var client = clients[i];
-					<div class="entry @(client.Network.IsOwner ? "isme" : "")">
+					<div class="entry @(client.Network.IsOwner ? "isme" : "")" style="color: @(client.ColorString)">
 						<div class="name">@client.GameObject.Name</div>
 						<div class="score">@client.Kills</div>
 					</div>
@@ -23,10 +24,28 @@
 			}
 		</div>
 	</div>
+
+	@if (!Player.Local.IsValid())
+	{
+		var isValid = Client.Local.IsValid();
+		<div class="banner">
+			@if (!isValid || Client.Local.TimeSinceLastDeath < 5)
+			{
+				<h1>You can respawn in @(isValid ? (5 - Math.Floor(Client.Local.TimeSinceLastDeath)) : 5) seconds...</h1>
+			}
+			else
+			{
+				<h1>Press @(Input.GetButtonOrigin("Jump").ToUpper()) to respawn</h1>
+			}
+		</div>
+	}
+
 </root>
 
 @code
 {
 
-	protected override int BuildHash() => System.HashCode.Combine( Time.Now );
+	TimeSince timeSinceRefresh = 0f;
+
+	protected override int BuildHash() => System.HashCode.Combine(MathF.Floor(timeSinceRefresh), Player.Local.IsValid());
 }
