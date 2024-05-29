@@ -63,9 +63,11 @@ public partial class GameManager : Component, Component.INetworkListener
     }
 
     [Broadcast]
-    public void SpawnPlayer( Client client )
+    public void SpawnPlayer( Guid clientId )
     {
         if ( !Networking.IsHost ) return;
+
+        var client = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == clientId );
         if ( Scene.GetAllComponents<Player>().Any( x => x.GameObject.Name == client.GameObject.Id.ToString() ) ) return;
         var startLocation = FindSpawnLocation().WithScale( 1 );
         var player = PlayerPrefab.Clone( startLocation, name: client.GameObject.Id.ToString() );
@@ -109,10 +111,8 @@ public partial class GameManager : Component, Component.INetworkListener
         foreach ( var gibPrefab in CitizenGibs )
         {
             var gib = gibPrefab.Clone( position + Vector3.Random * 5f );
-            var outline = gib.Components.GetOrCreate<HighlightOutline>();
-            outline.Color = Color.Transparent;
-            outline.InsideColor = color;
-            outline.ObscuredColor = Color.Transparent;
+            var renderer = gib.Components.GetInChildrenOrSelf<ModelRenderer>();
+            renderer.Tint = color;
         }
     }
 

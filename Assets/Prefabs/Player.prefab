@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "2784aa3d-9a16-4fd3-8572-14081edbff1d",
+    "__guid": "c4b53a14-8232-4b6f-9bca-948cf670fa36",
     "Flags": 0,
     "Name": "player",
     "Tags": "player",
@@ -10,15 +10,15 @@
     "Components": [
       {
         "__type": "Instagib.HumanController",
-        "__guid": "64856787-b7fd-4406-81b4-268eed49ea66"
+        "__guid": "1bb14eba-166b-40e5-ac4f-fb45efe13e55"
       },
       {
         "__type": "Instagib.Player",
-        "__guid": "58e73a99-1985-4dc2-ad79-ede37c96d95d",
+        "__guid": "3a6edfe1-77a4-4df6-82d5-377b25dc1d92",
         "AirControl": 0.8,
         "Body": {
           "_type": "gameobject",
-          "go": "d291f121-258f-4a20-bb65-376d932316c6"
+          "go": "f07c7a8b-f038-42cc-8ac1-3a47070342c2"
         },
         "BounceRange": 150,
         "BounceTimer": 0.8,
@@ -27,18 +27,18 @@
         "GroundControl": 8,
         "Head": {
           "_type": "gameobject",
-          "go": "8d9d6184-212c-4662-84dc-709ae632fac5"
+          "go": "c46926bf-512e-4f13-a87f-22f6d0b1c287"
         },
         "JumpForce": 400,
         "Shadow": {
           "_type": "gameobject",
-          "go": "fdface43-cf89-4b52-8a74-63938aeddef8"
+          "go": "213ba92c-4d78-4378-bbca-a73b2d4223dd"
         },
         "Speed": 590
       },
       {
         "__type": "Sandbox.CharacterController",
-        "__guid": "a7e213e4-1e58-4321-920c-4d2c8d193d01",
+        "__guid": "87356399-2de0-4b99-a7d5-c5a85eefd572",
         "Acceleration": 10,
         "Bounciness": 0.3,
         "GroundAngle": 45,
@@ -50,21 +50,21 @@
       },
       {
         "__type": "Sandbox.Citizen.CitizenAnimationHelper",
-        "__guid": "28772c0b-37ff-4ce4-be18-8aa013c08b1f",
+        "__guid": "5aa60f9e-6354-4914-83a3-2cdda98c2f0d",
         "BodyWeight": 1,
         "EyesWeight": 1,
         "HeadWeight": 1,
         "LookAtEnabled": false,
         "Target": {
           "_type": "component",
-          "component_id": "bd8818b6-3aac-42ef-995e-d763d82bbc2f",
-          "go": "d291f121-258f-4a20-bb65-376d932316c6",
+          "component_id": "fd413735-ec93-43d7-af5c-57ed582366dd",
+          "go": "f07c7a8b-f038-42cc-8ac1-3a47070342c2",
           "component_type": "SkinnedModelRenderer"
         }
       },
       {
         "__type": "Sandbox.BoxCollider",
-        "__guid": "42addee4-f7e2-4896-a1b1-5dd81fe1ff0e",
+        "__guid": "319f1926-d439-480b-84dd-25426ca42451",
         "Center": "0,0,35",
         "IsTrigger": false,
         "Scale": "25,25,70",
@@ -73,7 +73,7 @@
     ],
     "Children": [
       {
-        "__guid": "d291f121-258f-4a20-bb65-376d932316c6",
+        "__guid": "f07c7a8b-f038-42cc-8ac1-3a47070342c2",
         "Flags": 0,
         "Name": "Body",
         "Enabled": true,
@@ -82,26 +82,18 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "bd8818b6-3aac-42ef-995e-d763d82bbc2f",
+            "__guid": "fd413735-ec93-43d7-af5c-57ed582366dd",
             "BodyGroups": 341,
             "CreateBoneObjects": false,
+            "MaterialOverride": "materials/beam_mat.vmat",
             "Model": "models/citizen/citizen.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
-          },
-          {
-            "__type": "Sandbox.HighlightOutline",
-            "__guid": "d1906af5-16cf-477d-9efc-51ea91c9966d",
-            "Color": "1,1,1,1",
-            "InsideColor": "0,0,0,0",
-            "InsideObscuredColor": "0,0,0,0",
-            "ObscuredColor": "0,0,0,0",
-            "Width": 0.25
           }
         ]
       },
       {
-        "__guid": "8d9d6184-212c-4662-84dc-709ae632fac5",
+        "__guid": "c46926bf-512e-4f13-a87f-22f6d0b1c287",
         "Flags": 0,
         "Name": "Head",
         "Position": "0,0,64",
@@ -110,7 +102,7 @@
         "NetworkInterpolation": true
       },
       {
-        "__guid": "fdface43-cf89-4b52-8a74-63938aeddef8",
+        "__guid": "213ba92c-4d78-4378-bbca-a73b2d4223dd",
         "Flags": 0,
         "Name": "Shadow",
         "Enabled": true,
@@ -119,7 +111,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "29589cab-1e08-4535-9db1-6ddd8e4af2c3",
+            "__guid": "3247dec8-f5c0-4dad-a960-ed73014bc2ff",
             "BodyGroups": 18446744073709551615,
             "MaterialOverride": "materials/effects/gradient_circle.vmat",
             "Model": "models/dev/plane.vmdl",
@@ -128,18 +120,18 @@
           },
           {
             "__type": "Instagib.FixTransparency",
-            "__guid": "02e0728c-8411-42da-ba16-26c0bdfa72e4",
+            "__guid": "96b4919d-58ae-4989-89bb-ba8648f97c69",
             "modelRenderer": {
               "_type": "component",
-              "component_id": "29589cab-1e08-4535-9db1-6ddd8e4af2c3",
-              "go": "fdface43-cf89-4b52-8a74-63938aeddef8",
+              "component_id": "3247dec8-f5c0-4dad-a960-ed73014bc2ff",
+              "go": "213ba92c-4d78-4378-bbca-a73b2d4223dd",
               "component_type": "ModelRenderer"
             }
           }
         ]
       },
       {
-        "__guid": "555246af-d3b0-4e94-8ea2-ddf876960e1b",
+        "__guid": "1c9b7deb-1b9f-4850-a45c-40a63eb8d0d5",
         "Flags": 0,
         "Name": "Voice",
         "Position": "147.8761,32.14449,40.17331",
@@ -149,7 +141,7 @@
         "Components": [
           {
             "__type": "Sandbox.Voice",
-            "__guid": "bfccf77f-b04e-4c36-abc2-01fa63cdf838",
+            "__guid": "b06f2840-ea95-41fd-8f94-bea80025b266",
             "Loopback": false,
             "Mode": "PushToTalk",
             "MorphScale": 3,

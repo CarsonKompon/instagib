@@ -46,9 +46,10 @@ public sealed class Player : Component
 	public bool CanFire => timeSinceLastFire >= 0.6f;
 	public bool CanBounce { get; private set; } = false;
 	public bool IsInvulnerable => timeSinceSpawned < 3f;
-	public Vector3 WishVelocity = Vector3.Zero;
+	[Sync] public Angles LookAngles { get; set; } = Angles.Zero;
+	[Sync] public Vector3 WishVelocity { get; set; } = Vector3.Zero;
 	public Angles Direction = Angles.Zero;
-	public Client Client { get; set; }
+	public Client Client => Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id.ToString() == GameObject.Name );
 	[Sync] public int KillStreak { get; set; } = 0;
 	[Sync] public string ColorString { get; set; }
 	Color Color => Color.Parse( ColorString ) ?? Color.White;
@@ -68,10 +69,8 @@ public sealed class Player : Component
 		BodyRenderer = Body.Components.Get<SkinnedModelRenderer>();
 	}
 
-
 	public void Init( Client client )
 	{
-		Client = client;
 		ColorString = client.ColorString;
 	}
 
@@ -84,22 +83,17 @@ public sealed class Player : Component
 			{
 				bounceIndicator.Enabled = false;
 			}
-			if ( Components.TryGet<HighlightOutline>( out var outline, FindMode.EnabledInSelfAndChildren ) )
-			{
-				outline.Enabled = false;
-			}
-		}
-		else
-		{
-			if ( Components.TryGet<HighlightOutline>( out var outline, FindMode.EnabledInSelfAndChildren ) )
-			{
-				outline.Color = Color.Transparent;
-				outline.InsideColor = Color;
-				outline.ObscuredColor = Color.Transparent;
-			}
 		}
 
 		timeSinceSpawned = 0f;
+	}
+
+	protected override void OnDestroy()
+	{
+		if ( Network.IsOwner && bounceIndicator.IsValid() )
+		{
+			bounceIndicator.GameObject.Destroy();
+		}
 	}
 
 	protected override void OnUpdate()
@@ -124,17 +118,13 @@ public sealed class Player : Component
 			KillStreak = 0;
 			timeSinceLastKill = 0;
 		}
-
-		if ( Components.TryGet<HighlightOutline>( out var outline, FindMode.EnabledInSelfAndChildren ) )
+		if ( IsInvulnerable )
 		{
-			if ( IsInvulnerable )
-			{
-				outline.InsideColor = Color.Transparent;
-			}
-			else
-			{
-				outline.InsideColor = Color;
-			}
+			BodyRenderer.Tint = Color.White;
+		}
+		else
+		{
+			BodyRenderer.Tint = Color;
 		}
 		BodyRenderer.RenderType = Network.IsOwner ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 	}
@@ -196,6 +186,7 @@ public sealed class Player : Component
 		Direction.yaw += _input.yaw / 20f;
 		Direction.roll = 0f;
 		Direction.pitch = Direction.pitch.Clamp( -89.9f, 89.9f );
+		LookAngles = Direction;
 
 		visualDirection = Direction;
 		float _shake = 0;
@@ -252,7 +243,7 @@ public sealed class Player : Component
 	{
 		if ( !CanFire ) return;
 
-		var dir = Client.IsBot ? Direction : visualDirection;
+		var dir = (Client?.IsBot ?? true) ? Direction : visualDirection;
 		var tr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position + dir.Forward * 5000f )
 			.IgnoreGameObjectHierarchy( GameObject )
 			.WithoutTags( "trigger" )
@@ -324,7 +315,7 @@ public sealed class Player : Component
 	{
 		if ( Body is null ) return;
 
-		var targetAngle = new Angles( 0, Direction.yaw, 0 );
+		var targetAngle = new Angles( 0, LookAngles.yaw, 0 );
 		float rotateDifference = Body.Transform.Rotation.Distance( targetAngle );
 
 		if ( rotateDifference > 40f || CharacterController.Velocity.Length > 10f )
@@ -338,7 +329,7 @@ public sealed class Player : Component
 		AnimationHelper.IsGrounded = CharacterController.IsOnGround;
 		AnimationHelper.WithVelocity( CharacterController.Velocity );
 		AnimationHelper.WithWishVelocity( WishVelocity );
-		AnimationHelper.WithLook( Direction.Forward );
+		AnimationHelper.WithLook( LookAngles.Forward );
 	}
 
 	void UpdateShadow()

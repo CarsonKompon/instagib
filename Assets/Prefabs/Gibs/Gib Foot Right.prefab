@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "bb630839-3d62-432d-87b0-d5d7567eefb1",
+    "__guid": "379b83ce-659f-44bd-a50d-7ea9fec6967d",
     "Flags": 0,
     "Name": "gib foot right",
     "Tags": "gib,particles",
@@ -10,7 +10,7 @@
     "Components": [
       {
         "__type": "Sandbox.ParticleEffect",
-        "__guid": "53ed486e-f0c9-4f1d-b23a-6e0c33c1e7a0",
+        "__guid": "fc7be166-9e9a-400f-bebc-ce881f6bb305",
         "Alpha": {
           "Type": "Curve",
           "CurveA": [
@@ -136,7 +136,7 @@
       },
       {
         "__type": "Sandbox.ParticleSpriteRenderer",
-        "__guid": "2fe88830-f902-4a82-8d32-2d7fc51f98c1",
+        "__guid": "c8001753-2d85-4fd3-909a-c6567e6c7525",
         "Additive": false,
         "BlurAmount": 0.5,
         "BlurOpacity": 0.91,
@@ -155,7 +155,7 @@
       },
       {
         "__type": "Sandbox.ParticleSphereEmitter",
-        "__guid": "97be7a4d-8706-4291-bb63-05688ed29361",
+        "__guid": "f93d1590-1a08-45e2-9e36-06133027375a",
         "Burst": 0,
         "Delay": 0,
         "DestroyOnEnd": false,
@@ -163,12 +163,12 @@
         "Loop": true,
         "OnEdge": false,
         "Radius": 1.16,
-        "Rate": 96.9,
+        "Rate": 15,
         "Velocity": 5
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "e8baf1a5-43ea-4799-9ac1-cd391fea4236",
+        "__guid": "303d2681-1354-4e67-b858-ae253a4d9b6d",
         "Center": "0,0,0",
         "IsTrigger": false,
         "Radius": 5.899995,
@@ -177,7 +177,7 @@
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "1fef7180-b6e1-4177-a742-5635d94e7eb6",
+        "__guid": "3e1c4944-ded6-43a0-b819-b5cac69c3c27",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -189,12 +189,12 @@
       },
       {
         "__type": "Instagib.InstagibGib",
-        "__guid": "257e5c5d-8dc1-49c4-bc48-ce4cebfa9625"
+        "__guid": "e979a8f1-0215-4ac5-83fd-9ab81e0eca0e"
       }
     ],
     "Children": [
       {
-        "__guid": "2a665b70-4757-477a-8b8e-0e9c135c88c9",
+        "__guid": "7aeef0c2-e1f2-4047-9231-46678f4ef968",
         "Flags": 0,
         "Name": "Object",
         "Position": "-2.936199,4.333287,-1.222737",
@@ -204,9 +204,10 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "61a7b5e4-4470-4f8d-ac8a-35c8ce0ab967",
+            "__guid": "006d4163-8db9-46d2-9d8d-1119176bc53a",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
+            "MaterialOverride": "materials/beam_mat.vmat",
             "Model": "models/citizen_gibs/models/right_foot_gib_cap.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"

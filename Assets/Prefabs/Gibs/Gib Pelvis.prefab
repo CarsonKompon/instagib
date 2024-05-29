@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "d28605aa-0c75-4927-9bf3-5b5f1b70b93f",
+    "__guid": "7696d166-62c3-4810-99aa-b665df879638",
     "Flags": 0,
     "Name": "gib pelvis",
     "Tags": "gib,particles",
@@ -10,7 +10,7 @@
     "Components": [
       {
         "__type": "Sandbox.ParticleEffect",
-        "__guid": "f7a53603-8958-4b89-a5f9-b7afd1c7d9b7",
+        "__guid": "a157001d-9387-4f02-be27-218f8f5ad1a2",
         "Alpha": {
           "Type": "Curve",
           "CurveA": [
@@ -136,7 +136,7 @@
       },
       {
         "__type": "Sandbox.ParticleSpriteRenderer",
-        "__guid": "fd8fabf4-e3be-4910-ab25-a4ba499032b9",
+        "__guid": "e5057ca0-b802-449d-8d15-64374a641d8d",
         "Additive": false,
         "BlurAmount": 0.5,
         "BlurOpacity": 0.91,
@@ -155,7 +155,7 @@
       },
       {
         "__type": "Sandbox.ParticleSphereEmitter",
-        "__guid": "be69b9f8-9002-4fbc-8879-9d79db597719",
+        "__guid": "6fde9f2c-e26a-488f-8e0b-42170a93b3bf",
         "Burst": 0,
         "Delay": 0,
         "DestroyOnEnd": false,
@@ -163,12 +163,12 @@
         "Loop": true,
         "OnEdge": false,
         "Radius": 1.16,
-        "Rate": 96.9,
+        "Rate": 25,
         "Velocity": 5
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "63e30d9e-dfb7-425a-948b-2e7165fd39cf",
+        "__guid": "a23996e6-765e-4a56-b00b-97e6661da8fc",
         "Center": "0,0,0",
         "IsTrigger": false,
         "Radius": 10,
@@ -177,7 +177,7 @@
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "f8ab0a6d-1bc4-4ea5-8cbc-738e77cd6005",
+        "__guid": "64818b41-28e5-463d-8546-4d8d53cae757",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -189,12 +189,12 @@
       },
       {
         "__type": "Instagib.InstagibGib",
-        "__guid": "45bb384e-4bb2-46be-9e6d-4b019794e534"
+        "__guid": "4b552643-74a3-4fdf-8535-8fb7a7bc7a94"
       }
     ],
     "Children": [
       {
-        "__guid": "674c6a56-23e6-4dea-975d-d375bada4941",
+        "__guid": "05030919-9914-4f9c-b504-d7ef840e760f",
         "Flags": 0,
         "Name": "Object",
         "Position": "-0.9350574,-0.00000005573375,-31.38143",
@@ -204,9 +204,10 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "e31520cf-c9e1-4e43-9342-703c9c9250be",
+            "__guid": "761fa6bb-470a-44f5-82c4-1819d87e1ded",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
+            "MaterialOverride": "materials/beam_mat.vmat",
             "Model": "models/citizen_gibs/models/pelvis_gib_cap.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"

@@ -7,7 +7,7 @@
       "Name": "Game Manager",
       "Position": "59.23444,29.79265,113.2015",
       "Enabled": true,
-      "NetworkMode": 2,
+      "NetworkMode": 1,
       "NetworkInterpolation": true,
       "Components": [
         {
@@ -238,7 +238,7 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-05-29T12:37:52.6663875-04:00",
+  "LastSaved": "2024-05-29T15:33:16.7524798-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

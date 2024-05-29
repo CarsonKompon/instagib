@@ -20,6 +20,8 @@ public class BotController : Component
 
     protected override void OnUpdate()
     {
+        if ( !Networking.IsHost ) return;
+
         if ( Random.Shared.Float() < 0.01f ) Player?.Jump();
         if ( Random.Shared.Float() < 0.0025f ) Player?.PrimaryFire();
         if ( Random.Shared.Float() < 0.0025f ) Player?.SecondaryFire();
@@ -27,6 +29,8 @@ public class BotController : Component
 
     protected override void OnFixedUpdate()
     {
+        if ( !Networking.IsHost ) return;
+
         if ( timeSinceLastNavUpdate > 10f || Transform.Position.Distance( targetPosition ) < 200f )
         {
             var randomPlayer = Scene.GetAllComponents<Player>().OrderBy( x => Random.Shared.Float() ).FirstOrDefault();

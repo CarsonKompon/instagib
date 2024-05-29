@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "5bfe16c8-fe8a-4064-af5a-f141c57f0306",
+    "__guid": "62766d4c-ef85-4ba7-8576-0ef0851ea147",
     "Flags": 0,
     "Name": "gib hand right",
     "Tags": "gib,particles",
@@ -10,7 +10,7 @@
     "Components": [
       {
         "__type": "Sandbox.ParticleEffect",
-        "__guid": "8f050732-a6fc-42e2-83fe-4202458540a3",
+        "__guid": "bb0c9660-9d31-4f2b-80ed-472288e1a8ff",
         "Alpha": {
           "Type": "Curve",
           "CurveA": [
@@ -136,7 +136,7 @@
       },
       {
         "__type": "Sandbox.ParticleSpriteRenderer",
-        "__guid": "7ed480cc-fe66-4e44-ad86-1c8d927faee2",
+        "__guid": "6c3273e9-5af9-4a7e-abcd-1f855cd22b1c",
         "Additive": false,
         "BlurAmount": 0.5,
         "BlurOpacity": 0.91,
@@ -155,7 +155,7 @@
       },
       {
         "__type": "Sandbox.ParticleSphereEmitter",
-        "__guid": "03f21ade-c3ef-4e3c-afb1-d9f4f8892734",
+        "__guid": "97ba2aa7-357e-4ba1-ad50-f944c7a63ea0",
         "Burst": 0,
         "Delay": 0,
         "DestroyOnEnd": false,
@@ -163,12 +163,12 @@
         "Loop": true,
         "OnEdge": false,
         "Radius": 1.16,
-        "Rate": 96.9,
+        "Rate": 15,
         "Velocity": 5
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "3c81857f-9a04-43a3-ba7b-e7dced342eb9",
+        "__guid": "1e5abd0f-2e8e-4cea-9447-f2c8e61aefbb",
         "Center": "0,0,0",
         "IsTrigger": false,
         "Radius": 4.899996,
@@ -177,7 +177,7 @@
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "a798abfb-5117-4eb4-b014-5965d3c5400b",
+        "__guid": "68052c28-796f-42c8-8548-e6201e234889",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -189,12 +189,12 @@
       },
       {
         "__type": "Instagib.InstagibGib",
-        "__guid": "e130b0c0-a0c6-4ec7-b643-15f67f6da87b"
+        "__guid": "7eecc931-1832-40a8-ba15-2cbc6e1e9b9d"
       }
     ],
     "Children": [
       {
-        "__guid": "c765eb6c-a232-4663-af88-f5cf188419bb",
+        "__guid": "0df8c611-6e0a-4515-b192-829234afad24",
         "Flags": 0,
         "Name": "Object",
         "Position": "-2.936276,21.86015,-36.31306",
@@ -204,9 +204,10 @@
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
-            "__guid": "deb91cce-1764-4cb6-ae60-c4b5ca512681",
+            "__guid": "9d087ca4-d7a8-4dff-a38c-cb7a153a4692",
             "BodyGroups": 18446744073709551615,
             "CreateBoneObjects": false,
+            "MaterialOverride": "materials/beam_mat.vmat",
             "Model": "models/citizen_gibs/models/right_hand_gib_cap.vmdl",
             "RenderType": "On",
             "Tint": "1,1,1,1"
