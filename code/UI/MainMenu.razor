@@ -1,0 +1,38 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@namespace Instagib
+@inherits PanelComponent
+
+<root>
+	<MainMenuPanel />
+</root>
+
+@code
+{
+	public static MainMenu Instance { get; private set; }
+	[Property] internal SceneFile GameScene { get; set; }
+
+	Angles startingCamRot = Angles.Zero;
+
+	protected override void OnAwake()
+	{
+		Instance = this;
+	}
+
+	protected override void OnStart()
+	{
+		startingCamRot = Scene.Camera.Transform.Rotation;
+	}
+
+	protected override void OnFixedUpdate()
+	{
+		Scene.Camera.Transform.Rotation = startingCamRot + new Angles(
+		MathF.Cos(Time.Now * 0.45f) * 2f,
+		MathF.Sin(Time.Now * 0.5f) * 2f,
+		0f
+		);
+	}
+
+	protected override int BuildHash() => System.HashCode.Combine("");
+}

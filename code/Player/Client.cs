@@ -25,7 +25,7 @@ public class Client : Component
     [Sync] public RealTimeSince Playtime { get; set; } = 0;
     [Sync] public bool IsBot { get; set; } = false;
     [Sync] public string ColorString { get; set; }
-    public Player Player => Scene.GetAllComponents<Player>().FirstOrDefault( x => x.Client.GameObject.Id == GameObject.Id );
+    public Player Player => Scene.GetAllComponents<Player>().FirstOrDefault( x => x.Client?.GameObject?.Id == GameObject.Id );
     public string Name => IsBot ? GameObject.Name : Network.OwnerConnection.DisplayName;
 
 

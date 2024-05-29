@@ -1,0 +1,194 @@
+MainMenuCreateServerPage
+{
+    width: 100%;
+    height: 100%;
+    padding: 64px;
+    gap: 48px;
+    justify-content: space-between;
+    text-shadow: 0px 0px 8px black;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+
+    > .container
+    {
+        flex-direction: column;
+        width: 1400px;
+        height: 800px;
+        background-color: rgb(49, 49, 53);
+        padding: 12px;
+        box-shadow: 0px 0px 16px black;
+        align-items: center;
+        gap: 8px;
+
+        .content
+        {
+            width: 100%;
+            flex-grow: 1;
+            flex-direction: column;
+            background-color: rgb(34, 34, 36);
+            padding: 8px;
+            gap: 8px;
+            justify-content: space-evenly;
+
+            .gamemodes
+            {
+                padding: 16px;
+                justify-content: space-between;
+                gap: 16px;
+
+                .gamemode
+                {
+                    flex-grow: 1;
+                    background-color: rgb(24, 24, 27);
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    cursor: pointer;
+                    padding: 16px 8px;
+                    max-width: 600px;
+
+                    img
+                    {
+                        width: 64px;
+                        height: 64px;
+                    }
+
+                    h1
+                    {
+                        font-size: 32px;
+                        font-weight: 600;
+                        padding-top: 8px;
+                    }
+
+                    .desc
+                    {
+                        font-size: 14px;
+                    }
+
+                    &:hover
+                    {
+                        background-color: rgb(44, 44, 48);
+                        sound-in: ui.button.over;
+                    }
+
+                    &:active
+                    {
+                        background-color: rgb(34, 34, 38);
+                        sound-in: ui.button.press;
+                    }
+
+                    &.selected
+                    {
+                        background-color: rgb(64, 64, 68);
+                    }
+                }
+            }
+            
+            .settings
+            {
+                flex-direction: column;
+
+                .setting
+                {
+                    align-items: center;
+                    padding: 8px;
+
+                    .name
+                    {
+                        min-width: 600px;
+                    }
+
+                    .slidercontrol 
+                    {
+                        align-items: center;
+                        .inner
+                        {
+                            justify-content: center;
+                        }
+                        .entry
+                        {
+                            background-color: rgba(255, 255, 255, 0.02);
+                            padding: 4px;
+                            
+                            .textentry
+                            {
+                                align-items: center;
+                            justify-content: center;
+                            text-align: center;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .maps
+            {
+                height: 320px;
+
+                PackageList
+                {
+
+                    PackageFilters
+                    {
+                        height: 0px;
+
+                        PackageFilterFacet, PackageFilterOrder, TextEntry
+                        {
+                            font-size: 16px;
+                            padding: 2px 4px;
+                            height: 32px;
+                        }
+                    }
+
+                    PackageCard
+                    {
+                        max-width: 200px;
+                        min-width: 200px;
+                        flex-shrink: 0;
+                        top: 42px;
+                    }
+                }
+            }
+        }
+
+        .buttons
+        {
+            width: 100%;
+            justify-content: space-between;
+            padding: 0px 8px;
+
+            .group
+            {
+                gap: 16px;
+            }
+
+            .button
+            {
+                font-size: 24px;
+                font-weight: 600;
+                padding: 8px 16px;
+                border-radius: 4px;
+                background-color: rgb(49, 49, 53);
+                color: white;
+                text-shadow: 0px 0px 8px black;
+                transition: all 0.2s ease-out;
+                cursor: pointer;
+
+                &:hover
+                {
+                    background-color: rgb(64, 64, 68);
+                    sound-in: ui.button.over;
+                }
+
+                &:active
+                {
+                    background-color: rgb(44, 44, 48);
+                    sound-in: ui.button.press;
+                }
+            }
+        }
+    }
+}

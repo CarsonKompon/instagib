@@ -46,6 +46,11 @@ public class InstagibSettings
     public float VolumeMusic { get; set; } = 40f;
     public float VolumeSFX { get; set; } = 60f;
 
+    public Gamemode Gamemode { get; set; } = Gamemode.Deathmatch;
+    public int MaxPlayers { get; set; } = 8;
+    public int FragLimit { get; set; } = 30;
+    public int TimeLimit { get; set; } = 10;
+
     public float FieldOfView { get; set; } = 100f;
     public float ZoomedFieldOfView { get; set; } = 40f;
     public float ZoomedSensitivity { get; set; } = 0.4f;

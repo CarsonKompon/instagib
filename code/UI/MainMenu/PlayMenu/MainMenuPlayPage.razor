@@ -1,0 +1,108 @@
+@using System;
+@using System.Threading.Tasks;
+@using Sandbox;
+@using Sandbox.UI;
+@using Sandbox.Network;
+@inherits Panel
+@attribute [StyleSheet]
+
+@namespace Instagib
+
+<root>
+    <div class="lobby-list">
+        <div class="header">Active Lobbies</div>
+        <div class="content">
+            @if (refreshing)
+            {
+                <div class="popup refreshing">
+                    <i>refresh</i>
+                    <label>Refreshing...</label>
+                </div>
+            }
+            else if (list.Count == 0)
+            {
+                <div class="popup empty">No lobbies found.</div>
+            }
+            else
+            {
+                @foreach (var lobby in list)
+                {
+                    <div class="lobby" onclick=@(() => OpenLobby(lobby))>
+                        <div class="title">
+                            @lobby.Name
+                        </div>
+
+                        <div class="meta">
+                            <div class="count">
+                                @lobby.Members / @lobby.MaxMembers
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lobby" onclick=@(() => OpenLobby(lobby))>
+                        <div class="info">
+                            <label class="name">@lobby.Name</label>
+                            <div class="host"><i>person</i>@(new Friend((long)lobby.OwnerId).Name)</div>
+                        </div>
+
+                        <div class="meta">
+                            <label class="count">@lobby.Members / @lobby.MaxMembers</label>
+                            <div class="map"><i>map</i>@lobby.Map</div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="buttons">
+            <a class="button" href="/">Back</a>
+            <div class="group">
+                <div class="button" onclick=@Refresh>Refresh</div>
+                <a class="button" href="/create-server">Create New Server</a>
+            </div>
+        </div>
+    </div>
+</root>
+
+@code
+{
+    bool refreshing;
+    List<LobbyInformation> list = new();
+
+    protected override void OnAfterTreeRender(bool firstTime)
+    {
+        base.OnAfterTreeRender(firstTime);
+
+        if (firstTime)
+        {
+            _ = RefreshLobbyList();
+        }
+    }
+
+    async Task RefreshLobbyList()
+    {
+        while (true)
+        {
+            await Refresh();
+
+            await Task.DelayRealtimeSeconds(5f);
+        }
+    }
+
+    void OpenLobby(LobbyInformation lobby)
+    {
+        GameNetworkSystem.Connect(lobby.LobbyId);
+    }
+
+    async Task Refresh()
+    {
+        refreshing = true;
+        StateHasChanged();
+
+        list = await Networking.QueryLobbies();
+
+        refreshing = false;
+        StateHasChanged();
+    }
+
+    protected override int BuildHash() => System.HashCode.Combine(refreshing);
+}

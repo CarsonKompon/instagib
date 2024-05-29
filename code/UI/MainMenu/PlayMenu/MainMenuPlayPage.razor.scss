@@ -1,0 +1,141 @@
+MainMenuPlayPage
+{
+    width: 100%;
+    height: 100%;
+    padding: 64px;
+    gap: 48px;
+    justify-content: space-between;
+    text-shadow: 0px 0px 8px black;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+
+    .lobby-list
+    {
+        flex-direction: column;
+        width: 1400px;
+        height: 800px;
+        background-color: rgb(49, 49, 53);
+        padding: 12px;
+        box-shadow: 0px 0px 16px black;
+        align-items: center;
+        gap: 8px;
+
+        .content
+        {
+            width: 100%;
+            flex-grow: 1;
+            flex-direction: column;
+            background-color: rgb(34, 34, 36);
+            overflow-x: hidden;
+            overflow-y: scroll;
+            padding: 8px;
+            gap: 8px;
+
+            .lobby
+            {
+                width: 100%;
+                background-color: rgb(24, 24, 27);
+                padding: 12px;
+                justify-content: space-between;
+                flex-shrink: 0;
+                transition: all 0.05s ease;
+
+                .info
+                {
+                    flex-direction: column;
+
+                    .host
+                    {
+                        align-items: center;
+                        gap: 8px;
+
+                        label
+                        {
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                .meta
+                {
+                    flex-direction: column;
+                    align-items: flex-end;
+
+                    .map
+                    {
+                        align-items: center;
+                        gap: 8px;
+
+                        label
+                        {
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                &:hover
+                {
+                    background-color: rgb(44, 44, 48);
+                    sound-in: ui.button.over;
+                }
+
+                &:active
+                {
+                    background-color: rgb(34, 34, 38);
+                    sound-in: ui.button.press;
+                }
+            }
+            
+            .popup
+            {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+        }
+
+        .buttons
+        {
+            width: 100%;
+            justify-content: space-between;
+            padding: 0px 8px;
+
+            .group
+            {
+                gap: 16px;
+            }
+
+            .button
+            {
+                font-size: 24px;
+                font-weight: 600;
+                padding: 8px 16px;
+                border-radius: 4px;
+                background-color: rgb(49, 49, 53);
+                color: white;
+                text-shadow: 0px 0px 8px black;
+                transition: all 0.2s ease-out;
+                cursor: pointer;
+
+                &:hover
+                {
+                    background-color: rgb(64, 64, 68);
+                    sound-in: ui.button.over;
+                }
+
+                &:active
+                {
+                    background-color: rgb(44, 44, 48);
+                    sound-in: ui.button.press;
+                }
+            }
+        }
+    }
+}

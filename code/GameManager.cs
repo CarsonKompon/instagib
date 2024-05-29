@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Instagib;
 
+public enum Gamemode
+{
+    Deathmatch,
+    TeamDeathmatch,
+    Freezetag
+}
 
 [Category( "Instagib" )]
 public partial class GameManager : Component, Component.INetworkListener
@@ -17,6 +23,7 @@ public partial class GameManager : Component, Component.INetworkListener
     [Property] List<GameObject> SpawnPoints { get; set; }
 
     [Sync] public TimeUntil Timer { get; set; } = 60;
+    [Sync] public int FragLimit { get; set; } = 30;
 
     [Group( "Prefabs" ), Property] public GameObject BeamPrefab { get; set; }
     [Group( "Prefabs" ), Property] public GameObject ReticlePrefab { get; set; }
@@ -41,6 +48,8 @@ public partial class GameManager : Component, Component.INetworkListener
             LoadingScreen.Title = "Creating Lobby";
             await Task.DelayRealtimeSeconds( 0.1f );
             GameNetworkSystem.CreateLobby();
+            Timer = InstagibPreferences.Settings.TimeLimit * 60f;
+            FragLimit = InstagibPreferences.Settings.FragLimit;
         }
     }
 
@@ -51,7 +60,6 @@ public partial class GameManager : Component, Component.INetworkListener
 
         var client = ClientPrefab.Clone( global::Transform.Zero, name: channel.DisplayName );
         client.NetworkSpawn( channel );
-        Timer = 10 * 60f;
     }
 
     [Broadcast]

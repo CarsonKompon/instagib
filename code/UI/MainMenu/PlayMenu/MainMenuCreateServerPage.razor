@@ -1,0 +1,110 @@
+@using System;
+@using System.Threading.Tasks;
+@using Sandbox;
+@using Sandbox.UI;
+@using Sandbox.Network;
+@inherits Panel
+@attribute [StyleSheet]
+
+@namespace Instagib
+
+<root>
+    <div class="container">
+        <div class="header">Create New Server</div>
+        <div class="content">
+            <div class="gamemodes">
+                <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.Deathmatch ? "selected" : "")" onclick=@(() =>
+                    InstagibPreferences.Settings.Gamemode = Gamemode.Deathmatch)>
+                    <img src="ui/icons/skull.png" />
+                    <h1>Deathmatch</h1>
+                    <label class="desc">The player with the most frags wins (or the first player to reach the frag
+                        limit).</label>
+                </div>
+                <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.TeamDeathmatch ? "selected" : "")" onclick=@(() =>
+                    InstagibPreferences.Settings.Gamemode = Gamemode.TeamDeathmatch)>
+                    <img src="ui/icons/team.png" />
+                    <h1>Team Deathmatch</h1>
+                    <label class="desc">The team with the most frags wins (or first to reach the frag limit).</label>
+                </div>
+                <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.Freezetag ? "selected" : "")" onclick=@(() =>
+                    InstagibPreferences.Settings.Gamemode = Gamemode.Freezetag)>
+                    <img src="ui/icons/snow.png" />
+                    <h1>Freezetag</h1>
+                    <label class="desc">Team-based game where frags freeze enemies and unfreeze teammates. Freeze
+                        everyone on the opponent's team to win. </label>
+                </div>
+            </div>
+            <div class="settings">
+                <div class="setting">
+                    <label class="name">Max Players:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.MaxPlayers" Min=@(2) Max=@(16) Step=@(1)
+                        ShowTextEntry=@(true) />
+                </div>
+                @if(InstagibPreferences.Settings.Gamemode != Gamemode.Freezetag)
+                {
+                    <div class="setting">
+                        <label class="name">Frag Limit:</label>
+                        <SliderControl Value:bind="@FragLimit" Min=@(1) Max=@(100) Step=@(1)
+                            ShowTextEntry=@(true) />
+                    </div>
+                }
+                else
+                {
+                    <div class="setting">
+                        <label class="name">Point Limit:</label>
+                        <SliderControl Value:bind="@PointLimit" Min=@(1) Max=@(25) Step=@(1)
+                            ShowTextEntry=@(true) />
+                    </div>
+                }
+                <div class="setting">
+                    <label class="name">Time Limit:</label>
+                    <SliderControl Value:bind="@TimeLimit" Min=@(1) Max=@(60) Step=@(1)
+                        ShowTextEntry=@(true) />
+                </div>
+            </div>
+            <div class="maps">
+                <PackageList ShowFilters="@true" Query="type:map sort:trending" OnSelected="@OnPackageSelected"
+                    Take=@(50) />
+            </div>
+        </div>
+        <div class="buttons">
+            <a class="button" href="/play">Back</a>
+            @* <a class="button" href="/create-server">Start Server</a> *@
+        </div>
+    </div>
+</root>
+
+@code
+{
+    int FragLimit = 30;
+    int PointLimit = 8;
+    int TimeLimit = 10;
+
+    protected override void OnAfterTreeRender(bool firstTime)
+    {
+        base.OnAfterTreeRender(firstTime);
+
+        if (firstTime)
+        {
+            FragLimit = InstagibPreferences.Settings.FragLimit;
+            TimeLimit = InstagibPreferences.Settings.TimeLimit;
+        }    
+    }
+
+    void OnPackageSelected(Package package)
+    {
+        LaunchArguments.Map = package.FullIdent;
+        if(InstagibPreferences.Settings.Gamemode == Gamemode.Freezetag)
+        {
+            InstagibPreferences.Settings.FragLimit = PointLimit;
+        }
+        else
+        {
+            InstagibPreferences.Settings.FragLimit = FragLimit;
+        }
+        InstagibPreferences.Settings.TimeLimit = TimeLimit;
+        Scene.Load(MainMenu.Instance.GameScene);
+    }
+
+    protected override int BuildHash() => System.HashCode.Combine("");
+}

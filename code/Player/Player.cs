@@ -219,7 +219,9 @@ public sealed class Player : Component
 
 	void UpdateBounceReticle()
 	{
-		var dir = Client.IsBot ? Direction : visualDirection;
+		if ( Network.IsProxy ) return;
+
+		var dir = (Client?.IsBot ?? true) ? Direction : visualDirection;
 		var tr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position + dir.Forward * BounceRange )
 			.IgnoreGameObjectHierarchy( GameObject )
 			.WithoutTags( "trigger" )

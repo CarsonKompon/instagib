@@ -1,10 +1,103 @@
 {
-  "__guid": "00000000-0000-0000-0000-000000000000",
-  "GameObjects": null,
-  "SceneProperties": null,
-  "Title": null,
-  "Description": null,
-  "LastSaved": "0001-01-01T00:00:00\u002B00:00",
+  "__guid": "6b1cc5ff-ca30-4b7c-ab7f-bed8994a612b",
+  "GameObjects": [
+    {
+      "__guid": "08e2d4f7-686a-43e7-8312-fc4259d4cfac",
+      "Flags": 0,
+      "Name": "Camera",
+      "Position": "-2565.309,2892.853,1225.948",
+      "Rotation": "-0.1345342,0.03287149,0.9528019,0.2701643",
+      "Tags": "maincamera",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "dfc3c002-f1e3-4270-9568-866c6313ae63",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 85,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        }
+      ]
+    },
+    {
+      "__guid": "60f824ed-b417-4cb3-b74c-a33bbab9eb68",
+      "Flags": 0,
+      "Name": "Screen",
+      "Position": "149.995,149.995,-212.125",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "bd658878-31e2-447a-853c-8e624461dd1c",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ZIndex": 100
+        },
+        {
+          "__type": "Instagib.MainMenu",
+          "__guid": "1d16d9ce-7d14-4aff-a608-402c5fc1ebcd",
+          "GameScene": "scenes/game.scene"
+        }
+      ]
+    },
+    {
+      "__guid": "379c7c65-3bef-43d7-b297-8e7936a2591c",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "52.00038,-98.56545,6.808601",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "23d29de6-b3af-4342-96fd-ee2f9566059b",
+          "MapName": "ply.am_redblue",
+          "UseMapFromLaunch": false
+        }
+      ],
+      "Children": []
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "menu",
+  "Description": "",
+  "LastSaved": "2024-05-29T14:53:06.6407612-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
