@@ -16,6 +16,8 @@ public partial class GameManager : Component, Component.INetworkListener
     [Property] GameObject PlayerPrefab { get; set; }
     [Property] List<GameObject> SpawnPoints { get; set; }
 
+    [Sync] public TimeUntil Timer { get; set; } = 60;
+
     [Group( "Prefabs" ), Property] public GameObject BeamPrefab { get; set; }
     [Group( "Prefabs" ), Property] public GameObject ReticlePrefab { get; set; }
 
@@ -49,6 +51,7 @@ public partial class GameManager : Component, Component.INetworkListener
 
         var client = ClientPrefab.Clone( global::Transform.Zero, name: channel.DisplayName );
         client.NetworkSpawn( channel );
+        Timer = 10 * 60f;
     }
 
     [Broadcast]

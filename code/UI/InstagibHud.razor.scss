@@ -8,6 +8,8 @@ InstagibHud
 	font-family: Prompt;
 	color: white;
 	font-size: 24px;
+	flex-direction: column;
+	align-items: center;
 
 	.crosshair
 	{
@@ -20,49 +22,53 @@ InstagibHud
 		background-color: white;
 	}
 
+	> .top-bar
+	{
+		flex-direction: column;
+
+		.info
+		{
+			background-color: black;
+			padding: 2px;
+			font-size: 14px;
+			font-weight: 600;
+			justify-content: space-around;
+			align-items: center;
+
+			.fraglimit
+			{
+				align-self: flex-start;
+			}
+		}
+	}
+
 	.leaderboard
 	{
-		position: absolute;
-		top: 16px;
-		right: 16px;
-		width: 250px;
-		flex-direction: column;
-		padding: 8px;
-		background-color: rgba(black, 0.2);
+		gap: 8px;
+		font-size: 14px;
+		min-width: 200px;
+		justify-content: center;
 
-		h1
+		.entry
 		{
-			font-weight: bolder;
-			font-size: 28px;
-			align-self: center;
-		}
-
-		.entries
-		{
+			flex-shrink: 0;
 			flex-direction: column;
-
-			.entry
+			align-items: center;
+			padding: 4px;
+			text-shadow: 0 0 2px rgba(0, 0, 0, 0.425);
+			
+			.avatar
 			{
-				font-size: 18px;
-				padding: 2px;
+				width: 42px;
+				height: 42px;
+			}
 
-				.name
-				{
-					flex-grow: 1;
-					text-overflow: ellipsis;
-					overflow: hidden;
-				}
-
-				.score
-				{
-					flex-shrink: 0;
-				}
-
-				&.isme
-				{
-					// color: yellow;
-					background-color: rgba(white, 0.05);
-				}
+			.name
+			{
+				max-width: 64px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
 			}
 		}
 	}

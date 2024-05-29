@@ -7,17 +7,28 @@
 <root>
 	<div class="crosshair" />
 
-	<div class="leaderboard">
-		<h1>Scoreboard</h1>
-		<div class="entries">
+	<div class="top-bar">
+
+		<div class="info">
+			<label class="fraglimit">Fraglimit: 30</label>
+			<label class="timer">@GetGameTimer()</label>
+		</div>
+
+		<div class="leaderboard">
 			@if (true)
 			{
-				var clients = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills).ToList();
-				@for (var i = 0; i < MathF.Min(clients.Count, 5); i++)
+				@foreach (var client in Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills))
 				{
-					var client = clients[i];
-					<div class="entry @(client.Network.IsOwner ? "isme" : "")" style="color: @(client.ColorString)">
-						<div class="name">@client.GameObject.Name</div>
+					<div class="entry @(client.Network.IsOwner ? "isme" : "")" style="background-color: @(client.ColorString)">
+						@if (client.IsBot)
+						{
+							<img src="ui/icons/bot.png" class="avatar" />
+						}
+						else
+						{
+							<img src="@($"avatar:{client.Network.OwnerConnection.SteamId}")" class="avatar" />
+						}
+						<label class="name">@client.GameObject.Name</label>
 						<div class="score">@client.Kills</div>
 					</div>
 				}
@@ -46,6 +57,15 @@
 {
 
 	TimeSince timeSinceRefresh = 0f;
+
+	string GetGameTimer()
+	{
+		var time = MathF.Floor(GameManager.Instance.Timer);
+		var minutes = MathF.Floor(time / 60);
+		var seconds = time % 60;
+
+		return $"{minutes:00}:{seconds:00}";
+	}
 
 	protected override int BuildHash() => System.HashCode.Combine(MathF.Floor(timeSinceRefresh), Player.Local.IsValid());
 }
