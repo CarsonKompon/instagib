@@ -1,5 +1,6 @@
 using Sandbox;
 using Sandbox.Network;
+using Sandbox.Services;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -78,27 +79,25 @@ public partial class GameManager : Component, Component.INetworkListener
     {
         if ( !Networking.IsHost ) return;
 
-        if ( InGame && Timer <= 0 )
+        if ( InGame )
         {
-            EndGame();
+            foreach ( var client in Scene.GetAllComponents<Client>() )
+            {
+                if ( client.Kills >= FragLimit )
+                {
+                    EndGame();
+                    return;
+                }
+            }
+
+            if ( Timer <= 0 )
+            {
+                EndGame();
+            }
         }
         else if ( !InGame && !ServerLoading && MapVoteTimer <= 0 )
         {
             StartGame();
-        }
-    }
-
-    [Broadcast]
-    public void OnKill()
-    {
-        if ( !Networking.IsHost ) return;
-        foreach ( var client in Scene.GetAllComponents<Client>() )
-        {
-            if ( client.Kills >= FragLimit )
-            {
-                EndGame();
-                return;
-            }
         }
     }
 
@@ -128,6 +127,13 @@ public partial class GameManager : Component, Component.INetworkListener
             }
             MapVotes.Clear();
         }
+        foreach ( var player in Scene.GetAllComponents<Client>() )
+        {
+            player.Kills = 0;
+            player.Deaths = 0;
+            player.Shots = 0;
+        }
+
 
         ServerLoading = true;
         InGame = true;
@@ -135,26 +141,49 @@ public partial class GameManager : Component, Component.INetworkListener
         ChangeMap( map );
     }
 
+    [Broadcast]
     public void EndGame()
     {
+        var winner = Scene.GetAllComponents<Client>().OrderByDescending( x => x.Kills ).FirstOrDefault();
+        if ( Client.Local.GameObject.Id == winner.GameObject.Id )
+        {
+            if ( !InstagibPreferences.Stats.TotalWins.ContainsKey( Gamemode ) )
+            {
+                InstagibPreferences.Stats.TotalWins.Add( Gamemode, 0 );
+            }
+            var stat = "wins_dm";
+            if ( Gamemode == Gamemode.TeamDeathmatch ) stat = "wins_tdm";
+            Stats.Increment( stat, 1 );
+        }
+        else
+        {
+            InstagibPreferences.Stats.TotalLosses[Gamemode]++;
+            var stat = "losses_dm";
+            if ( Gamemode == Gamemode.TeamDeathmatch ) stat = "losses_tdm";
+            Stats.Increment( stat, 1 );
+        }
+        Stats.SetValue( "accuracy", InstagibPreferences.Stats.OverallAccuracy );
+
         if ( !Networking.IsHost ) return;
         if ( !InGame ) return;
 
         Log.Info( "ENDING GAME!" );
 
+        InGame = false;
         foreach ( var player in Scene.GetAllComponents<Player>() )
         {
             player.Kill();
         }
 
         MapVotes.Clear();
-        InGame = false;
         MapVoteTimer = 20f;
     }
 
     [Broadcast]
     void ChangeMap( string map )
     {
+        InstagibPreferences.Save();
+
         Log.Info( "CHANGING MAP (LOADING!!)" );
         ClientLoading = true;
 

@@ -58,7 +58,7 @@ label, p
 Chatbox
 {
 	position: absolute;
-	bottom: 20%;
+	bottom: 0px;
 	left: 48px;
 	z-index: 100;
 	flex-direction: column;
@@ -67,7 +67,6 @@ Chatbox
 	font-family: Prompt;
 	font-weight: 500;
 	font-size: 14px;
-	padding: 10px;
 	max-height: 400px;
 	height: 400px;
 	pointer-events: none;
@@ -94,7 +93,6 @@ Chatbox
 	.input_canvas
 	{
 		flex-direction: row;
-		margin-top: 10px;
 
 		textentry
 		{
@@ -112,7 +110,7 @@ Chatbox
 		{
 			opacity: 0;
 			top: -2px;
-			left: 4px;
+			left: 8px;
 			text-align: center;
 			justify-content: center;
 			align-items: center;

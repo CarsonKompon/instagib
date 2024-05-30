@@ -120,6 +120,28 @@ InstagibHud
 			animation: spin 1s linear infinite;
 		}
 	}
+
+	.killstreak
+	{
+		position: absolute;
+		top: 10%;
+		left: 0;
+		right: 0;
+		height: 20%;
+		font-size: 48px;
+		font-weight: bolder;
+		transform: scale(1);
+		transition: all 0.2s ease-in;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+
+		&:intro
+		{
+			transform: scale(0);
+		}
+	
+	}
 }
 
 @keyframes spin

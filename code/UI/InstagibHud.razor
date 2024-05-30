@@ -26,6 +26,11 @@
 
 	<div class="crosshair" />
 
+	@if (TimeSinceKillstreak < 3)
+	{
+		<div class="killstreak">@KillstreakText</div>
+	}
+
 	<div class="top-bar">
 
 		<div class="info">
@@ -74,8 +79,34 @@
 
 @code
 {
+	public static InstagibHud Instance { get; private set; }
 
 	TimeSince timeSinceRefresh = 0f;
+
+	string KillstreakText = "";
+	TimeSince TimeSinceKillstreak = 100f;
+
+	protected override void OnAwake()
+	{
+		Instance = this;
+	}
+
+	public async void SetKillstreak(int streak)
+	{
+		TimeSinceKillstreak = 0;
+		KillstreakText = "";
+		await Task.DelayRealtime(100);
+		switch (streak)
+		{
+			case 1: KillstreakText = "DOUBLE KILL"; break;
+			case 2: KillstreakText = "DOUBLE KILL"; break;
+			case 3: KillstreakText = "TRIPLE KILL"; break;
+			case 4: KillstreakText = "MEGA KILL"; break;
+			case 5: KillstreakText = "HYPER KILL"; break;
+			case 6: KillstreakText = "ULTRA KILL"; break;
+			default: KillstreakText = "UNSTOPPABLE"; break;
+		}
+	}
 
 	string GetGameTimer()
 	{
@@ -86,5 +117,6 @@
 		return $"{minutes:00}:{seconds:00}";
 	}
 
-	protected override int BuildHash() => System.HashCode.Combine(MathF.Floor(timeSinceRefresh), Player.Local.IsValid());
+	protected override int BuildHash() => System.HashCode.Combine(MathF.Floor(timeSinceRefresh), Player.Local.IsValid(),
+	KillstreakText);
 }

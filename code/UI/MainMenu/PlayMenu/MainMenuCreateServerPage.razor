@@ -26,13 +26,13 @@
                     <h1>Team Deathmatch</h1>
                     <label class="desc">The team with the most frags wins (or first to reach the frag limit).</label>
                 </div>
-                <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.Freezetag ? "selected" : "")" onclick=@(() =>
+                @* <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.Freezetag ? "selected" : "")" onclick=@(() =>
                     InstagibPreferences.Settings.Gamemode = Gamemode.Freezetag)>
                     <img src="ui/icons/snow.png" />
                     <h1>Freezetag</h1>
                     <label class="desc">Team-based game where frags freeze enemies and unfreeze teammates. Freeze
                         everyone on the opponent's team to win. </label>
-                </div>
+                </div> *@
             </div>
             <div class="settings">
                 <div class="setting">

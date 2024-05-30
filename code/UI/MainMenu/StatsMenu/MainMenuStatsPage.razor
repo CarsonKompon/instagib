@@ -1,0 +1,167 @@
+@using System;
+@using System.Threading.Tasks;
+@using Sandbox;
+@using Sandbox.UI;
+@using Sandbox.Network;
+@inherits Panel
+@attribute [StyleSheet]
+
+@namespace Instagib
+
+<root>
+    <div class="container">
+        <div class="header">Statistics</div>
+        <div class="content">
+            <div class="tabs">
+                <div class="tab @(myStats ? "selected" : "")" onclick=@(() => myStats = true)>My Stats</div>
+                <div class="tab @(myStats ? "" : "selected")" onclick=@(() => myStats = false)>Leaderboards</div>
+            </div>
+            <div class="content">
+                @if (myStats)
+                {
+                    <div class="row">
+                        <h1>Gameplay Stats</h1>
+                        <div class="stat">
+                            <label class="name">Total Kills:</label>
+                            <label class="value">@InstagibPreferences.Stats.TotalKills</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Total Deaths:</label>
+                            <label class="value">@InstagibPreferences.Stats.TotalDeaths</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Overall Accuracy:</label>
+                            <label class="value">@(InstagibPreferences.Stats.OverallAccuracy)%</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Total Shots Fired:</label>
+                            <label class="value">@InstagibPreferences.Stats.TotalShotsFired</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Total Bounces:</label>
+                            <label class="value">@InstagibPreferences.Stats.TotalBounces</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h1>Gamemode Stats</h1>
+                        <h2>Deathmatch</h2>
+                        <div class="stat indent">
+                            <label class="name">Total Wins:</label>
+                            <label class="value">@(InstagibPreferences.Stats.TotalWins.GetValueOrDefault(Gamemode.Deathmatch, 0))</label>
+                        </div>
+                        <div class="stat indent">
+                            <label class="name">Total Losses:</label>
+                            <label class="value">@(InstagibPreferences.Stats.TotalLosses.GetValueOrDefault(Gamemode.Deathmatch, 0))</label>
+                        </div>
+                        <h2>Team Deathmatch</h2>
+                        <div class="stat indent">
+                            <label class="name">Total Wins:</label>
+                            <label class="value">@(InstagibPreferences.Stats.TotalWins.GetValueOrDefault(Gamemode.TeamDeathmatch, 0))</label>
+                        </div>
+                        <div class="stat indent">
+                            <label class="name">Total Losses:</label>
+                            <label class="value">@(InstagibPreferences.Stats.TotalLosses.GetValueOrDefault(Gamemode.TeamDeathmatch, 0))</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h1>Killstreak Stats</h1>
+                        <div class="stat">
+                            <label class="name">Double Kills:</label>
+                            <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(2, 0)</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Triple Kills:</label>
+                            <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(3, 0)</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Mega Kills:</label>
+                            <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(4, 0)</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Hyper Kills:</label>
+                            <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(5, 0)</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Ultra Kills:</label>
+                            <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(6, 0)</label>
+                        </div>
+                        <div class="stat">
+                            <label class="name">Unstoppable:</label>
+                            <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(7, 0)</label>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var board in Leaderboards)
+                    {
+                        <div class="row">
+                            <h1>@(board?.DisplayName ?? "Leaderboard")</h1>
+                            <div class="header">
+                                <label class="rank">Rank</label>
+                                <label class="name">Name</label>
+                                <label class="value">Value</label>
+                            </div>
+                            <div class="entries">
+                                @foreach (var entry in board.Entries)
+                                {
+                                    <div class="entry">
+                                        <label class="rank">@entry.Rank</label>
+                                        <label class="name">@entry.DisplayName</label>
+                                        <label class="value">@entry.FormattedValue</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div class="buttons">
+            <a class="button" href="/">Back</a>
+        </div>
+    </div>
+</root>
+
+@code
+{
+
+    bool myStats = true;
+    string[] LeaderboardIds = new string[]
+    {
+"wins_dm",
+"wins_tdm"
+    };
+
+    List<Sandbox.Services.Leaderboards.Board> Leaderboards = new();
+
+    protected override void OnAfterTreeRender(bool firstTime)
+    {
+        base.OnAfterTreeRender(firstTime);
+
+        if (firstTime)
+        {
+            Leaderboards = new();
+            foreach (var id in LeaderboardIds)
+            {
+                var board = Sandbox.Services.Leaderboards.Get(id);
+                if (board is not null)
+                    Leaderboards.Add(board);
+            }
+
+            RefreshBoards();
+        }
+    }
+
+
+    async void RefreshBoards()
+    {
+        foreach (var board in Leaderboards)
+        {
+            board.MaxEntries = 25;
+            await board.Refresh();
+        }
+        StateHasChanged();
+    }
+    protected override int BuildHash() => System.HashCode.Combine("");
+}

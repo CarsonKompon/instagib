@@ -95,5 +95,5 @@
 		return $"{minutes:00}:{seconds:00}";
 	}
 
-	protected override int BuildHash() => System.HashCode.Combine(GameManager.Instance.InGame);
+	protected override int BuildHash() => System.HashCode.Combine(GameManager.Instance.InGame, GetMapVoteTimer());
 }

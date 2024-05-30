@@ -1,3 +1,5 @@
+using System;
+using System.Text.Json.Serialization;
 using Sandbox;
 
 namespace Instagib;
@@ -19,6 +21,20 @@ public static class InstagibPreferences
     }
     static InstagibSettings _settings;
 
+    public static InstagibStats Stats
+    {
+        get
+        {
+            if ( _stats is null )
+            {
+                var file = "/stats.json";
+                _stats = FileSystem.Data.ReadJson( file, new InstagibStats() );
+            }
+            return _stats;
+        }
+    }
+    static InstagibStats _stats;
+
     public static ChatSettings Chat
     {
         get
@@ -35,10 +51,24 @@ public static class InstagibPreferences
 
     public static void Save()
     {
-        var file = "/settings.json";
-        FileSystem.Data.WriteJson( file, Settings );
+        FileSystem.Data.WriteJson( "/settings.json", Settings );
+        FileSystem.Data.WriteJson( "/stats.json", Stats );
     }
 
+}
+
+public class InstagibStats
+{
+    public int TotalKills { get; set; } = 0;
+    public int TotalDeaths { get; set; } = 0;
+    [JsonIgnore] public float OverallAccuracy => MathF.Floor( (float)TotalKills / (float)TotalShotsFired * 10000f ) / 100f;
+    public int TotalShotsFired { get; set; } = 0;
+    public int TotalBounces { get; set; } = 0;
+
+    public Dictionary<Gamemode, int> TotalWins { get; set; } = new();
+    public Dictionary<Gamemode, int> TotalLosses { get; set; } = new();
+
+    public Dictionary<int, int> Killstreaks { get; set; } = new();
 }
 
 public class InstagibSettings

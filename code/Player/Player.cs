@@ -61,7 +61,7 @@ public sealed class Player : Component
 	private TimeSince timeSinceLastBounce = 0;
 	private TimeSince timeSinceLastDash = 0;
 	private TimeSince timeSinceLastKill = 0;
-	private TimeSince timeSinceSpawned = 0;
+	[Sync] private TimeSince timeSinceSpawned { get; set; } = 0;
 	private SpriteRenderer bounceIndicator = null;
 
 	protected override void OnAwake()
@@ -113,7 +113,7 @@ public sealed class Player : Component
 		RotateBody();
 		UpdateShadow();
 
-		if ( !Network.IsProxy && timeSinceLastKill > 20f )
+		if ( !Network.IsProxy && timeSinceLastKill > 5f )
 		{
 			KillStreak = 0;
 			timeSinceLastKill = 0;
@@ -256,6 +256,11 @@ public sealed class Player : Component
 		var endPos = tr.Hit ? tr.HitPosition : tr.EndPosition;
 		var distance = tr.StartPosition.Distance( endPos );
 
+		if ( Network.IsOwner )
+		{
+			InstagibPreferences.Stats.TotalShotsFired++;
+		}
+
 		if ( tr.Hit && tr.GameObject is not null && tr.GameObject.Components.TryGet<Player>( out var hitPlayer ) )
 		{
 			if ( hitPlayer.GameObject.Id == GameObject.Id ) return;
@@ -265,12 +270,27 @@ public sealed class Player : Component
 			if ( !Network.IsProxy )
 			{
 				Client.Kills++;
+				Sandbox.Services.Stats.Increment( "kills", 1 );
 			}
 			if ( Network.IsOwner )
 			{
 				var sound = Sound.Play( "snd-kill" );
 				sound.Pitch = 1f + (KillStreak * (1f / 12f));
 				KillStreak++;
+				InstagibPreferences.Stats.TotalKills++;
+				if ( KillStreak > 1 )
+				{
+					InstagibHud.Instance.SetKillstreak( KillStreak );
+					if ( !InstagibPreferences.Stats.Killstreaks.ContainsKey( KillStreak ) )
+					{
+						InstagibPreferences.Stats.Killstreaks.Add( KillStreak, 1 );
+					}
+					else
+					{
+						InstagibPreferences.Stats.Killstreaks[KillStreak]++;
+					}
+				}
+				InstagibPreferences.Save();
 			}
 		}
 
@@ -299,6 +319,11 @@ public sealed class Player : Component
 			CharacterController.Punch( force );
 			timeSinceLastBounce = 0;
 			BroadcastBounce( tr.HitPosition, -dir.Forward );
+
+			if ( Network.IsOwner )
+			{
+				InstagibPreferences.Stats.TotalBounces++;
+			}
 		}
 	}
 
@@ -307,13 +332,18 @@ public sealed class Player : Component
 	{
 		Sound.Play( "snd-flesh-explode", Transform.Position );
 		GameManager.Instance.SpawnGibs( Transform.Position + Vector3.Up * 32f, Color );
+		if ( Network.IsOwner )
+		{
+			InstagibPreferences.Stats.TotalDeaths++;
+			InstagibPreferences.Save();
+			Sandbox.Services.Stats.Increment( "deaths", 1 );
+		}
 		if ( !Network.IsProxy )
 		{
 			var killMsg = (killer is null) ? $"{Client.GameObject.Name} was killed" : $"{Client.GameObject.Name} was killed by {killer}";
 			Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
 			Client.TimeSinceLastDeath = 0;
 			Client.Deaths++;
-			GameManager.Instance.OnKill();
 			GameObject.Destroy();
 		}
 	}
