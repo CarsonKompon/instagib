@@ -260,7 +260,7 @@ public partial class GameManager : Component, Component.INetworkListener
             FragLimit = InstagibPreferences.Settings.FragLimit;
         }
 
-        Scene.NavMesh.SetDirty();
+        Scene.NavMesh.Generate( Scene.PhysicsWorld );
     }
 
     [Broadcast]

@@ -25,6 +25,7 @@ public class BotController : Component
     {
         Agent.UpdatePosition = false;
         Agent.UpdateRotation = false;
+        timeSinceLastNavUpdate = 100;
     }
 
     protected override void OnUpdate()
