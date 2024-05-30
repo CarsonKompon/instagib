@@ -1,0 +1,24 @@
+﻿@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@attribute [StyleSheet]
+@namespace Instagib.Social
+
+
+<root class="partymember" tooltip=@Friend.Name style="background-image: url( avatar:@Friend.Id )">
+
+    @if (IsOwner)
+    {
+        <div class="crown">👑</div>
+    }
+
+</root>
+
+@code
+{
+    public Friend Friend { get; set; }
+
+    public bool IsOwner { get; set; }
+
+}

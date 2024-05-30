@@ -1,0 +1,38 @@
+﻿@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@attribute [StyleSheet]
+@namespace Instagib.Social
+
+
+<root>
+    <div class="left">
+        <PartyDeck></PartyDeck>
+    </div>
+
+    <div class="right">
+
+        @* <div tooltip="Show Friend List" @onclick=@(() => FriendList.Toggle()) class="friends-button">
+        <i>groups</i>
+        <div class="count">@MenuUtility.Friends.Count(x => x.IsPlayingThisGame && x.IsFriend).ToString("n0")</div>
+        </div> *@
+
+        <div class="player-info">
+            <div class="avatar button-simple" style="background-image: url( avatar:@Sandbox.Utility.Steam.SteamId )"></div>
+            <div class="name">@Sandbox.Utility.Steam.PersonaName</div>
+        </div>
+
+    </div>
+</root>
+
+@code
+{
+    string LocalPlayerAvatarUrl => $"avatar:{Game.SteamId}";
+
+    [Event("friend.change")]
+    public void UpdatePlayingFriendCount(Friend friend)
+    {
+        StateHasChanged();
+    }
+
+}

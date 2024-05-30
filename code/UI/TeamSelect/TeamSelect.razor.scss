@@ -1,0 +1,24 @@
+TeamSelect
+{
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    right: 30%;
+    bottom: 25%;
+    background-color: rgba(0, 0, 0, 0.418);
+    padding: 16px;
+    flex-direction: column;
+    pointer-events: all;
+
+    h1
+    {
+        font-size: 48px;
+        font-weight: bolder;
+    }
+
+    .content
+    {
+        flex-grow: 1;
+        gap: 16px;
+    }
+}

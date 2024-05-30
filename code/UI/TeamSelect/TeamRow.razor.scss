@@ -1,0 +1,95 @@
+TeamRow
+{
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 8px;
+
+    .entries
+    {
+        flex-direction: column;
+        flex-grow: 1;
+        background-color: rgba(0, 0, 0, 0.418);
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: 4px;
+    
+        .entry
+        {
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 4px;
+            background-color: rgba(0, 0, 0, 0.618);
+            gap: 4px;
+            flex-shrink: 0;
+    
+            .avatar
+            {
+                width: 48px;
+                height: 48px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                border-radius: 8px;
+                flex-shrink: 0;
+            }
+    
+            .name
+            {
+                flex-grow: 1;
+                max-width: 300px;
+            }
+        }
+    }
+
+    .btn
+    {
+        padding: 8px;
+        font-size: 24px;
+        font-weight: 600;
+        transition: all 0.05s ease-in;
+        cursor: pointer;
+
+        &.disabled
+        {
+            background-color: rgba(0, 0, 0, 0.618);
+            cursor: not-allowed;
+        }
+
+        &:hover
+        {
+            background-color: rgba(0, 0, 0, 0.618);
+            sound-in: ui.button.over;
+        }
+
+        &:active
+        {
+            background-color: rgba(0, 0, 0, 0.818);
+            sound-in: ui.button.press;
+        }
+    }
+
+    &.red
+    {
+        background-color: rgba(255, 0, 0, 0.418);
+    }
+
+    &.blue
+    {
+        background-color: rgba(0, 0, 255, 0.418);
+    }
+
+    &.green
+    {
+        background-color: rgba(0, 255, 0, 0.418);
+    }
+
+    &.yellow
+    {
+        background-color: rgba(255, 255, 0, 0.418);
+    }
+
+    &.pink
+    {
+        background-color: rgba(255, 0, 255, 0.418);
+    }
+}

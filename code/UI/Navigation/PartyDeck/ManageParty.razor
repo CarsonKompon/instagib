@@ -1,0 +1,33 @@
+﻿@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@attribute [StyleSheet]
+@namespace Instagib.Social
+
+<root>
+    <div class="btn create-party" onclick=@LeaveParty tooltip="Leave Party">
+        <i>call_end</i>
+    </div>
+
+    <div class="members">
+        @foreach (var member in PartyRoom.Current.Members)
+        {
+            bool isOwner = PartyRoom.Current.Owner.Id == member.Id;
+
+            <PartyMember Friend=@member IsOwner=@isOwner></PartyMember>
+        }
+    </div>
+
+</root>
+
+@code
+{
+    protected override int BuildHash() => System.HashCode.Combine(PartyRoom.Current?.Members.Count());
+
+    void LeaveParty()
+    {
+        PartyRoom.Current.Leave();
+    }
+
+}

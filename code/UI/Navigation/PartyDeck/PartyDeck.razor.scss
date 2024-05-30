@@ -1,0 +1,72 @@
+﻿$primary: #3472e6 !default;
+$green: #97e634 !default;
+
+
+partydeck .btn
+{
+    color: $primary;
+    border: 2px solid $primary;
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    padding: 0px;
+    cursor: pointer;
+}
+
+partydeck .btn > i
+{
+    font-size: 24px;
+    margin: 0;
+    padding: 0px;
+}
+
+
+
+.btn .overlay
+{
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    font-size: 18px;
+    color: $primary;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.btn.party
+{
+    background-position: center;
+    background-size: cover;
+    align-items: flex-end;
+
+    .membercount
+    {
+        background-color: $primary;
+        padding: 1px 4px;
+        border-radius: 10px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 3px;
+        font-size: 9px;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+}
+
+partydeck .btn.playing
+{
+    border: 2px solid $green;
+
+    .membercount
+    {
+        background-color: $green;
+        color: black;
+    }
+}

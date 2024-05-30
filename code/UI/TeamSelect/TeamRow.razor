@@ -1,0 +1,47 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@namespace Instagib
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="team @(TeamNames[Team - 1].ToLower())">
+    @if (true)
+    {
+        var clients = Scene.GetAllComponents<Client>().Where(x => x.Team == Team);
+        var counts = GameManager.Instance.TeamCounts;
+        <div class="entries">
+            @foreach (var client in clients)
+            {
+                <div class="entry" style="background-color: @(client.ColorString)">
+                    @if (client.IsBot)
+                    {
+                        <img src="ui/icons/bot.png" class="avatar" />
+                    }
+                    else
+                    {
+                        <img src="@($"avatar:{client.Network.OwnerConnection.SteamId}")" class="avatar" />
+                    }
+                    <label class="name">@client.GameObject.Name</label>
+                </div>
+            }
+        </div>
+        <div class="btn @(counts.Any(x => x.Key > 0 && x.Key != Team && x.Value < counts[Team]) ? "disabled" : "")" onclick=@Join>Join @(TeamNames[Team - 1]) Team</div>
+    }
+</root>
+
+@code
+{
+    static string[] TeamNames = new string[] { "Red", "Blue", "Green", "Yellow", "Pink" };
+    public int Team { get; set; } = 1;
+
+    void Join()
+    {
+        var counts = GameManager.Instance.TeamCounts;
+        if (counts.Any(x => x.Key > 0 && x.Key != Team && x.Value < counts[Team])) return;
+
+        Client.Local.JoinTeam(Team);
+    }
+
+    protected override int BuildHash() => System.HashCode.Combine(MathF.Floor(Time.Now));
+}

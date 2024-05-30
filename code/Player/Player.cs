@@ -306,6 +306,12 @@ public sealed class Player : Component
 	[Broadcast]
 	public void Kill( Guid killer = default )
 	{
+		var killerClient = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == killer );
+		if ( killer != Guid.Empty && GameManager.Instance.IsTeamGamemode && killerClient.Team == Client.Team )
+		{
+			return;
+		}
+
 		Sound.Play( "snd-flesh-explode", Transform.Position );
 		GameManager.Instance.SpawnGibs( Transform.Position + Vector3.Up * 32f, Color );
 		if ( Network.IsOwner )
@@ -318,7 +324,6 @@ public sealed class Player : Component
 		{
 			if ( killer != Guid.Empty )
 			{
-				var killerClient = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == killer );
 				if ( killerClient is not null )
 				{
 					var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.Name} was killed by {killerClient.Name}";

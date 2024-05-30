@@ -1,0 +1,21 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@namespace Instagib
+@inherits Panel
+@attribute [StyleSheet]
+
+<root class="team-select">
+    <h1>Choose a Team</h1>
+    <div class="content">
+        @for (int i = 0; i < GameManager.Instance.Teams; i++)
+        {
+            <TeamRow Team=@(i + 1) />
+        }
+    </div>
+</root>
+
+@code
+{
+    protected override int BuildHash() => System.HashCode.Combine(MathF.Floor(Time.Now));
+}

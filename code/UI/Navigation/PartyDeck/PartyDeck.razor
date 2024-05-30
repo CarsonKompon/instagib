@@ -1,0 +1,24 @@
+﻿@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@namespace Instagib.Social
+@attribute [StyleSheet]
+
+<root>
+
+    @if (PartyRoom.Current is null)
+    {
+        <CreatePartyButton></CreatePartyButton>
+        <AvailableParties></AvailableParties>
+    }
+    else
+    {
+        <ManageParty></ManageParty>
+    }
+</root>
+
+@code
+{
+    protected override int BuildHash() => System.HashCode.Combine(PartyRoom.Current);
+
+}

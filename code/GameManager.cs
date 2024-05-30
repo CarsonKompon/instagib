@@ -29,11 +29,37 @@ public partial class GameManager : Component, Component.INetworkListener
     [Sync] public TimeUntil MapVoteTimer { get; set; } = 60;
     [Sync] public TimeUntil Timer { get; set; } = 60;
     [Sync] public int FragLimit { get; set; } = 30;
+    [Sync] public int Teams { get; set; } = 2;
     [Sync] public NetDictionary<Guid, string> MapVotes { get; set; } = new();
     [Sync] public NetList<Guid> RockTheVotes { get; set; } = new();
+    [Sync] public NetDictionary<int, int> TeamScores { get; set; } = new();
 
     [Sync] public bool ServerLoading { get; set; } = true;
     public bool ClientLoading { get; set; } = false;
+    public bool IsTeamGamemode => (int)Gamemode > 0;
+    public Dictionary<int, int> TeamCounts
+    {
+        get
+        {
+            var counts = new Dictionary<int, int>();
+            for ( var i = 1; i <= Teams; i++ )
+            {
+                counts.Add( i, 0 );
+            }
+            foreach ( var client in Scene.GetAllComponents<Client>() )
+            {
+                if ( !counts.ContainsKey( client.Team ) )
+                {
+                    counts.Add( client.Team, 1 );
+                }
+                else
+                {
+                    counts[client.Team]++;
+                }
+            }
+            return counts;
+        }
+    }
 
     [Group( "Prefabs" ), Property] public GameObject BeamPrefab { get; set; }
     [Group( "Prefabs" ), Property] public GameObject ReticlePrefab { get; set; }
@@ -133,11 +159,12 @@ public partial class GameManager : Component, Component.INetworkListener
             }
             MapVotes.Clear();
         }
-        foreach ( var player in Scene.GetAllComponents<Client>() )
+        foreach ( var client in Scene.GetAllComponents<Client>() )
         {
-            player.Kills = 0;
-            player.Deaths = 0;
-            player.Shots = 0;
+            client.Team = 0;
+            client.Kills = 0;
+            client.Deaths = 0;
+            client.Shots = 0;
         }
 
         RockTheVotes.Clear();
@@ -150,6 +177,9 @@ public partial class GameManager : Component, Component.INetworkListener
     [Broadcast]
     public void EndGame()
     {
+        MapVotes.Clear();
+        MapVoteTimer = 20f;
+
         var winner = Scene.GetAllComponents<Client>().OrderByDescending( x => x.Kills ).FirstOrDefault();
         if ( Client.Local.GameObject.Id == winner.GameObject.Id )
         {
@@ -191,9 +221,6 @@ public partial class GameManager : Component, Component.INetworkListener
         {
             player.Kill();
         }
-
-        MapVotes.Clear();
-        MapVoteTimer = 20f;
     }
 
     [Broadcast]
@@ -394,5 +421,21 @@ public partial class GameManager : Component, Component.INetworkListener
         };
 
         return names[Random.Shared.Next( 0, names.Length )];
+    }
+
+    public static Color GetTeamColor( int team )
+    {
+        switch ( team )
+        {
+            case 1: return Color.Red;
+            case 2: return Color.Blue;
+            case 3: return Color.Green;
+            case 4: return Color.Yellow;
+            case 5: return Color.Magenta;
+            case 6: return Color.Orange;
+            case 7: return Color.Cyan;
+            case 8: return Color.White;
+            default: return Color.Black;
+        }
     }
 }

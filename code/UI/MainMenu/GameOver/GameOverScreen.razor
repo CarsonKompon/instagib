@@ -12,7 +12,7 @@
 
 		<div class="winner" style="color: @(winner.ColorString)">
 			<h1>@winner.Name</h1>
-			<label> reigns victorious</label>
+			<label>wins the game</label>
 		</div>
 		<div class="container">
 			<div class="scoreboard">
@@ -25,8 +25,7 @@
 				<div class="entries">
 					@foreach (var client in clients)
 					{
-						<div class="entry @(client.Network.IsOwner ? "isme" : "")"
-							style="background-color: @(client.ColorString)">
+						<div class="entry @(client.Network.IsOwner ? "isme" : "")" style="background-color: @(client.ColorString)">
 							@if (client.IsBot)
 							{
 								<img src="ui/icons/bot.png" class="avatar" />
@@ -47,8 +46,7 @@
 			<div class="mapvote">
 				<div class="maps">
 					<h2>Vote for a map:</h2>
-					<PackageList ShowFilters="@true" Query="type:map sort:trending" OnSelected="@OnPackageSelected"
-						Take=@(50) />
+					<PackageList ShowFilters="@true" Query="type:map sort:trending" OnSelected="@OnPackageSelected" Take=@(50) />
 				</div>
 				<div class="voted-maps">
 					<h2>Voted maps:</h2>

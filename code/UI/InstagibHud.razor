@@ -64,6 +64,12 @@
 		</div>
 	</div>
 
+	@if (GameManager.Instance.IsTeamGamemode && Client.Local.Team == 0)
+	{
+		<TeamSelect />
+		return;
+	}
+
 	@if (!Player.Local.IsValid())
 	{
 		var isValid = Client.Local.IsValid();

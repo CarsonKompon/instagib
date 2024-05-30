@@ -1,0 +1,26 @@
+﻿$primary: #3472e6 !default;
+
+
+.partymember
+{
+    color: $primary;
+    border: 2px solid $primary;
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    padding: 0px;
+    cursor: pointer;
+    background-position: center;
+    background-size: cover;
+}
+
+.crown
+{
+    position: absolute;
+    top: -14px;
+    font-size: 14px;
+}

@@ -1,0 +1,88 @@
+﻿$primary: #3472e6 !default;
+
+SocialBar .left
+{
+}
+
+SocialBar .right
+{
+    justify-content: flex-end;
+}
+
+SocialBar
+{
+    .left, .right
+    {
+        flex-grow: 1;
+        height: 48px;
+    }
+
+    .player-info
+    {
+        align-items: center;
+        gap: 12px;
+        color: #b6bfd3;
+        font-family: Poppins;
+        font-size: 18px;
+        font-weight: bold;
+        opacity: 1;
+        background-color: rgba( #bdd4ff, 0.01 );
+        padding: 4px 16px;
+        flex-shrink: 0;
+        flex-grow: 0;
+        white-space: nowrap;
+        border-radius: 10px;
+
+        .avatar
+        {
+            background-position: center;
+            background-size: cover;
+            padding: 0;
+            border-radius: 100px;
+            aspect-ratio: 1;
+            border: 2px solid $primary;
+            aspect-ratio: 1;
+            height: 100%;
+        }
+
+        .crown
+        {
+            width: 24px;
+            aspect-ratio: 1;
+            background-image-tint: lighten( #b6bfd3, 30% );
+        }
+    }
+
+    .friends-button
+    {
+        width: 100px;
+        border: 2px solid #333;
+        border-radius: 10px;
+        color: #fffa;
+        font-size: 32px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        opacity: 0.5;
+        font-weight: 500;
+        gap: 10px;
+        margin-right: 10px;
+
+        &:hover
+        {
+            opacity: 1;
+            sound-in: ui.button.over;
+        }
+
+        &:active
+        {
+            sound-in: ui.button.press;
+        }
+
+        .count
+        {
+            font-size: 24px;
+            font-family: Poppins;
+        }
+    }
+}

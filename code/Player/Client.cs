@@ -27,6 +27,7 @@ public class Client : Component
     [Sync] public bool IsBot { get; set; } = false;
     [Sync] public string ColorString { get; set; }
     [Sync] public string Killstreak { get; set; } = "";
+    [Sync] public int Team { get; set; } = 0;
     public float Aim => (float)Kills / (float)Shots;
     public Player Player => Scene.GetAllComponents<Player>().FirstOrDefault( x => x.GameObject.Name == GameObject.Id.ToString() );
     public string Name => IsBot ? GameObject.Name : Network.OwnerConnection.DisplayName;
@@ -50,18 +51,28 @@ public class Client : Component
 
         if ( GameManager.Instance.InGame && !GameManager.Instance.ClientLoading && !GameManager.Instance.ServerLoading && !Player.IsValid() )
         {
-            if ( TimeSinceLastDeath >= 5f )
+            if ( GameManager.Instance.IsTeamGamemode && Team == 0 )
             {
-                if ( IsBot || Input.Pressed( "Jump" ) )
+                if ( IsBot )
                 {
-                    GameManager.Instance.SpawnPlayer( GameObject.Id );
-                    TimeSinceLastDeath = 0;
+                    JoinRandomTeam();
                 }
             }
-
-            if ( Network.IsOwner )
+            else
             {
-                UpdateDeathCam();
+                if ( TimeSinceLastDeath >= 5f )
+                {
+                    if ( IsBot || Input.Pressed( "Jump" ) )
+                    {
+                        GameManager.Instance.SpawnPlayer( GameObject.Id );
+                        TimeSinceLastDeath = 0;
+                    }
+                }
+
+                if ( Network.IsOwner )
+                {
+                    UpdateDeathCam();
+                }
             }
         }
 
@@ -143,5 +154,41 @@ public class Client : Component
             }
             Scene.Camera.Transform.Rotation = Rotation.Slerp( Scene.Camera.Transform.Rotation, deadCamRotation, (lookAt == Vector3.Zero ? 4 : 10) * Time.Delta );
         }
+    }
+
+    void JoinRandomTeam()
+    {
+        Dictionary<int, int> teamCounts = new();
+        teamCounts[1] = 0;
+        teamCounts[2] = 0;
+        foreach ( var client in Scene.GetAllComponents<Client>() )
+        {
+            if ( client.Team != 0 )
+            {
+                if ( !teamCounts.ContainsKey( client.Team ) )
+                {
+                    teamCounts[client.Team] = 0;
+                }
+                teamCounts[client.Team]++;
+            }
+        }
+
+        int team = 0;
+        if ( teamCounts.Count > 0 )
+        {
+            team = teamCounts.OrderBy( x => x.Value ).FirstOrDefault().Key;
+        }
+        else
+        {
+            team = Random.Shared.Int( 1, 2 );
+        }
+
+        if ( team > 0 ) JoinTeam( team );
+    }
+
+    public void JoinTeam( int team )
+    {
+        Team = team;
+        ColorString = GameManager.GetTeamColor( team ).Hex;
     }
 }

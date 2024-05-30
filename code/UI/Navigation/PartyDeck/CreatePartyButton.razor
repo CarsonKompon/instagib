@@ -1,0 +1,20 @@
+﻿@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@inherits Panel
+@namespace Instagib.Social
+
+<root>
+    <div class="btn create-party" onclick=@CreateParty tooltip="Create A Party">
+        <i>add_ic_call</i>
+    </div>
+</root>
+
+@code
+{
+    void CreateParty()
+    {
+        _ = PartyRoom.Create(32);
+    }
+
+}
