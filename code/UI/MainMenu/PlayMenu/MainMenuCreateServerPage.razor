@@ -34,16 +34,19 @@
             </div>
             <div class="settings">
                 <div class="setting">
+                    <img src="/ui/icons/team.png" />
                     <label class="name">Max Players:</label>
                     <SliderControl Value:bind="@InstagibPreferences.Settings.MaxPlayers" Min=@(2) Max=@(16) Step=@(1) ShowTextEntry=@(true) />
                 </div>
                 <div class="setting">
+                    <img src="/ui/icons/bot.png" />
                     <label class="name">Bots:</label>
                     <SliderControl Value:bind="@InstagibPreferences.Settings.BotCount" Min=@(0) Max=@(InstagibPreferences.Settings.MaxPlayers - 1) Step=@(1) ShowTextEntry=@(true) />
                 </div>
                 @if (InstagibPreferences.Settings.Gamemode != Gamemode.Freezetag)
                 {
                     <div class="setting">
+                        <img src="/ui/icons/skull.png" />
                         <label class="name">Frag Limit:</label>
                         <SliderControl Value:bind="@FragLimit" Min=@(1) Max=@(100) Step=@(1) ShowTextEntry=@(true) />
                     </div>
@@ -56,6 +59,7 @@
                     </div>
                 }
                 <div class="setting">
+                    <i>timer</i>
                     <label class="name">Time Limit:</label>
                     <SliderControl Value:bind="@TimeLimit" Min=@(1) Max=@(60) Step=@(1) ShowTextEntry=@(true) />
                 </div>

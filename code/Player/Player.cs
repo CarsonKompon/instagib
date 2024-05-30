@@ -79,6 +79,7 @@ public sealed class Player : Component
 		if ( Network.IsOwner )
 		{
 			var indicatorObj = GameManager.Instance.ReticlePrefab.Clone();
+			indicatorObj.NetworkMode = NetworkMode.Never;
 			if ( indicatorObj.Components.TryGet<SpriteRenderer>( out bounceIndicator ) )
 			{
 				bounceIndicator.Enabled = false;
@@ -315,10 +316,14 @@ public sealed class Player : Component
 		}
 		if ( !Network.IsProxy )
 		{
-			if ( killer == Guid.Empty )
+			if ( killer != Guid.Empty )
 			{
-				var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.GameObject.Name} was killed by {killer}";
-				Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
+				var killerClient = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == killer );
+				if ( killerClient is not null )
+				{
+					var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.Name} was killed by {killerClient.Name}";
+					Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
+				}
 			}
 			Client.TimeSinceLastDeath = 0;
 			Client.Deaths++;
@@ -409,6 +414,7 @@ public sealed class Player : Component
 	{
 		var midpos = startPos + (endPos - startPos) / 2f;
 		var beamObj = GameManager.Instance.BeamPrefab.Clone( midpos );
+		beamObj.NetworkMode = NetworkMode.Never;
 		if ( beamObj.Components.TryGet<Beam>( out var beam ) )
 		{
 			beam.StartPosition = startPos;
@@ -420,7 +426,8 @@ public sealed class Player : Component
 			modelRenderer.Tint = Color;
 		}
 
-		GameManager.Instance.LaserDustParticle.Clone( new Transform( endPos, Rotation.LookAt( startPos - endPos ) * Rotation.From( new Angles( 0, 0, 90 ) ), Vector3.One ) );
+		var particle = GameManager.Instance.LaserDustParticle.Clone( new Transform( endPos, Rotation.LookAt( startPos - endPos ) * Rotation.From( new Angles( 0, 0, 90 ) ), Vector3.One ) );
+		particle.NetworkMode = NetworkMode.Never;
 
 		Sound.Play( "snd-fire", startPos );
 	}
@@ -432,6 +439,7 @@ public sealed class Player : Component
 
 		var transform = new Transform( position, Rotation.LookAt( normal ) * Rotation.From( new Angles( 0, 0, 90 ) ), Vector3.One );
 		var particleObj = GameManager.Instance.BounceParticle.Clone( transform );
+		particleObj.NetworkMode = NetworkMode.Never;
 		var particle = particleObj.Components.Get<ParticleEffect>();
 		particle.ApplyColor = true;
 		particle.Tint = Color;

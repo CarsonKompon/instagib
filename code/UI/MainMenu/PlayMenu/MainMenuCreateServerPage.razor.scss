@@ -54,6 +54,9 @@ MainMenuCreateServerPage
                     {
                         width: 64px;
                         height: 64px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center;
                     }
 
                     h1
@@ -95,6 +98,16 @@ MainMenuCreateServerPage
                 {
                     align-items: center;
                     padding: 8px;
+
+                    > i, > img
+                    {
+                        width: 24px;
+                        height: 24px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                        margin-right: 8px;
+                    }
 
                     .name
                     {

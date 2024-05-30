@@ -344,6 +344,7 @@ public partial class GameManager : Component, Component.INetworkListener
         foreach ( var gibPrefab in CitizenGibs )
         {
             var gib = gibPrefab.Clone( position + Vector3.Random * 5f );
+            gib.NetworkMode = NetworkMode.Never;
             var renderer = gib.Components.GetInChildrenOrSelf<ModelRenderer>();
             renderer.Tint = color;
         }
