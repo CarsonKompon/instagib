@@ -230,7 +230,7 @@ public partial class GameManager : Component, Component.INetworkListener
             }
         }
 
-        var required = MathF.Ceiling( clients.Count() * 0.8f );
+        var required = MathF.Ceiling( clients.Where( x => !x.IsBot ).Count() * 0.8f );
         var client = clients.FirstOrDefault( x => x.GameObject.Id == clientId );
         var name = (client is null) ? "Someone" : client.GameObject.Name;
         if ( RockTheVotes.Count >= required )
