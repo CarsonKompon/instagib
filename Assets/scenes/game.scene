@@ -183,7 +183,7 @@
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "ee180b64-37ca-4109-b2e3-eada7603d03c",
-          "MapName": "ply.am_redblue",
+          "MapName": "moman.apartment",
           "UseMapFromLaunch": true
         }
       ],
@@ -195,7 +195,7 @@
       "Name": "Screen",
       "Position": "-6924.012,3173.315,731.5927",
       "Enabled": true,
-      "NetworkMode": 2,
+      "NetworkMode": 1,
       "NetworkInterpolation": true,
       "Components": [
         {
@@ -244,7 +244,7 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-05-29T17:51:53.4006173-04:00",
+  "LastSaved": "2024-05-30T08:11:14.3141281-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

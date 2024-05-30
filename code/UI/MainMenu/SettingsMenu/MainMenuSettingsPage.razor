@@ -1,0 +1,71 @@
+@using System;
+@using System.Threading.Tasks;
+@using System.Linq;
+@using Sandbox;
+@using Sandbox.UI;
+@using Sandbox.UI.GameMenu;
+@using Sandbox.Network;
+@inherits Panel
+@attribute [StyleSheet]
+
+@namespace Instagib
+
+<root>
+    <div class="container">
+        <div class="header">Settings</div>
+        <div class="content">
+            <div class="row">
+                <h1>Audio</h1>
+                <div class="setting">
+                    <label class="name">Master Volume:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.VolumeMaster" Min=@(0) Max=@(100) Step=@(1) ShowTextEntry=@(true) />
+                </div>
+                <div class="setting">
+                    <label class="name">Music Volume:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.VolumeMusic" Min=@(0) Max=@(100) Step=@(1) ShowTextEntry=@(true) />
+                </div>
+                <div class="setting">
+                    <label class="name">SFX Volume:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.VolumeSFX" Min=@(0) Max=@(100) Step=@(1) ShowTextEntry=@(true) />
+                </div>
+                <h1>Gameplay</h1>
+                <div class="setting">
+                    <label class="name">Field of View:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.FieldOfView" Min=@(0) Max=@(100) Step=@(1) ShowTextEntry=@(true) />
+                </div>
+                <div class="setting">
+                    <label class="name">Zoomed Field of View:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.ZoomedFieldOfView" Min=@(0) Max=@(100) Step=@(1) ShowTextEntry=@(true) />
+                </div>
+                <div class="setting">
+                    <label class="name">Sensitivity:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.Sensitivity" Min=@(1f) Max=@(20f) Step=@(0.1f) ShowTextEntry=@(true) />
+                </div>
+                <div class="setting">
+                    <label class="name">Zoomed Sensitivity Multiplier:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.ZoomedSensitivity" Min=@(0) Max=@(1f) Step=@(0.01f) ShowTextEntry=@(true) />
+                </div>
+            </div>
+            <div class="row">
+                <h1>Input</h1>
+                @foreach (var action in Input.GetActions())
+                {
+                    <div class="setting">
+                        <label class="name">@action.Name:</label>
+                        <KeyBind Game=@IGameInstance.Current Action=@action />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="buttons">
+            <a class="button" href="/">Back</a>
+        </div>
+    </div>
+</root>
+
+@code
+{
+
+
+    protected override int BuildHash() => System.HashCode.Combine("");
+}

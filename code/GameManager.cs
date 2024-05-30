@@ -30,6 +30,7 @@ public partial class GameManager : Component, Component.INetworkListener
     [Sync] public TimeUntil Timer { get; set; } = 60;
     [Sync] public int FragLimit { get; set; } = 30;
     [Sync] public NetDictionary<Guid, string> MapVotes { get; set; } = new();
+    [Sync] public NetList<Guid> RockTheVotes { get; set; } = new();
 
     [Sync] public bool ServerLoading { get; set; } = true;
     public bool ClientLoading { get; set; } = true;
@@ -135,7 +136,7 @@ public partial class GameManager : Component, Component.INetworkListener
             player.Shots = 0;
         }
 
-
+        RockTheVotes.Clear();
         ServerLoading = true;
         InGame = true;
         Timer = 1000f;
@@ -207,6 +208,39 @@ public partial class GameManager : Component, Component.INetworkListener
         else
         {
             OnMapLoaded();
+        }
+    }
+
+    [Broadcast]
+    public void RockTheVote( Guid clientId )
+    {
+        if ( !Networking.IsHost ) return;
+        if ( !InGame ) return;
+        if ( RockTheVotes.Contains( clientId ) ) return;
+
+        RockTheVotes.Add( clientId );
+
+        var clients = Scene.GetAllComponents<Client>();
+        for ( var i = 0; i < RockTheVotes.Count; i++ )
+        {
+            if ( !clients.Any( x => x.GameObject.Id == RockTheVotes[i] ) )
+            {
+                RockTheVotes.RemoveAt( i );
+                i--;
+            }
+        }
+
+        var required = MathF.Ceiling( clients.Count() * 0.8f );
+        var client = clients.FirstOrDefault( x => x.GameObject.Id == clientId );
+        var name = (client is null) ? "Someone" : client.GameObject.Name;
+        if ( RockTheVotes.Count >= required )
+        {
+            EndGame();
+            Chatbox.Instance.AddMessage( "🎲", $"{name} has rocked the vote! ({required}/{required} votes reached)" );
+        }
+        else
+        {
+            Chatbox.Instance.AddMessage( "🎲", $"{name} has rocked the vote! ({RockTheVotes.Count}/{required} votes needed)" );
         }
     }
 

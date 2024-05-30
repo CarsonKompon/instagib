@@ -60,27 +60,15 @@
           "GroupName": "Movement"
         },
         {
-          "Name": "attack1",
+          "Name": "Attack1",
           "KeyboardCode": "mouse1",
           "GamepadCode": "RightTrigger",
           "GroupName": "Actions"
         },
         {
-          "Name": "attack2",
+          "Name": "Attack2",
           "KeyboardCode": "mouse2",
           "GamepadCode": "LeftTrigger",
-          "GroupName": "Actions"
-        },
-        {
-          "Name": "reload",
-          "KeyboardCode": "r",
-          "GamepadCode": "X",
-          "GroupName": "Actions"
-        },
-        {
-          "Name": "use",
-          "KeyboardCode": "e",
-          "GamepadCode": "Y",
           "GroupName": "Actions"
         },
         {

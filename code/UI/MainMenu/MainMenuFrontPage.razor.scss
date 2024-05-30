@@ -12,7 +12,7 @@ MainMenuFrontPage
     .logo-container
     {
         flex-direction: column;
-        gap: -48px;
+        gap: -32px;
 
         .logo
         {
@@ -32,6 +32,24 @@ MainMenuFrontPage
             font-weight: 300;
             text-align: center;
             font-style: italic;
+        }
+
+        .splash-text
+        {
+            position: absolute;
+            top: 80%;
+            left: 28%;
+            transform-origin: 50% 50%;
+            transform: rotate(-5deg);
+            font-size: 24px;
+            color: yellow;
+
+            label
+            {
+                transform-origin: 50% 50%;
+                animation: pulse 1s infinite ease;
+                animation-direction: alternate-reverse;
+            }
         }
     }
 
@@ -64,5 +82,14 @@ MainMenuFrontPage
                 sound-in: ui.button.press;
             }
         }
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
     }
 }

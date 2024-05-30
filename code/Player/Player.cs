@@ -186,7 +186,7 @@ public sealed class Player : Component
 
 	void UpdateCamera()
 	{
-		var _input = Input.AnalogLook * (Preferences.Sensitivity * (Input.Down( "Zoom" ) ? InstagibPreferences.Settings.ZoomedSensitivity : 1f));
+		var _input = Input.AnalogLook * (InstagibPreferences.Settings.Sensitivity * (Input.Down( "Zoom" ) ? InstagibPreferences.Settings.ZoomedSensitivity : 1f));
 		Direction.pitch += _input.pitch / 20f;
 		Direction.yaw += _input.yaw / 20f;
 		Direction.roll = 0f;

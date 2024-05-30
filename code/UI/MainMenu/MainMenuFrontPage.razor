@@ -10,6 +10,7 @@
     <div class="logo-container">
         <h1>GIBLETZ</h1>
         <div class="author">By Carson Kompon</div>
+        <div class="splash-text">@SplashTexts[SplashIndex]</div>
     </div>
 
     <div class="menu">
@@ -23,5 +24,24 @@
 
 @code
 {
+    public string[] SplashTexts = new string[]
+    {
+"erm... it's gibbing instant 💅",
+"Long Live Alex's Instagib!",
+"Also check out RATZ",
+"Instantaneous Giblification",
+"1 shot, instant kill",
+    };
 
+    public int SplashIndex = 0;
+
+    protected override void OnAfterTreeRender(bool firstTime)
+    {
+        base.OnAfterTreeRender(firstTime);
+
+        if (firstTime)
+        {
+            SplashIndex = new Random().Next(0, SplashTexts.Length);
+        }
+    }
 }

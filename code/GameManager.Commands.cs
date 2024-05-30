@@ -22,4 +22,18 @@ public partial class GameManager
             Player.Local.Kill();
         }
     }
+
+    [ConCmd( "mapvote" )]
+    public static void EndCurrentGame()
+    {
+        if ( !Networking.IsHost ) return;
+        Instance.EndGame();
+    }
+
+    [ConCmd( "rtv" )]
+    public static void VoteToChangeMap()
+    {
+        if ( !Networking.IsHost ) return;
+        Instance.RockTheVote( Client.Local.GameObject.Id );
+    }
 }

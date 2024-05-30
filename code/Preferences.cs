@@ -72,6 +72,7 @@ public class InstagibStats
 
 public class InstagibSettings
 {
+    public float VolumeMaster { get; set; } = 60f;
     public float VolumeMusic { get; set; } = 40f;
     public float VolumeSFX { get; set; } = 60f;
 
@@ -82,6 +83,7 @@ public class InstagibSettings
 
     public float FieldOfView { get; set; } = 100f;
     public float ZoomedFieldOfView { get; set; } = 40f;
+    public float Sensitivity { get; set; } = 8f;
     public float ZoomedSensitivity { get; set; } = 0.4f;
 }
 
