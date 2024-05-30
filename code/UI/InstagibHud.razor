@@ -34,8 +34,29 @@
 	<div class="top-bar">
 
 		<div class="info">
-			<label class="fraglimit">Frag Limit: @(GameManager.Instance.FragLimit)</label>
-			<label class="timer">@GetGameTimer()</label>
+			<div class="stuff">
+				<label class="fraglimit">Frag Limit: @(GameManager.Instance.FragLimit)</label>
+				<label class="timer">@GetGameTimer()</label>
+			</div>
+			@if (GameManager.Instance.IsTeamGamemode)
+			{
+				var points = GameManager.Instance.TeamScores;
+				var total = 0;
+				foreach (var point in points)
+				{
+					total += point.Value + 1;
+				}
+				if (total == 0) total++;
+				<div class="team-score">
+					@for (int i = 1; i <= GameManager.Instance.Teams; i++)
+					{
+						var teamPoints = (points.ContainsKey(i) ? points[i] : 0);
+						var width = (teamPoints + 1f) / total * 100f;
+						Log.Info(width);
+						<div class="bar" style="flex-grow: @(width)">@teamPoints</div>
+					}
+				</div>
+			}
 		</div>
 
 		<div class="leaderboard">

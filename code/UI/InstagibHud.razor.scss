@@ -32,12 +32,55 @@ InstagibHud
 			padding: 2px;
 			font-size: 14px;
 			font-weight: 600;
-			justify-content: space-around;
-			align-items: center;
+			flex-direction: column;
 
-			.fraglimit
+			.stuff
 			{
-				align-self: flex-start;
+				justify-content: space-around;
+				align-items: center;
+				
+
+				.fraglimit
+				{
+					align-self: flex-start;
+				}
+			}
+		}
+
+		.team-score
+		{
+			flex-direction: row;
+			flex-grow: 1;
+			min-width: 500px;
+			width: 100%;
+			background-color: rgb(48, 48, 48);
+			align-self: center;
+
+			.bar
+			{
+				background-color: white;
+				justify-content: center;
+				align-items: center;
+
+				&:nth-child(1)
+				{
+					background-color: red;
+				}
+
+				&:nth-child(2)
+				{
+					background-color: blue;
+				}
+
+				&:nth-child(3)
+				{
+					background-color: green;
+				}
+
+				&:nth-child(4)
+				{
+					background-color: yellow;
+				}
 			}
 		}
 	}

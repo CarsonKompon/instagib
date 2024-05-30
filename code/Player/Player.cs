@@ -329,6 +329,7 @@ public sealed class Player : Component
 					var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.Name} was killed by {killerClient.Name}";
 					Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
 				}
+				GameManager.Instance.AddTeamPoints( killerClient.Team, 1 );
 			}
 			Client.TimeSinceLastDeath = 0;
 			Client.Deaths++;

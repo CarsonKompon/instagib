@@ -42,7 +42,14 @@ public class Client : Component
     protected override void OnStart()
     {
         TimeSinceLastDeath = 5;
-        ColorString = new ColorHsv( Random.Shared.Float( 0, 360 ), 0.8f, 1 ).ToColor().Hex;
+        if ( GameManager.Instance.IsTeamGamemode )
+        {
+            ColorString = Color.Lerp( Color.Gray, Color.Black, 0.5f ).Hex;
+        }
+        else
+        {
+            ColorString = new ColorHsv( Random.Shared.Float( 0, 360 ), 0.8f, 1 ).ToColor().Hex;
+        }
     }
 
     protected override void OnFixedUpdate()

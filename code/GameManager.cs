@@ -113,12 +113,26 @@ public partial class GameManager : Component, Component.INetworkListener
 
         if ( InGame )
         {
-            foreach ( var client in Scene.GetAllComponents<Client>() )
+            if ( GameManager.Instance.IsTeamGamemode )
             {
-                if ( client.Kills >= FragLimit )
+                for ( int i = 1; i <= Teams; i++ )
                 {
-                    EndGame();
-                    return;
+                    if ( TeamScores.ContainsKey( i ) && TeamScores[i] >= FragLimit )
+                    {
+                        EndGame();
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                foreach ( var client in Scene.GetAllComponents<Client>() )
+                {
+                    if ( client.Kills >= FragLimit )
+                    {
+                        EndGame();
+                        return;
+                    }
                 }
             }
 
@@ -275,6 +289,21 @@ public partial class GameManager : Component, Component.INetworkListener
         }
     }
 
+    [Broadcast]
+    public void AddTeamPoints( int team, int points )
+    {
+        if ( !Networking.IsHost ) return;
+
+        if ( TeamScores.ContainsKey( team ) )
+        {
+            TeamScores[team] += points;
+        }
+        else
+        {
+            TeamScores.Add( team, points );
+        }
+    }
+
     public void OnMapLoaded()
     {
         Log.Info( "MAP LOADED!" );
@@ -421,6 +450,22 @@ public partial class GameManager : Component, Component.INetworkListener
         };
 
         return names[Random.Shared.Next( 0, names.Length )];
+    }
+
+    public static string GetTeamName( int team )
+    {
+        switch ( team )
+        {
+            case 1: return "Red";
+            case 2: return "Blue";
+            case 3: return "Green";
+            case 4: return "Yellow";
+            case 5: return "Magenta";
+            case 6: return "Orange";
+            case 7: return "Cyan";
+            case 8: return "White";
+            default: return "Black";
+        }
     }
 
     public static Color GetTeamColor( int team )

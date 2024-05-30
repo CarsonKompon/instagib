@@ -8,10 +8,9 @@
 	@if (true)
 	{
 		var clients = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills);
-		var winner = clients.FirstOrDefault();
 
-		<div class="winner" style="color: @(winner.ColorString)">
-			<h1>@winner.Name</h1>
+		<div class="winner" style="color: @(GetWinnerColor())">
+			<h1>@GetWinnerName()</h1>
 			<label>wins the game</label>
 		</div>
 		<div class="container">
@@ -91,6 +90,32 @@
 		var seconds = time % 60;
 
 		return $"{minutes:00}:{seconds:00}";
+	}
+
+	string GetWinnerName()
+	{
+		if (GameManager.Instance.IsTeamGamemode)
+		{
+			var points = GameManager.Instance.TeamScores;
+			var team = points.OrderByDescending(x => x.Value).FirstOrDefault();
+			return GameManager.GetTeamName(team.Key) + " Team";
+		}
+
+		var winner = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills).FirstOrDefault();
+		return winner.Name;
+	}
+
+	string GetWinnerColor()
+	{
+		if (GameManager.Instance.IsTeamGamemode)
+		{
+			var points = GameManager.Instance.TeamScores;
+			var team = points.OrderByDescending(x => x.Value).FirstOrDefault();
+			return GameManager.GetTeamColor(team.Key).Hex;
+		}
+
+		var winner = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills).FirstOrDefault();
+		return winner.ColorString;
 	}
 
 	protected override int BuildHash() => System.HashCode.Combine(GameManager.Instance.InGame, GetMapVoteTimer());

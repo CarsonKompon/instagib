@@ -5,7 +5,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root class="team @(TeamNames[Team - 1].ToLower())">
+<root class="team @(GameManager.GetTeamName(Team).ToLower())">
     @if (true)
     {
         var clients = Scene.GetAllComponents<Client>().Where(x => x.Team == Team);
@@ -26,13 +26,12 @@
                 </div>
             }
         </div>
-        <div class="btn @(counts.Any(x => x.Key > 0 && x.Key != Team && x.Value < counts[Team]) ? "disabled" : "")" onclick=@Join>Join @(TeamNames[Team - 1]) Team</div>
+        <div class="btn @(counts.Any(x => x.Key > 0 && x.Key != Team && x.Value < counts[Team]) ? "disabled" : "")" onclick=@Join>Join @(GameManager.GetTeamName(Team)) Team</div>
     }
 </root>
 
 @code
 {
-    static string[] TeamNames = new string[] { "Red", "Blue", "Green", "Yellow", "Pink" };
     public int Team { get; set; } = 1;
 
     void Join()
