@@ -14,4 +14,9 @@ MainMenu
 		padding: 0px 32px 32px 32px;
 	}
 
+	&.hidden
+	{
+		display: none;
+	}
+
 }

@@ -219,6 +219,31 @@
           "__guid": "477d0445-6706-4c95-a9b5-b02cb09ac43e"
         }
       ]
+    },
+    {
+      "__guid": "91699366-7d11-4748-88f8-cd513bbe1ebe",
+      "Flags": 0,
+      "Name": "Pause Screen",
+      "Position": "165.0451,-64.46587,-45.81265",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "916de44f-a0c3-49c0-bcd4-9deaf671bc0b",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ZIndex": 200
+        },
+        {
+          "__type": "Instagib.MainMenu",
+          "__guid": "31dd0ad8-9f3e-4e1f-bbe0-4da4b005ab89",
+          "GameScene": "scenes/menu.scene",
+          "IsPauseMenu": true
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -244,7 +269,7 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-05-30T08:11:14.3141281-04:00",
+  "LastSaved": "2024-05-30T12:13:14.1511765-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

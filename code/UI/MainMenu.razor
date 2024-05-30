@@ -5,7 +5,7 @@
 @namespace Instagib
 @inherits PanelComponent
 
-<root>
+<root class="@((IsPauseMenu && IsHidden) ? "hidden" : "")">
 	<MainMenuPanel />
 	<SocialBar />
 </root>
@@ -14,6 +14,9 @@
 {
 	public static MainMenu Instance { get; private set; }
 	[Property] internal SceneFile GameScene { get; set; }
+	[Property] public bool IsPauseMenu { get; set; }
+
+	public bool IsHidden = true;
 
 	Angles startingCamRot = Angles.Zero;
 
@@ -29,6 +32,15 @@
 
 	protected override void OnFixedUpdate()
 	{
+		if (IsPauseMenu)
+		{
+			if (Input.EscapePressed)
+			{
+				Input.EscapePressed = false;
+				IsHidden = !IsHidden;
+			}
+		}
+
 		Scene.Camera.Transform.Rotation = startingCamRot + new Angles(
 		MathF.Cos(Time.Now * 0.45f) * 2f,
 		MathF.Sin(Time.Now * 0.5f) * 2f,
@@ -36,5 +48,5 @@
 		);
 	}
 
-	protected override int BuildHash() => System.HashCode.Combine("");
+	protected override int BuildHash() => System.HashCode.Combine(IsHidden);
 }

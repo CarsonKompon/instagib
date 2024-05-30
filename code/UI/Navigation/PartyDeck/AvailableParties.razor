@@ -12,8 +12,8 @@
 <root>
     @foreach (PartyRoom.Entry party in Found)
     {
-        if (party.GameTitle != Project.Current.Package.FullIdent) continue;
-        
+        if (party.GameTitle != Project.Current.Package.Title) continue;
+
         var c = "btn party";
         var tt = $"{party.Name}";
         if (party.IsPlaying)

@@ -15,11 +15,25 @@
     </div>
 
     <div class="menu">
-        <a href="/play">Play</a>
+        @if (MainMenu.Instance.IsPauseMenu)
+        {
+            <label class="btn" onclick=@(() => MainMenu.Instance.IsHidden = true)>Resume</label>
+        }
+        else
+        {
+            <a href="/play">Play</a>
+        }
         @* <a href="/customize">Customize</a> *@
         <a href="/stats">Stats</a>
         <a href="/settings">Settings</a>
-        <label class="btn" onclick=@Game.Close>Quit</label>
+        @if (MainMenu.Instance.IsPauseMenu)
+        {
+            <label class="btn" onclick=@(() => Scene.Load(MainMenu.Instance.GameScene))>Quit to Main Menu</label>
+        }
+        else
+        {
+            <label class="btn" onclick=@Game.Close>Quit</label>
+        }
     </div>
 </root>
 
