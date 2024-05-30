@@ -26,6 +26,7 @@ public class Client : Component
     [Sync] public RealTimeSince Playtime { get; set; } = 0;
     [Sync] public bool IsBot { get; set; } = false;
     [Sync] public string ColorString { get; set; }
+    [Sync] public string Killstreak { get; set; } = "";
     public float Aim => (float)Kills / (float)Shots;
     public Player Player => Scene.GetAllComponents<Player>().FirstOrDefault( x => x.GameObject.Name == GameObject.Id.ToString() );
     public string Name => IsBot ? GameObject.Name : Network.OwnerConnection.DisplayName;
@@ -34,6 +35,7 @@ public class Client : Component
     // Private Variables
     internal TimeSince TimeSinceLastDeath = 5;
     private TimeSince TimeSinceLastLookAt = 0;
+    private TimeSince TimeSinceKillstreak = 100f;
     private Rotation deadCamRotation = Rotation.Identity;
 
     protected override void OnStart()
@@ -61,6 +63,28 @@ public class Client : Component
             {
                 UpdateDeathCam();
             }
+        }
+
+        if ( !string.IsNullOrEmpty( Killstreak ) && TimeSinceKillstreak > 8f )
+        {
+            Killstreak = "";
+        }
+    }
+
+    public async void SetKillstreak( int streak )
+    {
+        TimeSinceKillstreak = 0;
+        Killstreak = "";
+        await Task.DelayRealtime( 100 );
+        switch ( streak )
+        {
+            case 1: Killstreak = "DOUBLE KILL"; break;
+            case 2: Killstreak = "DOUBLE KILL"; break;
+            case 3: Killstreak = "TRIPLE KILL"; break;
+            case 4: Killstreak = "MEGA KILL"; break;
+            case 5: Killstreak = "HYPER KILL"; break;
+            case 6: Killstreak = "ULTRA KILL"; break;
+            default: Killstreak = "UNSTOPPABLE"; break;
         }
     }
 

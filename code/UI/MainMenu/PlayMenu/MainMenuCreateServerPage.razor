@@ -37,6 +37,10 @@
                     <label class="name">Max Players:</label>
                     <SliderControl Value:bind="@InstagibPreferences.Settings.MaxPlayers" Min=@(2) Max=@(16) Step=@(1) ShowTextEntry=@(true) />
                 </div>
+                <div class="setting">
+                    <label class="name">Bots:</label>
+                    <SliderControl Value:bind="@InstagibPreferences.Settings.BotCount" Min=@(0) Max=@(InstagibPreferences.Settings.MaxPlayers - 1) Step=@(1) ShowTextEntry=@(true) />
+                </div>
                 @if (InstagibPreferences.Settings.Gamemode != Gamemode.Freezetag)
                 {
                     <div class="setting">

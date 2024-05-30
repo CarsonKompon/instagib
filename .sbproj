@@ -5,7 +5,7 @@
   "Ident": "instagib",
   "Tags": null,
   "Schema": 1,
-  "Resources": null,
+  "Resources": "/Fonts/*\n/UI/*",
   "PackageReferences": [],
   "EditorReferences": null,
   "Metadata": {

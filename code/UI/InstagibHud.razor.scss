@@ -70,6 +70,24 @@ InstagibHud
 				overflow: hidden;
 				white-space: nowrap;
 			}
+
+			.streak
+			{
+				position: absolute;
+				top: 100%;
+				width: auto;
+				background-color: black;
+				transform-origin: 50% 50%;
+				transform: rotate(-5deg) scale(1);
+				white-space: nowrap;	
+				padding: 0px 4px;
+				transition: all 0.4s ease-in;
+				
+				&:intro
+				{
+					transform: scale(0);
+				}
+			}
 		}
 	}
 

@@ -263,34 +263,9 @@ public sealed class Player : Component
 
 		if ( tr.Hit && tr.GameObject is not null && tr.GameObject.Components.TryGet<Player>( out var hitPlayer ) )
 		{
-			if ( hitPlayer.GameObject.Id == GameObject.Id ) return;
-			if ( hitPlayer.IsInvulnerable ) return;
-			hitPlayer?.Kill( Client.GameObject.Name );
-			timeSinceLastKill = 0;
-			if ( !Network.IsProxy )
+			if ( hitPlayer.GameObject.Id != GameObject.Id && !hitPlayer.IsInvulnerable )
 			{
-				Client.Kills++;
-				Sandbox.Services.Stats.Increment( "kills", 1 );
-			}
-			if ( Network.IsOwner )
-			{
-				var sound = Sound.Play( "snd-kill" );
-				sound.Pitch = 1f + (KillStreak * (1f / 12f));
-				KillStreak++;
-				InstagibPreferences.Stats.TotalKills++;
-				if ( KillStreak > 1 )
-				{
-					InstagibHud.Instance.SetKillstreak( KillStreak );
-					if ( !InstagibPreferences.Stats.Killstreaks.ContainsKey( KillStreak ) )
-					{
-						InstagibPreferences.Stats.Killstreaks.Add( KillStreak, 1 );
-					}
-					else
-					{
-						InstagibPreferences.Stats.Killstreaks[KillStreak]++;
-					}
-				}
-				InstagibPreferences.Save();
+				hitPlayer?.Kill( Client.GameObject.Id );
 			}
 		}
 
@@ -328,7 +303,7 @@ public sealed class Player : Component
 	}
 
 	[Broadcast]
-	public void Kill( string killer = null )
+	public void Kill( Guid killer = default )
 	{
 		Sound.Play( "snd-flesh-explode", Transform.Position );
 		GameManager.Instance.SpawnGibs( Transform.Position + Vector3.Up * 32f, Color );
@@ -340,11 +315,55 @@ public sealed class Player : Component
 		}
 		if ( !Network.IsProxy )
 		{
-			var killMsg = (killer is null) ? $"{Client.GameObject.Name} was killed" : $"{Client.GameObject.Name} was killed by {killer}";
-			Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
+			if ( killer == Guid.Empty )
+			{
+				var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.GameObject.Name} was killed by {killer}";
+				Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
+			}
 			Client.TimeSinceLastDeath = 0;
 			Client.Deaths++;
 			GameObject.Destroy();
+
+			var player = Scene.GetAllComponents<Player>().FirstOrDefault( x => x.GameObject.Name == killer.ToString() );
+			if ( player is not null )
+			{
+				player.OnKill();
+			}
+		}
+	}
+
+	[Broadcast]
+	public void OnKill()
+	{
+		timeSinceLastKill = 0;
+		if ( !Network.IsProxy )
+		{
+			KillStreak++;
+			if ( KillStreak > 1 )
+			{
+				Client.SetKillstreak( KillStreak );
+			}
+			Client.Kills++;
+			Sandbox.Services.Stats.Increment( "kills", 1 );
+		}
+		if ( Network.IsOwner )
+		{
+			var sound = Sound.Play( "snd-kill" );
+			sound.Pitch = 1f + ((KillStreak - 1) * (1f / 12f));
+			InstagibPreferences.Stats.TotalKills++;
+			if ( KillStreak > 1 )
+			{
+				InstagibHud.Instance.SetKillstreak( KillStreak );
+				if ( !InstagibPreferences.Stats.Killstreaks.ContainsKey( KillStreak ) )
+				{
+					InstagibPreferences.Stats.Killstreaks.Add( KillStreak, 1 );
+				}
+				else
+				{
+					InstagibPreferences.Stats.Killstreaks[KillStreak]++;
+				}
+			}
+			InstagibPreferences.Save();
 		}
 	}
 

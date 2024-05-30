@@ -54,6 +54,10 @@
 						}
 						<label class="name">@client.GameObject.Name</label>
 						<div class="score">@client.Kills</div>
+						@if (!string.IsNullOrEmpty(client.Killstreak))
+						{
+							<div class="streak">@client.Killstreak</div>
+						}
 					</div>
 				}
 			}

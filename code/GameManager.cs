@@ -33,7 +33,7 @@ public partial class GameManager : Component, Component.INetworkListener
     [Sync] public NetList<Guid> RockTheVotes { get; set; } = new();
 
     [Sync] public bool ServerLoading { get; set; } = true;
-    public bool ClientLoading { get; set; } = true;
+    public bool ClientLoading { get; set; } = false;
 
     [Group( "Prefabs" ), Property] public GameObject BeamPrefab { get; set; }
     [Group( "Prefabs" ), Property] public GameObject ReticlePrefab { get; set; }
@@ -63,6 +63,10 @@ public partial class GameManager : Component, Component.INetworkListener
             LoadingScreen.Title = "Creating Lobby";
             await Task.DelayRealtimeSeconds( 0.1f );
             GameNetworkSystem.CreateLobby();
+            for ( int i = 0; i < MathF.Min( InstagibPreferences.Settings.BotCount, InstagibPreferences.Settings.MaxPlayers - 1 ); i++ )
+            {
+                AddBot();
+            }
             StartGame();
         }
         Gamemode = InstagibPreferences.Settings.Gamemode;
