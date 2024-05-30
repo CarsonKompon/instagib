@@ -96,6 +96,43 @@ MainMenuStatsPage
                             padding-left: 24px;
                         }
                     }
+
+                    .header
+                    {
+                        width: 100%;
+
+                        .rank
+                        {
+                            flex-grow: 2;
+                        }
+
+                        .name, .value
+                        {
+                            flex-grow: 1;
+                        }
+                    }
+
+                    .entries
+                    {
+                        overflow-x: hidden;
+                        overflow-y: scroll;
+                    }
+
+                    .entry
+                    {
+                        width: 100%;
+                        flex-shrink: 0;
+
+                        .rank
+                        {
+                            flex-grow: 2;
+                        }
+
+                        .name, .value
+                        {
+                            flex-grow: 1;
+                        }
+                    }
                 
                     &:nth-child(odd)
                     {

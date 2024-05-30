@@ -31,7 +31,7 @@
                         </div>
                         <div class="stat">
                             <label class="name">Overall Accuracy:</label>
-                            <label class="value">@(InstagibPreferences.Stats.OverallAccuracy)%</label>
+                            <label class="value">@(MathF.Floor(InstagibPreferences.Stats.OverallAccuracy * 10000f) / 100f)%</label>
                         </div>
                         <div class="stat">
                             <label class="name">Total Shots Fired:</label>
@@ -106,9 +106,16 @@
                                 @foreach (var entry in board.Entries)
                                 {
                                     <div class="entry">
-                                        <label class="rank">@entry.Rank</label>
+                                        <label class="rank">##@(entry.Rank)</label>
                                         <label class="name">@entry.DisplayName</label>
-                                        <label class="value">@entry.FormattedValue</label>
+                                        @if (board == Leaderboards.FirstOrDefault())
+                                        {
+                                            <label class="value">@entry.Value.ToString("P")</label>
+                                        }
+                                        else
+                                        {
+                                            <label class="value">@entry.Value</label>
+                                        }
                                     </div>
                                 }
                             </div>
@@ -129,6 +136,7 @@
     bool myStats = true;
     string[] LeaderboardIds = new string[]
     {
+"accuracy",
 "wins_dm",
 "wins_tdm"
     };

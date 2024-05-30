@@ -1,4 +1,3 @@
-using System;
 using System.Text.Json.Serialization;
 using Sandbox;
 
@@ -61,7 +60,7 @@ public class InstagibStats
 {
     public int TotalKills { get; set; } = 0;
     public int TotalDeaths { get; set; } = 0;
-    [JsonIgnore] public float OverallAccuracy => MathF.Floor( (float)TotalKills / (float)TotalShotsFired * 10000f ) / 100f;
+    [JsonIgnore] public float OverallAccuracy => (float)TotalKills / (float)TotalShotsFired;
     public int TotalShotsFired { get; set; } = 0;
     public int TotalBounces { get; set; } = 0;
 

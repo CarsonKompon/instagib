@@ -64,6 +64,7 @@ public partial class GameManager : Component, Component.INetworkListener
             GameNetworkSystem.CreateLobby();
             StartGame();
         }
+        Gamemode = InstagibPreferences.Settings.Gamemode;
     }
 
     public void OnActive( Connection channel )
@@ -149,7 +150,11 @@ public partial class GameManager : Component, Component.INetworkListener
         {
             if ( !InstagibPreferences.Stats.TotalWins.ContainsKey( Gamemode ) )
             {
-                InstagibPreferences.Stats.TotalWins.Add( Gamemode, 0 );
+                InstagibPreferences.Stats.TotalWins.Add( Gamemode, 1 );
+            }
+            else
+            {
+                InstagibPreferences.Stats.TotalWins[Gamemode]++;
             }
             var stat = "wins_dm";
             if ( Gamemode == Gamemode.TeamDeathmatch ) stat = "wins_tdm";
@@ -157,7 +162,14 @@ public partial class GameManager : Component, Component.INetworkListener
         }
         else
         {
-            InstagibPreferences.Stats.TotalLosses[Gamemode]++;
+            if ( !InstagibPreferences.Stats.TotalLosses.ContainsKey( Gamemode ) )
+            {
+                InstagibPreferences.Stats.TotalLosses.Add( Gamemode, 1 );
+            }
+            else
+            {
+                InstagibPreferences.Stats.TotalLosses[Gamemode]++;
+            }
             var stat = "losses_dm";
             if ( Gamemode == Gamemode.TeamDeathmatch ) stat = "losses_tdm";
             Stats.Increment( stat, 1 );
@@ -206,10 +218,11 @@ public partial class GameManager : Component, Component.INetworkListener
         {
             ServerLoading = false;
 
-            Gamemode = InstagibPreferences.Settings.Gamemode;
             Timer = InstagibPreferences.Settings.TimeLimit * 60f;
             FragLimit = InstagibPreferences.Settings.FragLimit;
         }
+
+        Scene.NavMesh.SetDirty();
     }
 
     [Broadcast]
