@@ -20,11 +20,11 @@ public class Client : Component
     private static Client _local;
 
     // Public Variables
-    [Sync] public int Kills { get; set; } = 0;
-    [Sync] public int Deaths { get; set; } = 0;
+    [HostSync] public int Kills { get; set; } = 0;
+    [HostSync] public int Deaths { get; set; } = 0;
     [Sync] public int Shots { get; set; } = 0;
     [Sync] public RealTimeSince Playtime { get; set; } = 0;
-    [Sync] public bool IsBot { get; set; } = false;
+    [HostSync] public bool IsBot { get; set; } = false;
     [Sync] public string ColorString { get; set; }
     [Sync] public string Killstreak { get; set; } = "";
     [Sync] public int Team { get; set; } = 0;
@@ -130,13 +130,9 @@ public class Client : Component
         }
         else
         {
-            var nearestPlayer = Scene.GetAllComponents<Player>().Where( x =>
-            {
-                var tr = Scene.Trace.Ray( Scene.Camera.Transform.Position, x.Transform.Position + Vector3.Up * 32f ).WithoutTags( "trigger" ).Run();
-                return tr.GameObject.IsValid() && tr.GameObject.Tags.Has( "player" );
-            } ).OrderBy( x => x.Transform.Position.Distance( Scene.Camera.Transform.Position ) ).FirstOrDefault();
+            var nearestPlayer = Scene.GetAllComponents<Player>().OrderBy( x => -x.Transform.Position.Distance( Scene.Camera.Transform.Position ) ).FirstOrDefault();
             Vector3 lookAt = Vector3.Zero;
-            if ( nearestPlayer is not null && Scene.Camera.Transform.Position.Distance( nearestPlayer.Transform.Position ) < 1200 )
+            if ( nearestPlayer is not null )
             {
                 lookAt = nearestPlayer.Transform.Position;
                 TimeSinceLastLookAt = 0f;

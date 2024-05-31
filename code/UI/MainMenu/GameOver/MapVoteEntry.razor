@@ -5,7 +5,7 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root class="@(GetDidVote() ? "selected" : "")" onclick=@Click>
+<root class="@(GetDidVote() ? "selected" : "")">
     @if (MapPackage is null) return;
 
     <img src=@MapPackage.Thumb />
@@ -30,7 +30,7 @@
     Package MapPackage = null;
     int VoteCount = 1;
 
-    void Click()
+    protected override void OnClick(MousePanelEvent e)
     {
         if (MapPackage is null) return;
         if (GetDidVote()) return;

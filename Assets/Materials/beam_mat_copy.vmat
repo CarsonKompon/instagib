@@ -8,9 +8,9 @@ Layer0
 	F_SELF_ILLUM 1
 
 	//---- Ambient Occlusion ----
-	g_flAmbientOcclusionDirectDiffuse "0.726"
-	g_flAmbientOcclusionDirectSpecular "0.452"
-	TextureAmbientOcclusion "[1.000000 1.000000 1.000000 0.000000]"
+	g_flAmbientOcclusionDirectDiffuse "0.000"
+	g_flAmbientOcclusionDirectSpecular "0.000"
+	TextureAmbientOcclusion "materials/default/default_ao.tga"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
@@ -35,8 +35,8 @@ Layer0
 
 	//---- Self Illum ----
 	g_flSelfIllumAlbedoFactor "1.000"
-	g_flSelfIllumBrightness "1.000"
-	g_flSelfIllumScale "3.810"
+	g_flSelfIllumBrightness "0.000"
+	g_flSelfIllumScale "16.000"
 	g_vSelfIllumScrollSpeed "[0.000 0.000]"
 	g_vSelfIllumTint "[1.000000 1.000000 1.000000 0.000000]"
 	TextureSelfIllumMask "[1.000000 1.000000 1.000000 0.000000]"

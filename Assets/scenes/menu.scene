@@ -51,7 +51,8 @@
         {
           "__type": "Instagib.MainMenu",
           "__guid": "1d16d9ce-7d14-4aff-a608-402c5fc1ebcd",
-          "GameScene": "scenes/game.scene"
+          "GameScene": "scenes/game.scene",
+          "IsPauseMenu": false
         }
       ]
     },
@@ -97,7 +98,7 @@
   },
   "Title": "menu",
   "Description": "",
-  "LastSaved": "2024-05-30T11:42:44.5331464-04:00",
+  "LastSaved": "2024-05-31T11:40:53.5271879-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

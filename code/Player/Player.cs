@@ -275,6 +275,7 @@ public sealed class Player : Component
 
 		BroadcastBeam( tr.StartPosition + Vector3.Down * 15f, endPos );
 		timeSinceLastFire = 0;
+		timeSinceSpawned = 100f;
 	}
 
 	public void SecondaryFire()
@@ -307,7 +308,7 @@ public sealed class Player : Component
 	public void Kill( Guid killer = default )
 	{
 		var killerClient = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == killer );
-		if ( killer != Guid.Empty && GameManager.Instance.IsTeamGamemode && killerClient.Team == Client.Team )
+		if ( killerClient.IsValid() && GameManager.Instance.IsTeamGamemode && killerClient.Team == Client.Team )
 		{
 			return;
 		}
@@ -329,16 +330,23 @@ public sealed class Player : Component
 					var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.Name} was killed by {killerClient.Name}";
 					Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
 				}
-				GameManager.Instance.AddTeamPoints( killerClient.Team, 1 );
 			}
 			Client.TimeSinceLastDeath = 0;
-			Client.Deaths++;
 			GameObject.Destroy();
 
 			var player = Scene.GetAllComponents<Player>().FirstOrDefault( x => x.GameObject.Name == killer.ToString() );
 			if ( player is not null )
 			{
 				player.OnKill();
+			}
+		}
+
+		if ( Networking.IsHost )
+		{
+			Client.Deaths++;
+			if ( killerClient.IsValid() && GameManager.Instance.IsTeamGamemode )
+			{
+				GameManager.Instance.AddTeamPoints( killerClient.Team, 1 );
 			}
 		}
 	}
@@ -354,7 +362,6 @@ public sealed class Player : Component
 			{
 				Client.SetKillstreak( KillStreak );
 			}
-			Client.Kills++;
 			Sandbox.Services.Stats.Increment( "kills", 1 );
 		}
 		if ( Network.IsOwner )
@@ -375,6 +382,10 @@ public sealed class Player : Component
 				}
 			}
 			InstagibPreferences.Save();
+		}
+		if ( Networking.IsHost )
+		{
+			Client.Kills++;
 		}
 	}
 
