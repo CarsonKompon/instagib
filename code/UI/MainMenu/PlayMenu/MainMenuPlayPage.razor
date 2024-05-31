@@ -28,18 +28,6 @@
                 @foreach (var lobby in list)
                 {
                     <div class="lobby" onclick=@(() => OpenLobby(lobby))>
-                        <div class="title">
-                            @lobby.Name
-                        </div>
-
-                        <div class="meta">
-                            <div class="count">
-                                @lobby.Members / @lobby.MaxMembers
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lobby" onclick=@(() => OpenLobby(lobby))>
                         <div class="info">
                             <label class="name">@lobby.Name</label>
                             <div class="host"><i>person</i>@(new Friend((long)lobby.OwnerId).Name)</div>

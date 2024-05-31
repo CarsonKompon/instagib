@@ -273,7 +273,7 @@ public sealed class Player : Component
 		Client.Shots++;
 		CharacterController.Punch( dir.Forward * -(400f * (1f - (distance / 5000f))) );
 
-		BroadcastBeam( tr.StartPosition + tr.Direction * 15f, endPos );
+		BroadcastBeam( tr.StartPosition + Vector3.Down * 15f, endPos );
 		timeSinceLastFire = 0;
 	}
 

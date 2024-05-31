@@ -147,6 +147,7 @@ public partial class GameManager : Component, Component.INetworkListener
         }
     }
 
+    [Broadcast]
     public void StartGame()
     {
         if ( !Networking.IsHost ) return;
@@ -175,13 +176,11 @@ public partial class GameManager : Component, Component.INetworkListener
         }
         foreach ( var client in Scene.GetAllComponents<Client>() )
         {
-            client.Team = 0;
-            client.Kills = 0;
-            client.Deaths = 0;
-            client.Shots = 0;
+            client.ResetData();
         }
 
         RockTheVotes.Clear();
+        TeamScores.Clear();
         ServerLoading = true;
         InGame = true;
         Timer = 1000f;
@@ -191,6 +190,7 @@ public partial class GameManager : Component, Component.INetworkListener
     [Broadcast]
     public void EndGame()
     {
+        if ( ServerLoading ) return;
         MapVotes.Clear();
         MapVoteTimer = 20f;
 
@@ -224,6 +224,7 @@ public partial class GameManager : Component, Component.INetworkListener
             Stats.Increment( stat, 1 );
         }
         Stats.SetValue( "accuracy", InstagibPreferences.Stats.OverallAccuracy );
+
 
         if ( !Networking.IsHost ) return;
         if ( !InGame ) return;

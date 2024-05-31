@@ -198,4 +198,13 @@ public class Client : Component
         Team = team;
         ColorString = GameManager.GetTeamColor( team ).Hex;
     }
+
+    [Broadcast]
+    public void ResetData()
+    {
+        Team = 0;
+        Kills = 0;
+        Deaths = 0;
+        Shots = 0;
+    }
 }

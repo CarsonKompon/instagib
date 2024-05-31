@@ -151,28 +151,6 @@
       ]
     },
     {
-      "__guid": "cf85cb93-be46-4ae1-a8a5-356e9e1c6e6b",
-      "Flags": 0,
-      "Name": "Directional Light",
-      "Position": "0,0,200",
-      "Rotation": "-0.2459842,0.5938582,0.2931525,0.7077327",
-      "Tags": "light_directional,light",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.DirectionalLight",
-          "__guid": "1d514d01-c903-4c3f-ba47-13cdf46624ad",
-          "FogMode": "Enabled",
-          "FogStrength": 1,
-          "LightColor": "0.91373,0.98039,1,1",
-          "Shadows": true,
-          "SkyColor": "0.05882,0.07451,0.08235,1"
-        }
-      ]
-    },
-    {
       "__guid": "fb925c6b-7540-4b88-9ac0-32a1f2a21b30",
       "Flags": 0,
       "Name": "Map",
@@ -183,7 +161,7 @@
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "ee180b64-37ca-4109-b2e3-eada7603d03c",
-          "MapName": "moman.apartment",
+          "MapName": "sundayservice.ss_highrise_a1",
           "UseMapFromLaunch": true
         }
       ],
@@ -244,6 +222,42 @@
           "IsPauseMenu": true
         }
       ]
+    },
+    {
+      "__guid": "b6bfadd9-2ea7-41b5-b6bb-41362eb00ca4",
+      "Flags": 0,
+      "Name": "Music",
+      "Position": "165.0451,-64.46587,-45.81265",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SoundPointComponent",
+          "__guid": "c91ccd66-bb49-43e3-a712-28440fb2f78a",
+          "DistanceAttenuation": false,
+          "DistanceAttenuationOverride": false,
+          "Force2d": false,
+          "MaxRepeatTime": 1,
+          "MinRepeatTime": 1,
+          "Occlusion": false,
+          "OcclusionOverride": false,
+          "OcclusionRadius": 32,
+          "Pitch": 1,
+          "PlayOnStart": true,
+          "ReflectionOverride": false,
+          "Reflections": false,
+          "Repeat": true,
+          "SoundEvent": "sounds/music/song-01.sound",
+          "SoundOverride": false,
+          "StopOnNew": false,
+          "TargetMixer": {
+            "Name": "music",
+            "Id": "f596bb02-47e4-4c92-b53b-9062c7957687"
+          },
+          "Volume": 1
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -269,7 +283,7 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-05-30T12:13:14.1511765-04:00",
+  "LastSaved": "2024-05-30T17:13:28.5670701-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

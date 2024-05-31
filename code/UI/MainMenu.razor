@@ -1,6 +1,7 @@
 @using System;
 @using Sandbox;
 @using Sandbox.UI;
+@using Sandbox.Audio;
 @using Instagib.Social;
 @namespace Instagib
 @inherits PanelComponent
@@ -30,22 +31,39 @@
 		startingCamRot = Scene.Camera.Transform.Rotation;
 	}
 
-	protected override void OnFixedUpdate()
+	protected override void OnUpdate()
 	{
-		if (IsPauseMenu)
+		if (Input.EscapePressed)
 		{
-			if (Input.EscapePressed)
+			Input.EscapePressed = false;
+			if (IsPauseMenu)
 			{
-				Input.EscapePressed = false;
 				IsHidden = !IsHidden;
 			}
 		}
+	}
 
+	protected override void OnFixedUpdate()
+	{
 		Scene.Camera.Transform.Rotation = startingCamRot + new Angles(
 		MathF.Cos(Time.Now * 0.45f) * 2f,
 		MathF.Sin(Time.Now * 0.5f) * 2f,
 		0f
 		);
+
+		Mixer.Master.Volume = InstagibPreferences.Settings.VolumeMaster / 100f;
+		foreach (var mixer in Mixer.Master.GetChildren())
+		{
+			if (mixer.Name == "Music")
+			{
+				mixer.Volume = InstagibPreferences.Settings.VolumeMusic / 100f;
+			}
+
+			if (mixer.Name == "Game")
+			{
+				mixer.Volume = InstagibPreferences.Settings.VolumeSFX / 100f;
+			}
+		}
 	}
 
 	protected override int BuildHash() => System.HashCode.Combine(IsHidden);
