@@ -29,6 +29,12 @@
 	protected override void OnStart()
 	{
 		startingCamRot = Scene.Camera.Transform.Rotation;
+
+		if (!IsPauseMenu)
+		{
+			IsHidden = false;
+			GlobalMusicPlayer.Start();
+		}
 	}
 
 	protected override void OnUpdate()
@@ -64,6 +70,8 @@
 				mixer.Volume = InstagibPreferences.Settings.VolumeSFX / 100f;
 			}
 		}
+
+		GlobalMusicPlayer.CheckForNextSong();
 	}
 
 	protected override int BuildHash() => System.HashCode.Combine(IsHidden);

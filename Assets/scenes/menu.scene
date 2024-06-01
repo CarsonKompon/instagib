@@ -57,6 +57,29 @@
       ]
     },
     {
+      "__guid": "28c82a50-8585-4bfd-b8ba-2ce46d032698",
+      "Flags": 0,
+      "Name": "Music Player",
+      "Position": "149.995,149.995,-212.125",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "260aead6-90fe-4e85-b290-e1142efd4749",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ZIndex": 120
+        },
+        {
+          "__type": "Instagib.MusicPlayerPanel",
+          "__guid": "47f87161-cc65-4ed5-862b-981d3b239940"
+        }
+      ]
+    },
+    {
       "__guid": "379c7c65-3bef-43d7-b297-8e7936a2591c",
       "Flags": 0,
       "Name": "Object",
@@ -98,7 +121,7 @@
   },
   "Title": "menu",
   "Description": "",
-  "LastSaved": "2024-05-31T11:40:53.5271879-04:00",
+  "LastSaved": "2024-05-31T19:39:09.7692414-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

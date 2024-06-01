@@ -1,0 +1,48 @@
+MusicPlayerPanel
+{
+	position: absolute;
+	right: 64px;
+	bottom: 0;
+	font-family: Prompt;
+	font-size: 14px;
+
+	flex-direction: column;
+
+	.header
+	{
+		font-size: 12px;
+		align-items: center;
+		color: rgba(white, 0.8);
+		justify-content: space-between;
+
+		i
+		{
+			font-size: 16px;
+			cursor: pointer;
+
+			&:hover
+			{
+				color: white;
+			}
+		}
+	}
+
+	.progress
+	{
+		background-color: rgba(white, 0.1);
+		padding: 4px 8px;
+
+		.bar
+		{
+			position: absolute;
+			background-color: white;
+			height: 100%;
+			z-index: 1;
+		}
+	}
+
+	&.can-click
+	{
+		pointer-events: all;
+	}
+}

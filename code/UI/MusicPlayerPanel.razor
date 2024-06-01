@@ -1,0 +1,24 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+@namespace Instagib
+@inherits PanelComponent
+
+<root class="@(MainMenu.Instance.IsHidden ? "" : "can-click")">
+	<div class="header">
+		<label>Current Song:</label>
+		<div class="controls">
+			<i onclick=@(() => GlobalMusicPlayer.IsPaused = !GlobalMusicPlayer.IsPaused)>@(GlobalMusicPlayer.IsPaused ? "play_arrow" : "pause")</i>
+			<i onclick=@GlobalMusicPlayer.PlayNext>skip_next</i>
+		</div>
+	</div>
+	<div class="progress">
+		<div class="bar" style="width: @(GlobalMusicPlayer.CurrentSongProgress * 100f)%" />
+		<label class="title">@(GlobalMusicPlayer.CurrentSong?.Name ?? "N/A")</label>
+	</div>
+</root>
+
+@code
+{
+	protected override int BuildHash() => System.HashCode.Combine(MathF.Floor(Time.Now), GlobalMusicPlayer.CurrentSong?.Name, GlobalMusicPlayer.IsPaused, MainMenu.Instance?.IsHidden);
+}

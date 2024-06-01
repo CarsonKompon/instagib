@@ -102,6 +102,7 @@
 		}
 
 		var winner = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills).FirstOrDefault();
+		if (winner is null) return "N/A";
 		return winner.Name;
 	}
 
@@ -115,6 +116,7 @@
 		}
 
 		var winner = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills).FirstOrDefault();
+		if (winner is null) return "#FFFFFF";
 		return winner.ColorString;
 	}
 

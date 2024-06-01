@@ -161,7 +161,7 @@
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "ee180b64-37ca-4109-b2e3-eada7603d03c",
-          "MapName": "sundayservice.ss_highrise_a1",
+          "MapName": "roblox.glasshouses",
           "UseMapFromLaunch": true
         }
       ],
@@ -199,6 +199,29 @@
       ]
     },
     {
+      "__guid": "72bfc9f3-1d83-4e16-a6df-0a1ba66726b1",
+      "Flags": 0,
+      "Name": "Music Player",
+      "Position": "149.995,149.995,-212.125",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "5f61805e-aed1-4945-be1b-528cd45b17d5",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ZIndex": 250
+        },
+        {
+          "__type": "Instagib.MusicPlayerPanel",
+          "__guid": "665077eb-29aa-4ae5-8f20-417f409c9dd8"
+        }
+      ]
+    },
+    {
       "__guid": "91699366-7d11-4748-88f8-cd513bbe1ebe",
       "Flags": 0,
       "Name": "Pause Screen",
@@ -220,42 +243,6 @@
           "__guid": "31dd0ad8-9f3e-4e1f-bbe0-4da4b005ab89",
           "GameScene": "scenes/menu.scene",
           "IsPauseMenu": true
-        }
-      ]
-    },
-    {
-      "__guid": "b6bfadd9-2ea7-41b5-b6bb-41362eb00ca4",
-      "Flags": 0,
-      "Name": "Music",
-      "Position": "165.0451,-64.46587,-45.81265",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.SoundPointComponent",
-          "__guid": "c91ccd66-bb49-43e3-a712-28440fb2f78a",
-          "DistanceAttenuation": false,
-          "DistanceAttenuationOverride": false,
-          "Force2d": false,
-          "MaxRepeatTime": 1,
-          "MinRepeatTime": 1,
-          "Occlusion": false,
-          "OcclusionOverride": false,
-          "OcclusionRadius": 32,
-          "Pitch": 1,
-          "PlayOnStart": true,
-          "ReflectionOverride": false,
-          "Reflections": false,
-          "Repeat": true,
-          "SoundEvent": "sounds/music/song-01.sound",
-          "SoundOverride": false,
-          "StopOnNew": false,
-          "TargetMixer": {
-            "Name": "music",
-            "Id": "f596bb02-47e4-4c92-b53b-9062c7957687"
-          },
-          "Volume": 1
         }
       ]
     }
@@ -283,7 +270,7 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-05-30T17:13:28.5670701-04:00",
+  "LastSaved": "2024-05-31T19:39:45.2870597-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
