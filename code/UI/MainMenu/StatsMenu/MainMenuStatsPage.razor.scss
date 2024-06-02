@@ -34,6 +34,7 @@ MainMenuStatsPage
             {
                 width: 100%;
                 justify-content: space-evenly;
+                flex-shrink: 0;
 
                 .tab
                 {
@@ -64,6 +65,7 @@ MainMenuStatsPage
             .content
             {
                 flex-grow: 1;
+                flex-shrink: 0;
                 
                 .row
                 {
@@ -71,6 +73,11 @@ MainMenuStatsPage
                     height: 100%;
                     padding: 16px;
                     flex-direction: column;
+
+                    &.board
+                    {
+                        width: 33%;
+                    }
 
                     h1
                     {
@@ -100,27 +107,6 @@ MainMenuStatsPage
                     .header
                     {
                         width: 100%;
-
-                        .rank
-                        {
-                            flex-grow: 2;
-                        }
-
-                        .name, .value
-                        {
-                            flex-grow: 1;
-                        }
-                    }
-
-                    .entries
-                    {
-                        overflow-x: hidden;
-                        overflow-y: scroll;
-                    }
-
-                    .entry
-                    {
-                        width: 100%;
                         flex-shrink: 0;
 
                         .rank
@@ -128,9 +114,53 @@ MainMenuStatsPage
                             flex-grow: 2;
                         }
 
-                        .name, .value
+                        .name
                         {
                             flex-grow: 1;
+                        }
+
+                        .value
+                        {
+                            width: 130px;
+                            justify-content: center;
+                            align-items: center;
+                            text-align: center;
+                        }
+                    }
+
+                    .entries
+                    {
+                        flex-direction: column;
+                        overflow-x: hidden;
+                        overflow-y: scroll;
+                        flex-grow: 1;
+                        height: 80%;
+                        
+                        .entry
+                        {
+                            width: 100%;
+                            flex-shrink: 0;
+                            gap: 8px;
+
+                            .rank
+                            {
+                                flex-grow: 2;
+                            }
+
+                            .name
+                            {
+                                flex-grow: 1;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                            }
+
+                            .value
+                            {
+                                width: 130px;
+                                justify-content: center;
+                                align-items: center;
+                                text-align: center;
+                            }
                         }
                     }
                 
