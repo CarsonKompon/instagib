@@ -6,7 +6,7 @@
 
 <root class="@(Entry.Styles)">
 
-    @if(Entry.SteamId != 0 && InstagibPreferences.Chat.ShowAvatars)
+    @if (Entry.SteamId != 0 && InstagibPreferences.Chat.ShowAvatars)
     {
         <img class="avatar" src="@($"avatar:{Entry.SteamId}")" />
     }
@@ -27,11 +27,16 @@
 
         Style.FontSize = InstagibPreferences.Chat.FontSize;
 
-        if(Entry.TimeSinceBorn > 10 && !HasClass("fade"))
+        if (Entry.TimeSinceBorn > 10 && !HasClass("fade"))
         {
             AddClass("fade");
         }
-    }   
+
+        if (Entry.TimeSinceBorn > 60 * 10f)
+        {
+            Delete();
+        }
+    }
 
     protected override int BuildHash()
     {

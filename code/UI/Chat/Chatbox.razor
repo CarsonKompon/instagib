@@ -9,11 +9,7 @@
 
 <root>
 
-    <div class="chat_canvas">
-        @foreach (var entry in Entries)
-        {
-            <ChatEntry Entry=@entry />
-        }
+    <div class="chat_canvas" @ref="ChatCanvas">
     </div>
 
     <div class="input_canvas">
@@ -31,9 +27,9 @@
 
     TextEntry InputBox;
     ChatSettingsPanel Settings;
+    Panel ChatCanvas;
 
     public record Entry(long SteamId, string Name, string Message, string Styles, RealTimeSince TimeSinceBorn);
-    List<Entry> Entries = new();
 
     protected override void OnStart()
     {
@@ -52,13 +48,6 @@
         if (Input.Pressed("Chat"))
         {
             InputBox.Focus();
-        }
-
-        if (Entries.Count > 80)
-        {
-            Entries.RemoveAt(0);
-
-            StateHasChanged();
         }
 
         SetClass("open", InputBox.HasFocus);
@@ -103,7 +92,9 @@
             styles += " rainbow";
         }
 
-        Entries.Add(new Entry(steamId, name, message, styles, 0));
+        var entry = new ChatEntry();
+        entry.Entry = new Entry(steamId, name, message, styles, 0);
+        ChatCanvas.AddChild(entry);
         StateHasChanged();
     }
 
