@@ -94,10 +94,10 @@ public static class GlobalMusicPlayer
             TimeSinceLastSong -= Time.Delta;
         }
         if ( TimeSinceLastSong < 2f ) return;
-        
+
         MusicMixer ??= Mixer.FindMixerByName( "Music" );
 
-        if ( CurrentSongProgress > 1f )
+        if ( CurrentSongProgress > 1f || CurrentSong is null )
         {
             PlayNext();
         }
