@@ -443,8 +443,16 @@ public sealed class Player : Component
 			modelRenderer.Tint = Color;
 		}
 
-		var particle = GameManager.Instance.LaserDustParticle.Clone( new Transform( endPos, Rotation.LookAt( startPos - endPos ) * Rotation.From( new Angles( 0, 0, 90 ) ), Vector3.One ) );
+		var particleTransform = new Transform( endPos, Rotation.LookAt( startPos - endPos ) * Rotation.From( new Angles( 0, 0, 90 ) ), Vector3.One );
+		var particle = GameManager.Instance.LaserDustParticle.Clone( particleTransform );
 		particle.NetworkMode = NetworkMode.Never;
+
+		var decalRot = Rotation.LookAt( startPos - endPos, Vector3.Random ) * Rotation.From( new Angles( 180, 0, 0 ) );
+		var decalTransform = new Transform( endPos + decalRot.Backward * 4f, decalRot, Vector3.One );
+		var decalObj = GameManager.Instance.BeamDecal.Clone( decalTransform );
+		decalObj.NetworkMode = NetworkMode.Never;
+		var decal = decalObj.Components.Get<DecalRenderer>();
+		decal.TintColor = Color;
 
 		Sound.Play( "snd-fire", startPos );
 	}
@@ -457,8 +465,17 @@ public sealed class Player : Component
 		var transform = new Transform( position, Rotation.LookAt( normal ) * Rotation.From( new Angles( 0, 0, 90 ) ), Vector3.One );
 		var particleObj = GameManager.Instance.BounceParticle.Clone( transform );
 		particleObj.NetworkMode = NetworkMode.Never;
+
 		var particle = particleObj.Components.Get<ParticleEffect>();
 		particle.ApplyColor = true;
 		particle.Tint = Color;
+
+		var decalRot = Rotation.LookAt( normal, Vector3.Random ) * Rotation.From( new Angles( 180, 0, 0 ) );
+		var decalTransform = new Transform( position + decalRot.Backward * 4f, decalRot, Vector3.One );
+		var decalObj = GameManager.Instance.BounceDecal.Clone( decalTransform );
+		decalObj.NetworkMode = NetworkMode.Never;
+		var decal = decalObj.Components.Get<DecalRenderer>();
+		decal.TintColor = Color;
+		decal.Size = decal.Size * 3f;
 	}
 }

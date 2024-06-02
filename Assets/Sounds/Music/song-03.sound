@@ -7,11 +7,11 @@
   "Sounds": [
     "sounds/music/song-03.vsnd"
   ],
-  "Occlusion": true,
-  "AirAbsorption": true,
-  "Transmission": true,
+  "Occlusion": false,
+  "AirAbsorption": false,
+  "Transmission": false,
   "OcclusionRadius": 64,
-  "DistanceAttenuation": true,
+  "DistanceAttenuation": false,
   "__references": [],
   "__version": 0
 }

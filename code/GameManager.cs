@@ -67,6 +67,9 @@ public partial class GameManager : Component, Component.INetworkListener
     [Group( "Particles" ), Property] public GameObject LaserDustParticle { get; set; }
     [Group( "Particles" ), Property] public GameObject BounceParticle { get; set; }
 
+    [Group( "Decals" ), Property] public GameObject BeamDecal { get; set; }
+    [Group( "Decals" ), Property] public GameObject BounceDecal { get; set; }
+
     [Group( "Gibs" ), Property] public List<GameObject> CitizenGibs { get; set; }
 
     protected override void OnAwake()
@@ -243,7 +246,13 @@ public partial class GameManager : Component, Component.INetworkListener
     {
         InstagibPreferences.Save();
 
-        Log.Info( "CHANGING MAP (LOADING!!)" );
+        var decals = Scene.GetAllComponents<DecalRenderer>();
+        foreach ( var decal in decals )
+        {
+            if ( !decal.GameObject.Tags.Has( "game-decal" ) ) continue;
+            decal.GameObject.Destroy();
+        }
+
         ClientLoading = true;
 
         if ( MapInstance.MapName != map )

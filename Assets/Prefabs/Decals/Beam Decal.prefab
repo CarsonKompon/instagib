@@ -1,0 +1,31 @@
+{
+  "RootObject": {
+    "__guid": "0dc9be59-dba2-4e1c-86c7-e167f22a8282",
+    "Flags": 0,
+    "Name": "beam decal",
+    "Tags": "game-decal",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.DecalRenderer",
+        "__guid": "9aeb1f8f-c1cb-4bbf-8a09-66a03f367c6b",
+        "CutoffAngle": 60,
+        "CutoffAngleSoftness": 5,
+        "Material": "materials/decals/foam_projection.vmat",
+        "Mod2XBlending": false,
+        "Size": "24,24,24",
+        "TintColor": "1,1,1,1",
+        "TriPlanar": false
+      }
+    ],
+    "Children": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

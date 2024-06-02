@@ -13,9 +13,17 @@
         {
           "__type": "Instagib.GameManager",
           "__guid": "2a51772c-5045-408e-a7c3-68db4a52a95e",
+          "BeamDecal": {
+            "_type": "gameobject",
+            "prefab": "prefabs/decals/beam decal.prefab"
+          },
           "BeamPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/beam.prefab"
+          },
+          "BounceDecal": {
+            "_type": "gameobject",
+            "prefab": "prefabs/decals/beam decal.prefab"
           },
           "BounceParticle": {
             "_type": "gameobject",
@@ -270,7 +278,7 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-05-31T19:39:45.2870597-04:00",
+  "LastSaved": "2024-06-02T12:00:13.3362103-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
