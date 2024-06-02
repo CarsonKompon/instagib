@@ -69,18 +69,18 @@ public class BotController : Component
 
             Agent.MoveTo( targetPosition );
             timeSinceLastNavUpdate = 0;
-
-            Player.BuildWishVelocity( Agent.WishVelocity.Normal, false );
-            Player.Direction = Player.Direction.LerpTo( Rotation.LookAt( Agent.WishVelocity.WithZ( Random.Shared.Float( -90f, 80 ) ), Vector3.Up ), 10 * Time.Delta );
-
-            // var players = Scene.GetAllComponents<Player>();
-            // var nearest = players.OrderBy( x => x.Transform.Position.DistanceSquared( Transform.Position ) ).FirstOrDefault();
-            // if ( nearest is not null )
-            // {
-            //     Player.Direction = Rotation.Slerp( Player.Direction, Rotation.LookAt( (nearest.Transform.Position + Vector3.Random * 2f) - Transform.Position ), 10 * Time.Delta );
-            // }
-
-            Player.LookAngles = Player.Direction;
         }
+
+        Player.BuildWishVelocity( Agent.WishVelocity.Normal, false );
+        Player.Direction = Player.Direction.LerpTo( Rotation.LookAt( Agent.WishVelocity.WithZ( Random.Shared.Float( -90f, 80 ) ), Vector3.Up ), 10 * Time.Delta );
+
+        // var players = Scene.GetAllComponents<Player>();
+        // var nearest = players.OrderBy( x => x.Transform.Position.DistanceSquared( Transform.Position ) ).FirstOrDefault();
+        // if ( nearest is not null )
+        // {
+        //     Player.Direction = Rotation.Slerp( Player.Direction, Rotation.LookAt( (nearest.Transform.Position + Vector3.Random * 2f) - Transform.Position ), 10 * Time.Delta );
+        // }
+
+        Player.LookAngles = Player.Direction;
     }
 }
