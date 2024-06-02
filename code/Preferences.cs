@@ -86,6 +86,21 @@ public class InstagibSettings
     public float ZoomedFieldOfView { get; set; } = 40f;
     public float Sensitivity { get; set; } = 8f;
     public float ZoomedSensitivity { get; set; } = 0.4f;
+
+    public bool EnableCameraTilt { get; set; } = true;
+    public bool EnableDecals
+    {
+        get => _enableDecals;
+        set
+        {
+            _enableDecals = value;
+            if ( !value )
+            {
+                GameManager.Instance?.ClearDecals();
+            }
+        }
+    }
+    [Hide, JsonIgnore] private bool _enableDecals = true;
 }
 
 public class ChatSettings

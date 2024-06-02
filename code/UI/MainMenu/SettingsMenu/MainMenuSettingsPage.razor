@@ -45,6 +45,14 @@
                     <label class="name">Zoomed Sensitivity Multiplier:</label>
                     <SliderControl Value:bind="@InstagibPreferences.Settings.ZoomedSensitivity" Min=@(0) Max=@(1f) Step=@(0.01f) ShowTextEntry=@(true) />
                 </div>
+                <div class="setting stretch">
+                    <label class="name">Camera Tilt:</label>
+                    <SwitchControl Value:bind="@InstagibPreferences.Settings.EnableCameraTilt" />
+                </div>
+                <div class="setting stretch">
+                    <label class="name">Beam Decals:</label>
+                    <SwitchControl Value:bind="@InstagibPreferences.Settings.EnableDecals" />
+                </div>
             </div>
             <div class="row">
                 <h1>Input</h1>

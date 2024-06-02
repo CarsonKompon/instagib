@@ -246,12 +246,7 @@ public partial class GameManager : Component, Component.INetworkListener
     {
         InstagibPreferences.Save();
 
-        var decals = Scene.GetAllComponents<DecalRenderer>();
-        foreach ( var decal in decals )
-        {
-            if ( !decal.GameObject.Tags.Has( "game-decal" ) ) continue;
-            decal.GameObject.Destroy();
-        }
+        ClearDecals();
 
         ClientLoading = true;
 
@@ -413,6 +408,16 @@ public partial class GameManager : Component, Component.INetworkListener
             gib.NetworkMode = NetworkMode.Never;
             var renderer = gib.Components.GetInChildrenOrSelf<ModelRenderer>();
             renderer.Tint = color;
+        }
+    }
+
+    public void ClearDecals()
+    {
+        var decals = Scene.GetAllComponents<DecalRenderer>();
+        foreach ( var decal in decals )
+        {
+            if ( !decal.GameObject.Tags.Has( "game-decal" ) ) continue;
+            decal.GameObject.Destroy();
         }
     }
 
