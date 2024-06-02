@@ -320,16 +320,17 @@ public sealed class Player : Component
 			InstagibPreferences.Stats.TotalDeaths++;
 			InstagibPreferences.Save();
 			Sandbox.Services.Stats.Increment( "deaths", 1 );
+			if ( killerClient is not null )
+			{
+				KillFeedPanel.Instance?.AddDeath( killerClient.Name );
+			}
 		}
 		if ( !Network.IsProxy )
 		{
-			if ( killer != Guid.Empty )
+			if ( killerClient is not null )
 			{
-				if ( killerClient is not null )
-				{
-					var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.Name} was killed by {killerClient.Name}";
-					Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
-				}
+				var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.Name} was killed by {killerClient.Name}";
+				Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
 			}
 			Client.TimeSinceLastDeath = 0;
 			GameObject.Destroy();
@@ -337,7 +338,7 @@ public sealed class Player : Component
 			var player = Scene.GetAllComponents<Player>().FirstOrDefault( x => x.GameObject.Name == killer.ToString() );
 			if ( player is not null )
 			{
-				player.OnKill();
+				player.OnKill( Client.GameObject.Id );
 			}
 		}
 
@@ -352,7 +353,7 @@ public sealed class Player : Component
 	}
 
 	[Broadcast]
-	public void OnKill()
+	public void OnKill( Guid killed )
 	{
 		timeSinceLastKill = 0;
 		if ( !Network.IsProxy )
@@ -366,6 +367,11 @@ public sealed class Player : Component
 		}
 		if ( Network.IsOwner )
 		{
+			var killedClient = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == killed );
+			if ( killedClient is not null )
+			{
+				KillFeedPanel.Instance?.AddKill( killedClient.Name );
+			}
 			var sound = Sound.Play( "snd-kill" );
 			sound.Pitch = 1f + ((KillStreak - 1) * (1f / 12f));
 			InstagibPreferences.Stats.TotalKills++;

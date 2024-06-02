@@ -1,0 +1,80 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+
+@namespace Instagib
+@inherits Panel
+@attribute [StyleSheet]
+
+<root>
+</root>
+
+@code
+{
+    public static KillFeedPanel Instance { get; private set; }
+
+    protected override void OnAfterTreeRender(bool firstTime)
+    {
+        base.OnAfterTreeRender(firstTime);
+
+        Instance = this;
+    }
+
+    public void AddKill(string victim)
+    {
+        var entry = new KillFeedEntry();
+        entry.Text = $"You {Adverbed()} {victim}!";
+        AddChild(entry);
+    }
+
+    public void AddDeath(string killer)
+    {
+        var entry = new KillFeedEntry();
+        entry.Text = $"{killer} {Adverbed()} you!";
+        AddChild(entry);
+    }
+
+    string Adverbed()
+    {
+        string[] prefixes = new string[]
+        {
+"instantly",
+"violently",
+"carefully",
+"vicariously",
+"finally",
+"really",
+"quickly",
+"actually",
+"easily",
+"effortlessly",
+"seriously",
+        };
+
+        string[] words = new string[]
+        {
+"destroyed",
+"obliterated",
+"annihilated",
+"murdered",
+"gib'd",
+"gibbed",
+"gibbled",
+"gibletized",
+"gib'd",
+"gibbed",
+"gibbled",
+"gibletized",
+"ip banned",
+"deleted",
+"lasered",
+"one tapped",
+"clicked on",
+        };
+
+        return $"{prefixes[Random.Shared.Int(0, prefixes.Length - 1)]} {words[Random.Shared.Int(0, words.Length - 1)]}";
+    }
+
+
+    protected override int BuildHash() => System.HashCode.Combine("");
+}

@@ -1,0 +1,26 @@
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
+
+@namespace Instagib
+@inherits Panel
+@attribute [StyleSheet]
+
+<root>
+    @Text
+</root>
+
+@code
+{
+    TimeSince timeSinceCreated = 0;
+
+    public string Text = "Nothing happened!";
+    public override void Tick()
+    {
+        if (timeSinceCreated > 4f)
+        {
+            Delete();
+        }
+    }
+    protected override int BuildHash() => System.HashCode.Combine("");
+}
