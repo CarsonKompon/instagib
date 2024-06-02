@@ -64,8 +64,20 @@ InfoPanel
         justify-content: center;
         align-items: center;
         background-color: rgba(black, 0.4);
-        gap: 32px;
+        gap: 16px;
         flex-direction: column;
+
+        > h1
+        {
+            font-weight: 300;
+        }
+
+        > .extra
+        {
+            font-size: 18px;
+            font-weight: 300;
+            font-style: italic;
+        }
     }
 
     .controls

@@ -6,8 +6,9 @@
 @inherits Panel
 @attribute [StyleSheet]
 
-<root class="@(IsVisible ? "visible" : "")">
+<root class="@(IsShown ? "visible" : "")">
     <div class="controls-panel">
+        <h1>How to Play</h1>
         <div class="controls">
             <div class="main-keys">
                 <div class="wasd">
@@ -56,11 +57,12 @@
                 <h1>Voice</h1>
             </div>
         </div>
+        <div class="extra">@("You can also type \"!rtv\" in the Chat at any time to Rock the Vote!")</div>
     </div>
 </root>
 
 @code
 {
-    bool IsVisible => Input.Down("Score") || Input.Down("Info");
-    protected override int BuildHash() => System.HashCode.Combine(IsVisible);
+    bool IsShown => Input.Down("Score") || Input.Down("Info");
+    protected override int BuildHash() => System.HashCode.Combine(IsShown);
 }
