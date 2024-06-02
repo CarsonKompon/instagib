@@ -61,6 +61,8 @@ public partial class GameManager : Component, Component.INetworkListener
         }
     }
 
+    public float KillPlane { get; set; } = -10000f;
+
     [Group( "Prefabs" ), Property] public GameObject BeamPrefab { get; set; }
     [Group( "Prefabs" ), Property] public GameObject ReticlePrefab { get; set; }
 
@@ -322,6 +324,8 @@ public partial class GameManager : Component, Component.INetworkListener
         }
 
         Scene.NavMesh.Generate( Scene.PhysicsWorld );
+
+        KillPlane = Scene.PhysicsWorld.Body.GetBounds().Mins.z - 100f;
     }
 
     [Broadcast]

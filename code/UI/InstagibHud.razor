@@ -145,6 +145,7 @@
 	string GetGameTimer()
 	{
 		var time = MathF.Floor(GameManager.Instance.Timer);
+		if (time <= 0) return "00:00";
 		var minutes = MathF.Floor(time / 60);
 		var seconds = time % 60;
 

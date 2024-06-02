@@ -129,7 +129,7 @@ public sealed class Player : Component
 		}
 		BodyRenderer.RenderType = Network.IsOwner ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 
-		if ( Transform.Position.z < -1000 )
+		if ( Transform.Position.z < GameManager.Instance.KillPlane )
 		{
 			Kill();
 		}
