@@ -18,7 +18,8 @@ public class BotController : Component
 
     BotState State = BotState.Attacking;
     TimeSince timeSinceLastNavUpdate = 100;
-    TimeSince timesinceLastStateChange = 0;
+    TimeSince timeSinceLastStateChange = 0;
+    TimeSince timeSinceLastInput = 0;
     Vector3 targetPosition = Vector3.Zero;
 
     protected override void OnStart()
@@ -36,14 +37,14 @@ public class BotController : Component
         if ( Random.Shared.Float() < 0.0025f ) Player?.PrimaryFire();
         if ( Random.Shared.Float() < 0.0025f ) Player?.SecondaryFire();
 
-        // if ( timesinceLastStateChange > 1f )
-        // {
-        //     if ( Random.Shared.Float() < 0.2f )
-        //     {
-        //         State = (BotState)(((int)State + 1) % Enum.GetNames( typeof( BotState ) ).Length);
-        //     }
-        //     timesinceLastStateChange = 0f;
-        // }
+        if ( timeSinceLastStateChange > 1f )
+        {
+            if ( Random.Shared.Float() < 0.2f )
+            {
+                State = (BotState)(((int)State + 1) % Enum.GetNames( typeof( BotState ) ).Length);
+            }
+            timeSinceLastStateChange = 0f;
+        }
     }
 
     protected override void OnFixedUpdate()
@@ -71,15 +72,19 @@ public class BotController : Component
             timeSinceLastNavUpdate = 0;
         }
 
-        Player.BuildWishVelocity( Agent.WishVelocity.Normal, false );
+        if ( timeSinceLastInput > 0.3f )
+        {
+            Player.BuildWishVelocity( Agent.WishVelocity.Normal, false );
+            timeSinceLastInput = 0f;
+        }
         Player.Direction = Player.Direction.LerpTo( Rotation.LookAt( Agent.WishVelocity.WithZ( Random.Shared.Float( -90f, 80 ) ), Vector3.Up ), 10 * Time.Delta );
 
-        // var players = Scene.GetAllComponents<Player>();
-        // var nearest = players.OrderBy( x => x.Transform.Position.DistanceSquared( Transform.Position ) ).FirstOrDefault();
-        // if ( nearest is not null )
-        // {
-        //     Player.Direction = Rotation.Slerp( Player.Direction, Rotation.LookAt( (nearest.Transform.Position + Vector3.Random * 2f) - Transform.Position ), 10 * Time.Delta );
-        // }
+        var players = Scene.GetAllComponents<Player>().Where( x => x != Player );
+        var nearest = players.OrderBy( x => x.Transform.Position.DistanceSquared( Transform.Position ) ).FirstOrDefault();
+        if ( nearest is not null )
+        {
+            Player.Direction = Rotation.Slerp( Player.Direction, Rotation.LookAt( (nearest.Transform.Position + Vector3.Random * 2f) - Transform.Position ), 10 * Time.Delta );
+        }
 
         Player.LookAngles = Player.Direction;
     }
