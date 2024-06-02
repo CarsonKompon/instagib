@@ -78,7 +78,7 @@
           "GroupName": "Other"
         },
         {
-          "Name": "Score",
+          "Name": "Info",
           "KeyboardCode": "tab",
           "GamepadCode": "SwitchLeftMenu",
           "GroupName": "Other"

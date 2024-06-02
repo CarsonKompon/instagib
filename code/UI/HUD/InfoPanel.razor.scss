@@ -1,0 +1,180 @@
+InfoPanel
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    opacity: 0;
+
+    justify-content: center;
+    align-items: center;
+
+    backdrop-filter: blur(4px);
+
+    
+    h1
+    {
+        font-size: 42px;
+        font-weight: 100;
+        font-style: italic;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .key
+    {
+        width: 72px;
+        height: 72px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 2px solid white;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 42px;
+        text-transform: uppercase;
+    }
+
+    .long-key
+    {
+        width: 256px;
+        height: 72px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border: 2px solid white;
+        border-radius: 8px;
+        font-weight: 800;
+        font-size: 42px;
+        text-transform: uppercase;
+
+        &.flex
+        {
+            width: 100%;
+        }
+    }
+
+    .controls-panel
+    {
+        width: 100%;
+        padding: 32px;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(black, 0.4);
+        gap: 32px;
+        flex-direction: column;
+    }
+
+    .controls
+    {
+        justify-content: center;
+        align-items: center;
+        gap: 64px;
+
+        .main-keys
+        {
+            flex-direction: row;
+            gap: 32px;
+            align-items: flex-end;
+        }
+
+        .wasd
+        {
+            flex-direction: column;
+            gap: 8px;
+
+            > .row
+            {
+                gap: 8px;
+            }
+
+            .key, .space
+            {
+                width: 92px;
+                height: 92px;
+            }
+        }
+
+        .other
+        {
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mouse
+        {
+            flex-direction: column;
+
+            .mouse-img
+            {
+                width: 320px;
+                height: 320px;
+            }
+
+            > div
+            {
+                label
+                {
+                    bottom: 8px;
+                }
+            }
+
+            .fire
+            {
+                position: absolute;
+
+                > div
+                {
+                    position: absolute;
+                    right: -18px;
+                    bottom: -18px;
+                    width: 64px;
+                    height: 2px;
+                    transform: rotate(45deg);
+                    background-color: white;
+                }
+            }
+
+            .bounce
+            {
+                position: absolute;
+                right: -142px;
+
+                > div
+                {
+                    position: absolute;
+                    left: -12px;
+                    bottom: -18px;
+                    width: 64px;
+                    height: 2px;
+                    transform: rotate(-45deg);
+                    background-color: white;
+                }
+            }
+        }
+    }
+
+    .other-controls
+    {
+        gap: 32px;
+        justify-content: center;
+        align-items: center;
+
+        .control
+        {
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+    }
+
+    &.visible
+    {
+        opacity: 1;
+    }
+
+}
