@@ -119,6 +119,7 @@ InfoPanel
 
         .mouse
         {
+            position: relative;
             flex-direction: column;
 
             .mouse-img
@@ -138,6 +139,8 @@ InfoPanel
             .fire
             {
                 position: absolute;
+                top: 0px;
+                left: 0px;
 
                 > div
                 {
@@ -154,6 +157,7 @@ InfoPanel
             .bounce
             {
                 position: absolute;
+                top: 0px;
                 right: -142px;
 
                 > div

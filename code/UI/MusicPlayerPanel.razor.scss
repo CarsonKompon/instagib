@@ -29,12 +29,15 @@ MusicPlayerPanel
 
 	.progress
 	{
+		position: relative;
 		background-color: rgba(white, 0.1);
 		padding: 4px 8px;
 
 		.bar
 		{
 			position: absolute;
+			top: 0px;
+			left: 0px;
 			background-color: white;
 			height: 100%;
 			z-index: 1;

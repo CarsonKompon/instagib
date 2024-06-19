@@ -5,7 +5,7 @@ using Sandbox.Citizen;
 
 namespace Instagib;
 
-[Category( "Instagib - Player" )]
+[Category("Instagib - Player")]
 public sealed class Player : Component
 {
 	// Static Variables
@@ -13,9 +13,9 @@ public sealed class Player : Component
 	{
 		get
 		{
-			if ( !_local.IsValid() )
+			if (!_local.IsValid())
 			{
-				_local = Game.ActiveScene.GetAllComponents<Player>().FirstOrDefault( x => x.Network.IsOwner );
+				_local = Game.ActiveScene.GetAllComponents<Player>().FirstOrDefault(x => x.Network.IsOwner);
 			}
 			return _local;
 		}
@@ -27,19 +27,19 @@ public sealed class Player : Component
 	[RequireComponent] CitizenAnimationHelper AnimationHelper { get; set; }
 	SkinnedModelRenderer BodyRenderer { get; set; }
 
-	[Group( "References" ), Property] GameObject Body { get; set; }
-	[Group( "References" ), Property] GameObject Head { get; set; }
-	[Group( "References" ), Property] GameObject Shadow { get; set; }
+	[Group("References"), Property] GameObject Body { get; set; }
+	[Group("References"), Property] GameObject Head { get; set; }
+	[Group("References"), Property] GameObject Shadow { get; set; }
 
-	[Group( "Movement" ), Property] Vector3 Gravity { get; set; } = new Vector3( 0, 0, -800 );
-	[Group( "Movement" ), Property] float GroundControl { get; set; } = 8.0f;
-	[Group( "Movement" ), Property] float AirControl { get; set; } = 0.8f;
-	[Group( "Movement" ), Property] float Speed { get; set; } = 590f;
-	[Group( "Movement" ), Property] float JumpForce { get; set; } = 400f;
+	[Group("Movement"), Property] Vector3 Gravity { get; set; } = new Vector3(0, 0, -800);
+	[Group("Movement"), Property] float GroundControl { get; set; } = 8.0f;
+	[Group("Movement"), Property] float AirControl { get; set; } = 0.8f;
+	[Group("Movement"), Property] float Speed { get; set; } = 590f;
+	[Group("Movement"), Property] float JumpForce { get; set; } = 400f;
 
-	[Group( "Combat" ), Property] float BounceRange { get; set; } = 150f;
-	[Group( "Combat" ), Property] float BounceTimer { get; set; } = 0.8f;
-	[Group( "Combat" ), Property] float DashTimer { get; set; } = 1f;
+	[Group("Combat"), Property] float BounceRange { get; set; } = 150f;
+	[Group("Combat"), Property] float BounceTimer { get; set; } = 0.8f;
+	[Group("Combat"), Property] float DashTimer { get; set; } = 1f;
 
 	// Public Member Variables
 	public bool CanDash => timeSinceLastDash >= DashTimer;
@@ -49,10 +49,10 @@ public sealed class Player : Component
 	[Sync] public Angles LookAngles { get; set; } = Angles.Zero;
 	[Sync] public Vector3 WishVelocity { get; set; } = Vector3.Zero;
 	public Angles Direction = Angles.Zero;
-	public Client Client => Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id.ToString() == GameObject.Name );
+	public Client Client => Scene.GetAllComponents<Client>().FirstOrDefault(x => x.GameObject.Id.ToString() == GameObject.Name);
 	[Sync] public int KillStreak { get; set; } = 0;
 	[Sync] public string ColorString { get; set; }
-	Color Color => Color.Parse( ColorString ) ?? Color.White;
+	Color Color => Color.Parse(ColorString) ?? Color.White;
 
 	// Private Member Variables
 	private Angles visualDirection = Angles.Zero;
@@ -69,18 +69,18 @@ public sealed class Player : Component
 		BodyRenderer = Body.Components.Get<SkinnedModelRenderer>();
 	}
 
-	public void Init( Client client )
+	public void Init(Client client)
 	{
 		ColorString = client.ColorString;
 	}
 
 	protected override void OnStart()
 	{
-		if ( Network.IsOwner )
+		if (Network.IsOwner)
 		{
 			var indicatorObj = GameManager.Instance.ReticlePrefab.Clone();
 			indicatorObj.NetworkMode = NetworkMode.Never;
-			if ( indicatorObj.Components.TryGet<SpriteRenderer>( out bounceIndicator ) )
+			if (indicatorObj.Components.TryGet<SpriteRenderer>(out bounceIndicator))
 			{
 				bounceIndicator.Enabled = false;
 			}
@@ -91,7 +91,7 @@ public sealed class Player : Component
 
 	protected override void OnDestroy()
 	{
-		if ( Network.IsOwner && bounceIndicator.IsValid() )
+		if (Network.IsOwner && bounceIndicator.IsValid())
 		{
 			bounceIndicator.GameObject.Destroy();
 		}
@@ -99,7 +99,7 @@ public sealed class Player : Component
 
 	protected override void OnUpdate()
 	{
-		if ( Network.IsOwner )
+		if (Network.IsOwner)
 		{
 			UpdateCamera();
 		}
@@ -114,14 +114,14 @@ public sealed class Player : Component
 		RotateBody();
 		UpdateShadow();
 
-		if ( !Network.IsProxy && timeSinceLastKill > 5f )
+		if (!Network.IsProxy && timeSinceLastKill > 5f)
 		{
 			KillStreak = 0;
 			timeSinceLastKill = 0;
 		}
-		if ( IsInvulnerable )
+		if (IsInvulnerable)
 		{
-			BodyRenderer.Tint = Color.WithAlpha( 0.2f );
+			BodyRenderer.Tint = Color.WithAlpha(0.2f);
 		}
 		else
 		{
@@ -129,18 +129,18 @@ public sealed class Player : Component
 		}
 		BodyRenderer.RenderType = Network.IsOwner ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 
-		if ( Transform.Position.z < GameManager.Instance.KillPlane )
+		if (Transform.Position.z < GameManager.Instance.KillPlane)
 		{
 			Kill();
 		}
 	}
 
-	public void BuildWishVelocity( Vector2 input, bool respectDirection = true )
+	public void BuildWishVelocity(Vector2 input, bool respectDirection = true)
 	{
 		WishVelocity = 0f;
 
 		var _rot = Direction.ToRotation();
-		if ( respectDirection )
+		if (respectDirection)
 		{
 			WishVelocity += _rot.Forward * input.x;
 			WishVelocity += _rot.Left * input.y;
@@ -149,35 +149,35 @@ public sealed class Player : Component
 		{
 			WishVelocity = input;
 		}
-		WishVelocity = WishVelocity.WithZ( 0 );
+		WishVelocity = WishVelocity.WithZ(0);
 
-		if ( !WishVelocity.IsNearZeroLength ) WishVelocity = WishVelocity.Normal;
+		if (!WishVelocity.IsNearZeroLength) WishVelocity = WishVelocity.Normal;
 
 		WishVelocity *= Speed;
 	}
 
 	void Move()
 	{
-		if ( CharacterController.IsOnGround )
+		if (CharacterController.IsOnGround)
 		{
 			// Apply friction/acceleration
-			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
-			CharacterController.Accelerate( WishVelocity );
-			CharacterController.ApplyFriction( GroundControl );
+			CharacterController.Velocity = CharacterController.Velocity.WithZ(0);
+			CharacterController.Accelerate(WishVelocity);
+			CharacterController.ApplyFriction(GroundControl);
 		}
 		else
 		{
 			// Apply air control/gravity
 			CharacterController.Velocity += Gravity * Time.Delta * 0.5f;
-			CharacterController.Accelerate( WishVelocity );
-			CharacterController.ApplyFriction( AirControl );
+			CharacterController.Accelerate(WishVelocity);
+			CharacterController.ApplyFriction(AirControl);
 		}
 
 		CharacterController.Move();
 
-		if ( CharacterController.IsOnGround )
+		if (CharacterController.IsOnGround)
 		{
-			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
+			CharacterController.Velocity = CharacterController.Velocity.WithZ(0);
 		}
 		else
 		{
@@ -187,56 +187,56 @@ public sealed class Player : Component
 
 	void UpdateCamera()
 	{
-		var _input = Input.AnalogLook * (InstagibPreferences.Settings.Sensitivity * (Input.Down( "Zoom" ) ? InstagibPreferences.Settings.ZoomedSensitivity : 1f));
+		var _input = Input.AnalogLook * (InstagibPreferences.Settings.Sensitivity * (Input.Down("Zoom") ? InstagibPreferences.Settings.ZoomedSensitivity : 1f));
 		Direction.pitch += _input.pitch / 20f;
 		Direction.yaw += _input.yaw / 20f;
 		Direction.roll = 0f;
-		Direction.pitch = Direction.pitch.Clamp( -89.9f, 89.9f );
+		Direction.pitch = Direction.pitch.Clamp(-89.9f, 89.9f);
 		LookAngles = Direction;
 
 		visualDirection = Direction;
 		float _shake = 0;
-		if ( !Input.Down( "Zoom" ) )
+		if (!Input.Down("Zoom"))
 		{
 			_shake = CharacterController.Velocity.Length / Speed;
-			visualDirection.pitch += MathF.Sin( Time.Now * 10f ) * _shake;
-			visualDirection.yaw += MathF.Sin( Time.Now * 9.5f ) * _shake;
+			visualDirection.pitch += MathF.Sin(Time.Now * 10f) * _shake;
+			visualDirection.yaw += MathF.Sin(Time.Now * 9.5f) * _shake;
 		}
 
-		if ( InstagibPreferences.Settings.EnableCameraTilt )
+		if (InstagibPreferences.Settings.EnableCameraTilt)
 		{
-			headRoll = headRoll.LerpTo( (Input.AnalogMove.y - _input.yaw / 8f) * -1f, 1f - MathF.Pow( 0.5f, Time.Delta * 10f ) );
+			headRoll = headRoll.LerpTo((Input.AnalogMove.y - _input.yaw / 8f) * -1f, 1f - MathF.Pow(0.5f, Time.Delta * 10f));
 		}
 		else
 		{
-			headRoll = headRoll.LerpTo( 0f, 1f - MathF.Pow( 0.5f, Time.Delta * 10f ) );
+			headRoll = headRoll.LerpTo(0f, 1f - MathF.Pow(0.5f, Time.Delta * 10f));
 		}
 		visualDirection.roll = headRoll;
 
-		if ( Scene.Camera is not null )
+		if (Scene.Camera is not null)
 		{
 			Scene.Camera.Transform.Position = Head.Transform.Position;
 			Scene.Camera.Transform.Rotation = visualDirection;
-			Scene.Camera.FieldOfView = Scene.Camera.FieldOfView.LerpTo( Input.Down( "Zoom" ) ? InstagibPreferences.Settings.ZoomedFieldOfView : InstagibPreferences.Settings.FieldOfView, 10 * Time.Delta );
+			Scene.Camera.FieldOfView = Scene.Camera.FieldOfView.LerpTo(Input.Down("Zoom") ? InstagibPreferences.Settings.ZoomedFieldOfView : InstagibPreferences.Settings.FieldOfView, 10 * Time.Delta);
 		}
 	}
 
 	void UpdateBounceReticle()
 	{
-		if ( Network.IsProxy ) return;
+		if (Network.IsProxy) return;
 
 		var dir = (Client?.IsBot ?? true) ? Direction : visualDirection;
-		var tr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position + dir.Forward * BounceRange )
-			.IgnoreGameObjectHierarchy( GameObject )
-			.WithoutTags( "trigger" )
+		var tr = Scene.Trace.Ray(Head.Transform.Position, Head.Transform.Position + dir.Forward * BounceRange)
+			.IgnoreGameObjectHierarchy(GameObject)
+			.WithoutTags("trigger")
 			.Run();
 
 		CanBounce = tr.Hit;
 
-		if ( Network.IsOwner && bounceIndicator.IsValid() )
+		if (Network.IsOwner && bounceIndicator.IsValid())
 		{
 			bounceIndicator.Enabled = tr.Hit;
-			if ( tr.Hit )
+			if (tr.Hit)
 			{
 				bounceIndicator.Color = Color;
 				bounceIndicator.Transform.Position = tr.HitPosition - visualDirection.Forward * 20f;
@@ -246,65 +246,65 @@ public sealed class Player : Component
 
 	public void Jump()
 	{
-		if ( !CharacterController.IsOnGround ) return;
+		if (!CharacterController.IsOnGround) return;
 
-		CharacterController.Punch( Vector3.Up * JumpForce );
+		CharacterController.Punch(Vector3.Up * JumpForce);
 		BroadcastJump();
 	}
 
 	public void PrimaryFire()
 	{
-		if ( !CanFire ) return;
+		if (!CanFire) return;
 
 		var dir = (Client?.IsBot ?? true) ? Direction : visualDirection;
-		var tr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position + dir.Forward * 5000f )
-			.IgnoreGameObjectHierarchy( GameObject )
-			.WithoutTags( "trigger" )
+		var tr = Scene.Trace.Ray(Head.Transform.Position, Head.Transform.Position + dir.Forward * 5000f)
+			.IgnoreGameObjectHierarchy(GameObject)
+			.WithoutTags("trigger")
 			.Run();
 		var endPos = tr.Hit ? tr.HitPosition : tr.EndPosition;
-		var distance = tr.StartPosition.Distance( endPos );
+		var distance = tr.StartPosition.Distance(endPos);
 
-		if ( Network.IsOwner )
+		if (Network.IsOwner)
 		{
 			InstagibPreferences.Stats.TotalShotsFired++;
 		}
 
-		if ( tr.Hit && tr.GameObject is not null && tr.GameObject.Components.TryGet<Player>( out var hitPlayer ) )
+		if (tr.Hit && tr.GameObject is not null && tr.GameObject.Components.TryGet<Player>(out var hitPlayer))
 		{
-			if ( hitPlayer.GameObject.Id != GameObject.Id && !hitPlayer.IsInvulnerable )
+			if (hitPlayer.GameObject.Id != GameObject.Id && !hitPlayer.IsInvulnerable)
 			{
-				hitPlayer?.Kill( Client.GameObject.Id );
+				hitPlayer?.Kill(Client.GameObject.Id);
 			}
 		}
 
 		Client.Shots++;
-		CharacterController.Punch( dir.Forward * -(400f * (1f - (distance / 5000f))) );
+		CharacterController.Punch(dir.Forward * -(400f * (1f - (distance / 5000f))));
 
-		BroadcastBeam( tr.StartPosition + Vector3.Down * 15f, endPos );
+		BroadcastBeam(tr.StartPosition + Vector3.Down * 15f, endPos);
 		timeSinceLastFire = 0;
 		timeSinceSpawned = 100f;
 	}
 
 	public void SecondaryFire()
 	{
-		if ( !CanBounce ) return;
-		if ( timeSinceLastBounce < BounceTimer ) return;
+		if (!CanBounce) return;
+		if (timeSinceLastBounce < BounceTimer) return;
 
 		var dir = Client.IsBot ? Direction : visualDirection;
-		var tr = Scene.Trace.Ray( Head.Transform.Position, Head.Transform.Position + dir.Forward * BounceRange )
-			.IgnoreGameObjectHierarchy( GameObject )
-			.WithoutTags( "trigger" )
+		var tr = Scene.Trace.Ray(Head.Transform.Position, Head.Transform.Position + dir.Forward * BounceRange)
+			.IgnoreGameObjectHierarchy(GameObject)
+			.WithoutTags("trigger")
 			.Run();
 
-		if ( tr.Hit )
+		if (tr.Hit)
 		{
 			var force = -dir.Forward * 500f;
-			force = force.WithZ( force.z * 1.5f );
-			CharacterController.Punch( force );
+			force = force.WithZ(force.z * 1.5f);
+			CharacterController.Punch(force);
 			timeSinceLastBounce = 0;
-			BroadcastBounce( tr.HitPosition, -dir.Forward );
+			BroadcastBounce(tr.HitPosition, -dir.Forward);
 
-			if ( Network.IsOwner )
+			if (Network.IsOwner)
 			{
 				InstagibPreferences.Stats.TotalBounces++;
 			}
@@ -312,82 +312,82 @@ public sealed class Player : Component
 	}
 
 	[Broadcast]
-	public void Kill( Guid killer = default )
+	public void Kill(Guid killer = default)
 	{
-		var killerClient = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == killer );
-		if ( killerClient.IsValid() && GameManager.Instance.IsTeamGamemode && killerClient.Team == Client.Team )
+		var killerClient = Scene.GetAllComponents<Client>().FirstOrDefault(x => x.GameObject.Id == killer);
+		if (killerClient.IsValid() && GameManager.Instance.IsTeamGamemode && killerClient.Team == Client.Team)
 		{
 			return;
 		}
 
-		Sound.Play( "snd-flesh-explode", Transform.Position );
-		GameManager.Instance.SpawnGibs( Transform.Position + Vector3.Up * 32f, Color );
-		if ( Network.IsOwner )
+		Sound.Play("snd-flesh-explode", Transform.Position);
+		GameManager.Instance.SpawnGibs(Transform.Position + Vector3.Up * 32f, Color);
+		if (Network.IsOwner)
 		{
 			InstagibPreferences.Stats.TotalDeaths++;
 			InstagibPreferences.Save();
-			Sandbox.Services.Stats.Increment( "deaths", 1 );
-			if ( killerClient is not null )
+			Sandbox.Services.Stats.Increment("deaths", 1);
+			if (killerClient.IsValid())
 			{
-				KillFeedPanel.Instance?.AddDeath( killerClient.Name );
+				KillFeedPanel.Instance?.AddDeath(killerClient.Name);
 			}
 		}
-		if ( !Network.IsProxy )
+		if (!Network.IsProxy)
 		{
-			if ( killerClient is not null )
+			if (killerClient is not null)
 			{
 				var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.Name} was killed by {killerClient.Name}";
-				Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
+				Chatbox.Instance.AddMessage("☠️", killMsg, "kill-feed");
 			}
 			Client.TimeSinceLastDeath = 0;
 			GameObject.Destroy();
 
-			var player = Scene.GetAllComponents<Player>().FirstOrDefault( x => x.GameObject.Name == killer.ToString() );
-			if ( player is not null )
+			var player = Scene.GetAllComponents<Player>().FirstOrDefault(x => x.GameObject.Name == killer.ToString());
+			if (player is not null)
 			{
-				player.OnKill( Client.GameObject.Id );
+				player.OnKill(Client.GameObject.Id);
 			}
 		}
 
-		if ( Networking.IsHost )
+		if (Networking.IsHost)
 		{
 			Client.Deaths++;
-			if ( killerClient.IsValid() && GameManager.Instance.IsTeamGamemode )
+			if (killerClient.IsValid() && GameManager.Instance.IsTeamGamemode)
 			{
-				GameManager.Instance.AddTeamPoints( killerClient.Team, 1 );
+				GameManager.Instance.AddTeamPoints(killerClient.Team, 1);
 			}
 		}
 	}
 
 	[Broadcast]
-	public void OnKill( Guid killed )
+	public void OnKill(Guid killed)
 	{
 		timeSinceLastKill = 0;
-		if ( !Network.IsProxy )
+		if (!Network.IsProxy)
 		{
 			KillStreak++;
-			if ( KillStreak > 1 )
+			if (KillStreak > 1)
 			{
-				Client.SetKillstreak( KillStreak );
+				Client.SetKillstreak(KillStreak);
 			}
-			Sandbox.Services.Stats.Increment( "kills", 1 );
+			Sandbox.Services.Stats.Increment("kills", 1);
 		}
-		if ( Network.IsOwner )
+		if (Network.IsOwner)
 		{
-			var killedClient = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == killed );
-			if ( killedClient is not null )
+			var killedClient = Scene.GetAllComponents<Client>().FirstOrDefault(x => x.GameObject.Id == killed);
+			if (killedClient is not null)
 			{
-				KillFeedPanel.Instance?.AddKill( killedClient.Name );
+				KillFeedPanel.Instance?.AddKill(killedClient.Name);
 			}
-			var sound = Sound.Play( "snd-kill" );
+			var sound = Sound.Play("snd-kill");
 			sound.Pitch = 1f + ((KillStreak - 1) * (1f / 12f));
 			InstagibPreferences.Stats.TotalKills++;
-			if ( KillStreak > 1 )
+			if (KillStreak > 1)
 			{
-				InstagibHud.Instance.SetKillstreak( KillStreak );
-				if ( !InstagibPreferences.Stats.Killstreaks.ContainsKey( KillStreak ) )
+				InstagibHud.Instance.SetKillstreak(KillStreak);
+				if (!InstagibPreferences.Stats.Killstreaks.ContainsKey(KillStreak))
 				{
-					InstagibPreferences.Stats.Killstreaks.Add( KillStreak, 1 );
+					InstagibPreferences.Stats.Killstreaks.Add(KillStreak, 1);
 				}
 				else
 				{
@@ -396,7 +396,7 @@ public sealed class Player : Component
 			}
 			InstagibPreferences.Save();
 		}
-		if ( Networking.IsHost )
+		if (Networking.IsHost)
 		{
 			Client.Kills++;
 		}
@@ -404,33 +404,33 @@ public sealed class Player : Component
 
 	void RotateBody()
 	{
-		if ( Body is null ) return;
+		if (Body is null) return;
 
-		var targetAngle = new Angles( 0, LookAngles.yaw, 0 );
-		float rotateDifference = Body.Transform.Rotation.Distance( targetAngle );
+		var targetAngle = new Angles(0, LookAngles.yaw, 0);
+		float rotateDifference = Body.Transform.Rotation.Distance(targetAngle);
 
-		if ( rotateDifference > 40f || CharacterController.Velocity.Length > 10f )
+		if (rotateDifference > 40f || CharacterController.Velocity.Length > 10f)
 		{
-			Body.Transform.Rotation = Angles.Lerp( Body.Transform.Rotation, targetAngle, Time.Delta * 10f );
+			Body.Transform.Rotation = Angles.Lerp(Body.Transform.Rotation, targetAngle, Time.Delta * 10f);
 		}
 	}
 
 	void UpdateAnimations()
 	{
 		AnimationHelper.IsGrounded = CharacterController.IsOnGround;
-		AnimationHelper.WithVelocity( CharacterController.Velocity );
-		AnimationHelper.WithWishVelocity( WishVelocity );
-		AnimationHelper.WithLook( LookAngles.Forward );
+		AnimationHelper.WithVelocity(CharacterController.Velocity);
+		AnimationHelper.WithWishVelocity(WishVelocity);
+		AnimationHelper.WithLook(LookAngles.Forward);
 	}
 
 	void UpdateShadow()
 	{
-		var floorTr = Scene.Trace.Ray( Transform.Position, Transform.Position + Vector3.Down * 5000f )
-			.WithoutTags( "trigger" )
+		var floorTr = Scene.Trace.Ray(Transform.Position, Transform.Position + Vector3.Down * 5000f)
+			.WithoutTags("trigger")
 			.Run();
 
 		Shadow.Transform.Position = floorTr.Hit ? (floorTr.HitPosition + Vector3.Up) : floorTr.EndPosition;
-		Shadow.Transform.Rotation = Rotation.LookAt( floorTr.Normal ) * Rotation.From( new Angles( 0, 90, 90 ) );
+		Shadow.Transform.Rotation = Rotation.LookAt(floorTr.Normal) * Rotation.From(new Angles(0, 90, 90));
 	}
 
 	[Broadcast]
@@ -440,57 +440,57 @@ public sealed class Player : Component
 	}
 
 	[Broadcast]
-	void BroadcastBeam( Vector3 startPos, Vector3 endPos )
+	void BroadcastBeam(Vector3 startPos, Vector3 endPos)
 	{
 		var midpos = startPos + (endPos - startPos) / 2f;
-		var beamObj = GameManager.Instance.BeamPrefab.Clone( midpos );
+		var beamObj = GameManager.Instance.BeamPrefab.Clone(midpos);
 		beamObj.NetworkMode = NetworkMode.Never;
-		if ( beamObj.Components.TryGet<Beam>( out var beam ) )
+		if (beamObj.Components.TryGet<Beam>(out var beam))
 		{
 			beam.StartPosition = startPos;
 			beam.EndPosition = endPos;
 			beam.Color = Color;
 		}
-		if ( beamObj.Components.TryGet<ModelRenderer>( out var modelRenderer ) )
+		if (beamObj.Components.TryGet<ModelRenderer>(out var modelRenderer))
 		{
 			modelRenderer.Tint = Color;
 		}
 
-		var particleTransform = new Transform( endPos, Rotation.LookAt( startPos - endPos ) * Rotation.From( new Angles( 0, 0, 90 ) ), Vector3.One );
-		var particle = GameManager.Instance.LaserDustParticle.Clone( particleTransform );
+		var particleTransform = new Transform(endPos, Rotation.LookAt(startPos - endPos) * Rotation.From(new Angles(0, 0, 90)), Vector3.One);
+		var particle = GameManager.Instance.LaserDustParticle.Clone(particleTransform);
 		particle.NetworkMode = NetworkMode.Never;
 
-		if ( InstagibPreferences.Settings.EnableDecals )
+		if (InstagibPreferences.Settings.EnableDecals)
 		{
-			var decalRot = Rotation.LookAt( startPos - endPos, Vector3.Random ) * Rotation.From( new Angles( 180, 0, 0 ) );
-			var decalTransform = new Transform( endPos + decalRot.Backward * 4f, decalRot, Vector3.One );
-			var decalObj = GameManager.Instance.BeamDecal.Clone( decalTransform );
+			var decalRot = Rotation.LookAt(startPos - endPos, Vector3.Random) * Rotation.From(new Angles(180, 0, 0));
+			var decalTransform = new Transform(endPos + decalRot.Backward * 4f, decalRot, Vector3.One);
+			var decalObj = GameManager.Instance.BeamDecal.Clone(decalTransform);
 			decalObj.NetworkMode = NetworkMode.Never;
 			var decal = decalObj.Components.Get<DecalRenderer>();
 			decal.TintColor = Color;
 		}
 
-		Sound.Play( "snd-fire", startPos );
+		Sound.Play("snd-fire", startPos);
 	}
 
 	[Broadcast]
-	void BroadcastBounce( Vector3 position, Vector3 normal )
+	void BroadcastBounce(Vector3 position, Vector3 normal)
 	{
-		Sound.Play( "snd-bounce", position );
+		Sound.Play("snd-bounce", position);
 
-		var transform = new Transform( position, Rotation.LookAt( normal ) * Rotation.From( new Angles( 0, 0, 90 ) ), Vector3.One );
-		var particleObj = GameManager.Instance.BounceParticle.Clone( transform );
+		var transform = new Transform(position, Rotation.LookAt(normal) * Rotation.From(new Angles(0, 0, 90)), Vector3.One);
+		var particleObj = GameManager.Instance.BounceParticle.Clone(transform);
 		particleObj.NetworkMode = NetworkMode.Never;
 
 		var particle = particleObj.Components.Get<ParticleEffect>();
 		particle.ApplyColor = true;
 		particle.Tint = Color;
 
-		if ( InstagibPreferences.Settings.EnableDecals )
+		if (InstagibPreferences.Settings.EnableDecals)
 		{
-			var decalRot = Rotation.LookAt( normal, Vector3.Random ) * Rotation.From( new Angles( 180, 0, 0 ) );
-			var decalTransform = new Transform( position + decalRot.Backward * 4f, decalRot, Vector3.One );
-			var decalObj = GameManager.Instance.BounceDecal.Clone( decalTransform );
+			var decalRot = Rotation.LookAt(normal, Vector3.Random) * Rotation.From(new Angles(180, 0, 0));
+			var decalTransform = new Transform(position + decalRot.Backward * 4f, decalRot, Vector3.One);
+			var decalObj = GameManager.Instance.BounceDecal.Clone(decalTransform);
 			decalObj.NetworkMode = NetworkMode.Never;
 			var decal = decalObj.Components.Get<DecalRenderer>();
 			decal.TintColor = Color;

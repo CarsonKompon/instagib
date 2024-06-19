@@ -7,22 +7,18 @@ namespace Instagib;
 
 public class MusicFilter : AudioProcessor
 {
-    [Property] float Amount { get; set; } = 0f;
+    [Property, Range( 0, 1 )] float Amount { get; set; } = 0f;
 
-    [Hide] private PerChannel<float> previousInput = 0.0f;
-    [Hide] private PerChannel<float> previousOutput = 0.0f;
+    private PerChannel<float> previousSample = new PerChannel<float>();
 
     protected override void ProcessSingleChannel( AudioChannel c, Span<float> input )
     {
-        var cc = c.Get();
-        float alpha = (float)Math.Pow(Amount, 2).Clamp(0, 1);
-
-        for (int i = 0; i < input.Length; i++)
+        int cc = c.Get();
+        float num = this.Amount.Remap( 0.0f, 1f, 1f, 0.0f, true );
+        for ( int index = 0; index < input.Length; ++index )
         {
-            float currentInput = input[i];
-            input[i] = alpha * (previousOutput.Value[cc] + currentInput - previousInput.Value[cc]);
-            previousInput.Value[cc] = currentInput;
-            previousOutput.Value[cc] = input[i];
+            input[index] = (float)(num * input[index] + (1f - Amount) * previousSample.Value[cc]);
+            previousSample.Value[cc] = input[index];
         }
     }
 }

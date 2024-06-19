@@ -11,6 +11,7 @@ MainMenuFrontPage
 
     .logo-container
     {
+        position: relative;
         flex-direction: column;
         gap: -32px;
 
@@ -37,8 +38,8 @@ MainMenuFrontPage
         .splash-text
         {
             position: absolute;
-            top: 80%;
-            left: 28%;
+            top: 200px;
+            left: 525px;
             transform-origin: 50% 50%;
             transform: rotate(-5deg);
             font-size: 24px;
