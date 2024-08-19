@@ -108,6 +108,9 @@ public class Client : Component
 
     void UpdateDeathCam()
     {
+        if ( !(Scene.Camera?.IsValid() ?? false) ) return;
+        if ( Scene.Camera.Transform is null ) return;
+
         Scene.Camera.FieldOfView = Scene.Camera.FieldOfView.LerpTo( 100, 10 * Time.Delta );
         if ( Deaths == 0 )
         {

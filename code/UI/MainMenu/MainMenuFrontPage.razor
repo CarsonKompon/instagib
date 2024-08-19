@@ -1,6 +1,7 @@
 @using System;
 @using Sandbox;
 @using Sandbox.UI;
+@using Sandbox.Network;
 @using Instagib.Social;
 @inherits Panel
 @attribute [StyleSheet]
@@ -28,7 +29,7 @@
         <a href="/settings">Settings</a>
         @if (MainMenu.Instance.IsPauseMenu)
         {
-            <label class="btn" onclick=@(() => Scene.Load(MainMenu.Instance.GameScene))>Quit to Main Menu</label>
+            <label class="btn" onclick=@(() => QuitToMainMenu)>Quit to Main Menu</label>
         }
         else
         {
@@ -50,6 +51,11 @@
 
     public int SplashIndex = 0;
 
+    void QuitToMainMenu()
+    {
+        GameNetworkSystem.Disconnect();
+        Scene.Load(MainMenu.Instance.GameScene);
+    }
     protected override void OnAfterTreeRender(bool firstTime)
     {
         base.OnAfterTreeRender(firstTime);

@@ -81,6 +81,7 @@ public partial class GameManager : Component, Component.INetworkListener
 
     protected override void OnStart()
     {
+        MapInstance ??= Scene.GetAllComponents<MapInstance>().FirstOrDefault();
         MapInstance.OnMapLoaded += OnMapLoaded;
     }
 
@@ -200,7 +201,7 @@ public partial class GameManager : Component, Component.INetworkListener
         MapVoteTimer = 20f;
 
         var winner = Scene.GetAllComponents<Client>().OrderByDescending( x => x.Kills ).FirstOrDefault();
-        if ( Client.Local.GameObject.Id == winner.GameObject.Id )
+        if ( Client.Local?.GameObject?.Id == winner?.GameObject?.Id )
         {
             if ( !InstagibPreferences.Stats.TotalWins.ContainsKey( Gamemode ) )
             {
@@ -325,7 +326,7 @@ public partial class GameManager : Component, Component.INetworkListener
 
         Scene.NavMesh.Generate( Scene.PhysicsWorld );
 
-        KillPlane = Scene.PhysicsWorld.Body.GetBounds().Mins.z - 100f;
+        KillPlane = MapInstance.Bounds.Mins.z - 100f;
     }
 
     [Broadcast]
