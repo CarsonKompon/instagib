@@ -152,6 +152,14 @@
         {
           "__type": "Sandbox.Highlight",
           "__guid": "bb339a73-4250-4671-b9ac-9ad967c1ba7c"
+        },
+        {
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "3f298c8d-6241-4d02-95fa-b3497a7c9604",
+          "FalloffDistance": 1,
+          "Intensity": 8,
+          "Quality": "High",
+          "Radius": 32
         }
       ]
     },
@@ -166,8 +174,10 @@
           "__guid": "ee180b64-37ca-4109-b2e3-eada7603d03c",
           "__version": 1,
           "EnableCollision": true,
-          "MapName": "roblox.glasshouses",
+          "MapName": "facepunch.bm_dockyard",
           "NoOrigin": true,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
           "UseMapFromLaunch": true
         }
       ],
@@ -187,6 +197,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 100
         },
         {
@@ -216,6 +227,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 250
         },
         {
@@ -237,6 +249,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 200
         },
         {
@@ -253,9 +266,11 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 30,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {},
     "NavMesh": {
       "Enabled": true,
       "IncludeStaticBodies": true,
@@ -269,9 +284,9 @@
       "IncludedBodies": ""
     }
   },
-  "Title": "level_test_01",
-  "Description": "",
-  "ResourceVersion": 1,
+  "ResourceVersion": 2,
+  "Title": null,
+  "Description": null,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }
