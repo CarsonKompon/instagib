@@ -2,6 +2,21 @@
   "__guid": "6b1cc5ff-ca30-4b7c-ab7f-bed8994a612b",
   "GameObjects": [
     {
+      "__guid": "2291cecc-34cb-4cc9-b8c0-a859ab158802",
+      "Flags": 0,
+      "Name": "Scene Information",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SceneInformation",
+          "__guid": "92214308-a595-4822-937e-e60a5d880782",
+          "Description": "",
+          "SceneTags": "",
+          "Title": "menu"
+        }
+      ]
+    },
+    {
       "__guid": "08e2d4f7-686a-43e7-8312-fc4259d4cfac",
       "Flags": 0,
       "Name": "Camera",
@@ -9,8 +24,6 @@
       "Rotation": "-0.1345342,0.03287149,0.9528019,0.2701643",
       "Tags": "maincamera",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
@@ -21,7 +34,7 @@
           "IsMainCamera": true,
           "Orthographic": false,
           "OrthographicHeight": 1204,
-          "Priority": 1,
+          "Priority": 2,
           "RenderExcludeTags": "",
           "RenderTags": "",
           "TargetEye": "None",
@@ -32,13 +45,48 @@
       ]
     },
     {
+      "__guid": "fa5a3d5d-e7c4-4b34-8d7b-adf412a9a4b3",
+      "Flags": 0,
+      "Name": "CharacterCam",
+      "Position": "111.6213,0,38",
+      "Rotation": "0.007857708,0.00005484783,-0.9999447,0.006979745",
+      "Tags": "charactercam",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "2f4bebf0-704d-46c2-9127-6db4c45b442f",
+          "BackgroundColor": "0,0,0,0",
+          "ClearFlags": "All",
+          "FieldOfView": 40,
+          "IsMainCamera": false,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "charactercam",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        },
+        {
+          "__type": "Sandbox.AmbientOcclusion",
+          "__guid": "e52c2a86-e462-4337-b2ce-db2a5cb3885d",
+          "__enabled": false,
+          "FalloffDistance": 1,
+          "Intensity": 8,
+          "Quality": "High",
+          "Radius": 32
+        }
+      ]
+    },
+    {
       "__guid": "60f824ed-b417-4cb3-b74c-a33bbab9eb68",
       "Flags": 0,
       "Name": "Screen",
       "Position": "149.995,149.995,-212.125",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -46,6 +94,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 100
         },
         {
@@ -62,8 +111,6 @@
       "Name": "Music Player",
       "Position": "149.995,149.995,-212.125",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -71,6 +118,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 120
         },
         {
@@ -85,17 +133,66 @@
       "Name": "Object",
       "Position": "52.00038,-98.56545,6.808601",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "23d29de6-b3af-4342-96fd-ee2f9566059b",
+          "__version": 1,
+          "EnableCollision": true,
           "MapName": "ply.am_redblue",
+          "NoOrigin": true,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
           "UseMapFromLaunch": false
         }
       ],
       "Children": []
+    },
+    {
+      "__guid": "2b0acd2d-1038-4555-990e-0be79dfd476d",
+      "Flags": 0,
+      "Name": "Body",
+      "Rotation": "0,0,-0.1140929,0.9934701",
+      "Tags": "charactercam",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "66fc35b6-d423-4cc7-8c0a-44d9aafbfe4a",
+          "BodyGroups": 341,
+          "CreateBoneObjects": false,
+          "MaterialOverride": "materials/beam_mat.vmat",
+          "Model": "models/citizen/citizen.vmdl",
+          "Morphs": {},
+          "Parameters": {
+            "bools": {},
+            "ints": {},
+            "floats": {},
+            "vectors": {},
+            "rotations": {}
+          },
+          "RenderOptions": {
+            "GameLayer": true,
+            "OverlayLayer": false,
+            "BloomLayer": false,
+            "AfterUILayer": false
+          },
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": true
+        },
+        {
+          "__type": "Instagib.PlayerDresser",
+          "__guid": "ead9945a-2810-4d23-aaec-4d7987307271",
+          "BodyRenderer": {
+            "_type": "component",
+            "component_id": "66fc35b6-d423-4cc7-8c0a-44d9aafbfe4a",
+            "go": "2b0acd2d-1038-4555-990e-0be79dfd476d",
+            "component_type": "SkinnedModelRenderer"
+          },
+          "IsNetworked": false
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -103,9 +200,13 @@
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 30,
     "NetworkInterpolation": true,
+    "PhysicsSubSteps": 1,
     "ThreadedAnimation": true,
     "TimeScale": 1,
     "UseFixedUpdate": true,
+    "Metadata": {
+      "Title": "menu"
+    },
     "NavMesh": {
       "Enabled": false,
       "IncludeStaticBodies": true,
@@ -119,10 +220,9 @@
       "IncludedBodies": ""
     }
   },
+  "ResourceVersion": 2,
   "Title": "menu",
-  "Description": "",
-  "LastSaved": "2024-06-23T19:39:16.0880877-04:00",
-  "ResourceVersion": 1,
+  "Description": null,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }

@@ -25,7 +25,6 @@ public sealed class Player : Component
 	// Properties
 	[RequireComponent] public CharacterController CharacterController { get; set; }
 	[RequireComponent] CitizenAnimationHelper AnimationHelper { get; set; }
-	SkinnedModelRenderer BodyRenderer { get; set; }
 
 	[Group( "References" ), Property] GameObject Body { get; set; }
 	[Group( "References" ), Property] GameObject Head { get; set; }
@@ -63,11 +62,6 @@ public sealed class Player : Component
 	private TimeSince timeSinceLastKill = 0;
 	[Sync] private TimeSince timeSinceSpawned { get; set; } = 0;
 	private SpriteRenderer bounceIndicator = null;
-
-	protected override void OnAwake()
-	{
-		BodyRenderer = Body.Components.Get<SkinnedModelRenderer>();
-	}
 
 	public void Init( Client client )
 	{
@@ -119,15 +113,19 @@ public sealed class Player : Component
 			KillStreak = 0;
 			timeSinceLastKill = 0;
 		}
-		if ( IsInvulnerable )
+
+		foreach ( var renderer in Body.Components.GetAll<SkinnedModelRenderer>( FindMode.EverythingInDescendants ) )
 		{
-			BodyRenderer.Tint = Color.WithAlpha( 0.2f );
+			if ( IsInvulnerable )
+			{
+				renderer.Tint = Color.WithAlpha( 0.2f );
+			}
+			else
+			{
+				renderer.Tint = Color;
+			}
+			renderer.RenderType = Network.IsOwner ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 		}
-		else
-		{
-			BodyRenderer.Tint = Color;
-		}
-		BodyRenderer.RenderType = Network.IsOwner ? ModelRenderer.ShadowRenderType.ShadowsOnly : ModelRenderer.ShadowRenderType.On;
 
 		if ( WorldPosition.z < GameManager.Instance.KillPlane )
 		{

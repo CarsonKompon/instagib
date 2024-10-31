@@ -61,6 +61,21 @@
             <label class="btn" onclick=@Game.Close>Quit</label>
         }
     </div>
+
+    <div class="my-player">
+        @if (CameraTexture is not null)
+        {
+            <Image class="player-cam" Texture=@CameraTexture />
+        }
+        else
+        {
+            <div class="player-cam placeholder" />
+        }
+        @if (CharacterDresser is not null)
+        {
+            <label class="player-name" style="color: @(CharacterDresser.Color.Saturate(-0.2f).Hex);">@Connection.Local.DisplayName</label>
+        }
+    </div>
 </root>
 
 @code
@@ -81,6 +96,10 @@
 
     public int SplashIndex = 0;
 
+    CameraComponent CharacterCam;
+    Texture CameraTexture;
+    PlayerDresser CharacterDresser;
+
     void QuitToMainMenu()
     {
         Networking.Disconnect();
@@ -93,6 +112,16 @@
         if (firstTime)
         {
             SplashIndex = new Random().Next(0, SplashTexts.Length);
+
+            CharacterCam = Scene.GetAllComponents<CameraComponent>().FirstOrDefault(x => x.Tags.Has("charactercam"));
+            CharacterDresser = Scene.GetAllComponents<PlayerDresser>().FirstOrDefault();
+            CameraTexture = Texture.CreateRenderTarget("charactercam", ImageFormat.RGBA8888, 2048);
+            StateHasChanged();
         }
+    }
+
+    public override void Tick()
+    {
+        CharacterCam?.RenderToTexture(CameraTexture);
     }
 }

@@ -5,8 +5,6 @@
     "Name": "player",
     "Tags": "player",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "Instagib.HumanController",
@@ -68,7 +66,19 @@
         "Center": "0,0,35",
         "IsTrigger": false,
         "Scale": "25,25,70",
-        "Static": false
+        "Static": false,
+        "SurfaceVelocity": "0,0,0"
+      },
+      {
+        "__type": "Instagib.PlayerDresser",
+        "__guid": "2574dea3-7242-4f86-b262-90dbe72ce49f",
+        "BodyRenderer": {
+          "_type": "component",
+          "component_id": "fd413735-ec93-43d7-af5c-57ed582366dd",
+          "go": "f07c7a8b-f038-42cc-8ac1-3a47070342c2",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "IsNetworked": true
       }
     ],
     "Children": [
@@ -77,8 +87,6 @@
         "Flags": 0,
         "Name": "Body",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.SkinnedModelRenderer",
@@ -87,8 +95,23 @@
             "CreateBoneObjects": false,
             "MaterialOverride": "materials/beam_mat.vmat",
             "Model": "models/citizen/citizen.vmdl",
+            "Morphs": {},
+            "Parameters": {
+              "bools": {},
+              "ints": {},
+              "floats": {},
+              "vectors": {},
+              "rotations": {}
+            },
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "On",
-            "Tint": "1,1,1,1"
+            "Tint": "1,1,1,1",
+            "UseAnimGraph": true
           }
         ]
       },
@@ -97,17 +120,13 @@
         "Flags": 0,
         "Name": "Head",
         "Position": "0,0,64",
-        "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true
+        "Enabled": true
       },
       {
         "__guid": "213ba92c-4d78-4378-bbca-a73b2d4223dd",
         "Flags": 0,
         "Name": "Shadow",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
@@ -115,6 +134,12 @@
             "BodyGroups": 18446744073709551615,
             "MaterialOverride": "materials/effects/gradient_circle.vmat",
             "Model": "models/dev/plane.vmdl",
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "0,0,0,0.83"
           },
@@ -136,8 +161,6 @@
         "Name": "Voice",
         "Position": "147.8761,32.14449,40.17331",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.Voice",
@@ -152,11 +175,36 @@
           }
         ]
       }
-    ]
+    ],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1
