@@ -52,10 +52,10 @@ public sealed class Player : Component
 	[Sync] public int KillStreak { get; set; } = 0;
 	[Sync] public string ColorString { get; set; }
 	Color Color => Color.Parse( ColorString ) ?? Color.White;
+	public float headRoll = 0f;
 
 	// Private Member Variables
 	private Angles visualDirection = Angles.Zero;
-	private float headRoll = 0f;
 	private TimeSince timeSinceLastFire = 0;
 	private TimeSince timeSinceLastBounce = 0;
 	private TimeSince timeSinceLastDash = 0;
@@ -201,15 +201,8 @@ public sealed class Player : Component
 			visualDirection.yaw += MathF.Sin( Time.Now * 9.5f ) * _shake;
 		}
 
-		if ( InstagibPreferences.Settings.EnableCameraTilt )
-		{
-			headRoll = headRoll.LerpTo( (Input.AnalogMove.y - _input.yaw / 8f) * -1f, 1f - MathF.Pow( 0.5f, Time.Delta * 10f ) );
-		}
-		else
-		{
-			headRoll = headRoll.LerpTo( 0f, 1f - MathF.Pow( 0.5f, Time.Delta * 10f ) );
-		}
-		visualDirection.roll = headRoll;
+		headRoll = headRoll.LerpTo( (Input.AnalogMove.y - _input.yaw / 8f) * -1f, 1f - MathF.Pow( 0.5f, Time.Delta * 10f ) );
+		visualDirection.roll = InstagibPreferences.Settings.EnableCameraTilt ? headRoll : 0f;
 
 		if ( Scene.Camera is not null )
 		{
@@ -265,6 +258,7 @@ public sealed class Player : Component
 		if ( Network.IsOwner )
 		{
 			InstagibPreferences.Stats.TotalShotsFired++;
+			ViewModel.Instance?.Recoil( 5f );
 		}
 
 		if ( tr.Hit && tr.GameObject is not null && tr.GameObject.Components.TryGet<Player>( out var hitPlayer ) )
