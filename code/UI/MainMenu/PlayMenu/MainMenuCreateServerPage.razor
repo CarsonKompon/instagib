@@ -10,61 +10,73 @@
 
 <root>
     <div class="container">
-        <div class="header">Create New Server</div>
         <div class="content">
-            <div class="gamemodes">
-                <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.Deathmatch ? "selected" : "")" onclick=@(() => InstagibPreferences.Settings.Gamemode = Gamemode.Deathmatch)>
-                    <img src="ui/icons/skull.png" />
-                    <h1>Deathmatch</h1>
-                    <label class="desc">The player with the most frags wins (or the first player to reach the frag
-                        limit).</label>
-                </div>
-                <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.TeamDeathmatch ? "selected" : "")" onclick=@(() => InstagibPreferences.Settings.Gamemode = Gamemode.TeamDeathmatch)>
-                    <img src="ui/icons/team.png" />
-                    <h1>Team Deathmatch</h1>
-                    <label class="desc">The team with the most frags wins (or first to reach the frag limit).</label>
-                </div>
-                @* <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.Freezetag ? "selected" : "")" onclick=@(() =>
-                InstagibPreferences.Settings.Gamemode = Gamemode.Freezetag)>
-                <img src="ui/icons/snow.png" />
-                <h1>Freezetag</h1>
-                <label class="desc">Team-based game where frags freeze enemies and unfreeze teammates. Freeze
-                everyone on the opponent's team to win. </label>
-                </div> *@
-            </div>
-            <div class="settings">
-                <div class="setting">
-                    <img src="/ui/icons/team.png" />
-                    <label class="name">Max Players:</label>
-                    <SliderControl Value:bind="@InstagibPreferences.Settings.MaxPlayers" Min=@(2) Max=@(16) Step=@(1) ShowTextEntry=@(true) />
-                </div>
-                <div class="setting">
-                    <img src="/ui/icons/bot.png" />
-                    <label class="name">Bots:</label>
-                    <SliderControl Value:bind="@InstagibPreferences.Settings.BotCount" Min=@(0) Max=@(InstagibPreferences.Settings.MaxPlayers - 1) Step=@(1) ShowTextEntry=@(true) />
-                </div>
-                @if (InstagibPreferences.Settings.Gamemode != Gamemode.Freezetag)
-                {
-                    <div class="setting">
-                        <img src="/ui/icons/skull.png" />
-                        <label class="name">Frag Limit:</label>
-                        <SliderControl Value:bind="@FragLimit" Min=@(1) Max=@(100) Step=@(1) ShowTextEntry=@(true) />
+            <div class="left">
+                <label class="side-header">Settings</label>
+                <div class="gamemode-box">
+                    <label class="gamemode-header">Gamemode</label>
+                    <div class="gamemodes">
+                        <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.Deathmatch ? "selected" : "")" onclick=@(() => InstagibPreferences.Settings.Gamemode = Gamemode.Deathmatch)>
+                            <img src="ui/icons/skull.png" />
+                            <div class="info">
+                                <h1>Deathmatch</h1>
+                                <label class="desc">The player with the most frags wins (or the first player to reach the frag
+                                    limit).</label>
+                            </div>
+                        </div>
+                        <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.TeamDeathmatch ? "selected" : "")" onclick=@(() => InstagibPreferences.Settings.Gamemode = Gamemode.TeamDeathmatch)>
+                            <img src="ui/icons/team.png" />
+                            <div class="info">
+                                <h1>Team Deathmatch</h1>
+                                <label class="desc">The team with the most frags wins (or first to reach the frag limit).</label>
+                            </div>
+                        </div>
+                        @* <div class="gamemode @(InstagibPreferences.Settings.Gamemode == Gamemode.Freezetag ? "selected" : "")" onclick=@(() =>
+                        InstagibPreferences.Settings.Gamemode = Gamemode.Freezetag)>
+                        <img src="ui/icons/snow.png" />
+                        <h1>Freezetag</h1>
+                        <label class="desc">Team-based game where frags freeze enemies and unfreeze teammates. Freeze
+                        everyone on the opponent's team to win. </label>
+                        </div> *@
                     </div>
-                }
-                else
-                {
-                    <div class="setting">
-                        <label class="name">Point Limit:</label>
-                        <SliderControl Value:bind="@PointLimit" Min=@(1) Max=@(25) Step=@(1) ShowTextEntry=@(true) />
-                    </div>
-                }
-                <div class="setting">
-                    <i>timer</i>
-                    <label class="name">Time Limit:</label>
-                    <SliderControl Value:bind="@TimeLimit" Min=@(1) Max=@(60) Step=@(1) ShowTextEntry=@(true) />
                 </div>
+                <div class="settings">
+                    <div class="setting">
+                        <img src="/ui/icons/team.png" />
+                        <label class="name">Max Players:</label>
+                        <SliderControl Value:bind="@InstagibPreferences.Settings.MaxPlayers" Min=@(2) Max=@(16) Step=@(1) ShowTextEntry=@(true) />
+                    </div>
+                    <div class="setting">
+                        <img src="/ui/icons/bot.png" />
+                        <label class="name">Bots:</label>
+                        <SliderControl Value:bind="@InstagibPreferences.Settings.BotCount" Min=@(0) Max=@(InstagibPreferences.Settings.MaxPlayers - 1) Step=@(1) ShowTextEntry=@(true) />
+                    </div>
+                    @if (InstagibPreferences.Settings.Gamemode != Gamemode.Freezetag)
+                    {
+                        <div class="setting">
+                            <img src="/ui/icons/skull.png" />
+                            <label class="name">Frag Limit:</label>
+                            <SliderControl Value:bind="@FragLimit" Min=@(1) Max=@(100) Step=@(1) ShowTextEntry=@(true) />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="setting">
+                            <label class="name">Point Limit:</label>
+                            <SliderControl Value:bind="@PointLimit" Min=@(1) Max=@(25) Step=@(1) ShowTextEntry=@(true) />
+                        </div>
+                    }
+                    <div class="setting">
+                        <i>timer</i>
+                        <label class="name">Time Limit:</label>
+                        <SliderControl Value:bind="@TimeLimit" Min=@(1) Max=@(60) Step=@(1) ShowTextEntry=@(true) />
+                    </div>
+                </div>
+                <div class="grow-block" />
+                <label class="help-text">Select a map to create the lobby!</label>
             </div>
-            <div class="maps">
+            <div class="right">
+                <label class="side-header">Map</label>
                 <PackageList ShowFilters="@true" Query="type:map sort:trending" OnSelected="@OnPackageSelected" Take=@(50) />
             </div>
         </div>

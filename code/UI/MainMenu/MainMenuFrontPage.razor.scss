@@ -3,7 +3,7 @@ MainMenuFrontPage
     width: 100%;
     height: 100%;
     flex-direction: column;
-    padding: 64px;
+    padding: 64px 128px;
     gap: 48px;
     justify-content: space-between;
     color: white;
@@ -13,7 +13,6 @@ MainMenuFrontPage
     {
         position: relative;
         flex-direction: column;
-        gap: -32px;
 
         .logo
         {
@@ -29,10 +28,48 @@ MainMenuFrontPage
 
         .author
         {
+            position: absolute;
+            top: 200px;
+            left: 0px;
+            width: 800px;
+            margin-left: 16px;
             font-size: 32px;
             font-weight: 300;
             text-align: center;
             font-style: italic;
+            font-family: Protest Strike;
+
+            .space
+            {
+                width: 8px;
+            }
+
+            .glowchar
+            {
+                opacity: 0.7;
+            }
+        }
+
+        .glowchar
+        {
+            transform: scale(1);
+            transition: all 0.1s ease-out;
+            opacity: 1;
+
+            &:hover
+            {
+                transform: scale(1.1);
+                opacity: 1;
+                sound-in: ui.button.over;
+                text-shadow: 0px 0px 16px white;
+            }
+
+            &:active {
+                transform: scale(0.95);
+                sound-in: ui.button.over;
+                opacity: 0.4;
+                text-shadow: 0px 0px 16px black;
+            }
         }
 
         .splash-text
@@ -44,6 +81,7 @@ MainMenuFrontPage
             transform: rotate(-5deg);
             font-size: 24px;
             color: yellow;
+            font-family: Protest Strike;
 
             label
             {
@@ -66,17 +104,19 @@ MainMenuFrontPage
 
         a, .btn
         {
-            transition: all 0.2s ease-out;
+            transition: all 0.1s ease-out;
             transform: translateX(0px);
             text-shadow: 0px 0px 8px black;
             cursor: pointer;
             width: 500px;
             padding: 16px;
+            font-family: Protest Strike;
             
             &:hover
             {
-                transform: translateX(8px);
+                transform: translateX(8px) skewX(-5deg);
                 sound-in: ui.button.over;
+                background-color: rgba(0, 0, 0, 0.493);
             }
 
             &:active

@@ -10,6 +10,7 @@ MainMenuCreateServerPage
     justify-content: center;
     align-items: center;
     font-size: 24px;
+    font-family: Protest Strike;
 
     > .container
     {
@@ -26,141 +27,209 @@ MainMenuCreateServerPage
         {
             width: 100%;
             flex-grow: 1;
-            flex-direction: column;
-            background-color: rgb(34, 34, 36);
-            padding: 8px;
-            gap: 8px;
-            justify-content: space-evenly;
+            flex-direction: row;
+            justify-content: space-between;
 
-            .gamemodes
+            .side-header
             {
-                padding: 16px;
-                justify-content: space-between;
-                gap: 16px;
-
-                .gamemode
-                {
-                    flex-grow: 1;
-                    background-color: rgb(24, 24, 27);
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    text-align: center;
-                    cursor: pointer;
-                    padding: 16px 8px;
-                    max-width: 600px;
-
-                    img
-                    {
-                        width: 64px;
-                        height: 64px;
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                        background-position: center;
-                    }
-
-                    h1
-                    {
-                        font-size: 32px;
-                        font-weight: 600;
-                    }
-
-                    .desc
-                    {
-                        font-size: 14px;
-                    }
-
-                    &:hover
-                    {
-                        background-color: rgb(44, 44, 48);
-                        sound-in: ui.button.over;
-                    }
-
-                    &:active
-                    {
-                        background-color: rgb(34, 34, 38);
-                        sound-in: ui.button.press;
-                    }
-
-                    &.selected
-                    {
-                        background-color: rgb(64, 64, 68);
-                    }
-                }
+                font-size: 32px;
+                font-weight: 600;
+                margin-bottom: 4px;
+                color: white;
+                text-shadow: 0px 0px 8px black;
+                border-radius: 4px;
             }
-            
-            .settings
+
+            > .left
             {
+                max-width: 46%;
+                flex-grow: 1;
+                flex-direction: column;
+                background-color: rgb(34, 34, 36);
+                padding: 8px;
+                gap: 8px;
                 flex-direction: column;
 
-                .setting
+                .gamemode-box
                 {
-                    align-items: center;
+                    flex-direction: column;
+                    gap: 8px;
                     padding: 8px;
-
-                    > i, > img
+                    background-color: rgba(black, 0.5);
+                    .gamemodes
                     {
-                        width: 24px;
-                        height: 24px;
-                        background-size: contain;
-                        background-repeat: no-repeat;
-                        background-position: center;
-                        margin-right: 8px;
-                    }
+                        gap: 8px;
+                        flex-direction: column;
 
-                    .name
-                    {
-                        min-width: 600px;
-                    }
-
-                    .slidercontrol 
-                    {
-                        align-items: center;
-                        .inner
+                        .gamemode
                         {
-                            justify-content: center;
-                        }
-                        .entry
-                        {
-                            background-color: rgba(255, 255, 255, 0.02);
-                            padding: 0px 4px;
-                            
-                            .textentry
+                            flex-grow: 1;
+                            background-color: rgb(24, 24, 27);
+                            flex-direction: row;
+                            align-items: center;
+                            cursor: pointer;
+                            padding: 16px 8px;
+                            gap: 16px;
+
+                            img
                             {
-                                align-items: center;
+                                width: 64px;
+                                height: 64px;
+                                background-size: contain;
+                                background-repeat: no-repeat;
+                                background-position: center;
+                            }
+
+                            .info
+                            {
+                                flex-direction: column;
                                 justify-content: center;
-                                text-align: center;
+
+                                h1
+                                {
+                                    font-size: 32px;
+                                    font-weight: 600;
+                                }
+
+                                .desc
+                                {
+                                    font-size: 14px;
+                                }
+                            }
+
+                            &:hover
+                            {
+                                background-color: rgb(44, 44, 48);
+                                sound-in: ui.button.over;
+                            }
+
+                            &:active
+                            {
+                                background-color: rgb(34, 34, 38);
+                                sound-in: ui.button.press;
+                            }
+
+                            &.selected
+                            {
+                                background-color: rgb(64, 64, 68);
                             }
                         }
                     }
                 }
+                
+                .settings
+                {
+                    flex-direction: column;
+                    width: 100%;
+
+                    .setting
+                    {
+                        width: 100%;
+                        align-items: center;
+                        padding: 8px;
+
+                        > i, > img
+                        {
+                            width: 24px;
+                            height: 24px;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            margin-right: 8px;
+                        }
+
+                        .name
+                        {
+                            min-width: 200px;
+                        }
+
+                        .slidercontrol 
+                        {
+                            flex-grow: 1;
+                            align-items: center;
+                            .inner
+                            {
+                                justify-content: center;
+                            }
+                            .entry
+                            {
+                                background-color: rgba(255, 255, 255, 0.02);
+                                padding: 0px 4px;
+                                
+                                .textentry
+                                {
+                                    align-items: center;
+                                    justify-content: center;
+                                    text-align: center;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .grow-block
+                {
+                    flex-grow: 1;
+                }
+
+                .help-text
+                {
+                    font-family: Prompt;
+                    font-weight: 200;
+                    font-style: italic;
+                    width: 100%;
+                    text-align: center;
+                }
+
             }
 
-            .maps
+            > .right
             {
-                height: 320px;
-
+                max-width: 53%;
+                flex-direction: column;
+                padding: 8px;
+                gap: 12px;
+    
                 PackageList
                 {
-
+    
                     PackageFilters
                     {
-                        height: 0px;
+                        height: 24px;
+                        justify-content: space-between;
 
+                        .right
+                        {
+                            width: 300px;
+                        }
+    
                         PackageFilterFacet, PackageFilterOrder, TextEntry
                         {
                             font-size: 16px;
                             padding: 2px 4px;
                             height: 32px;
                         }
-                    }
 
+                        PackageFilterFacet
+                        {
+                            &:nth-child(1)
+                            {
+                                display: none;
+                            }
+                        }
+                    }
+    
                     PackageCard
                     {
                         max-width: 200px;
                         min-width: 200px;
                         flex-shrink: 0;
                         top: 42px;
+                    }
+
+                    TextEntry
+                    {
+                        max-width: 150px;
                     }
                 }
             }
@@ -171,6 +240,7 @@ MainMenuCreateServerPage
             width: 100%;
             justify-content: space-between;
             padding: 0px 8px;
+            flex-shrink: 0;
 
             .group
             {

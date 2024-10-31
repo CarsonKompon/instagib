@@ -10,8 +10,33 @@
 
 <root>
     <div class="logo-container">
-        <h1>GIBLETZ</h1>
-        <div class="author">By Carson Kompon</div>
+        <h1>
+            @if (true)
+            {
+                var str = "GIBLETZ";
+                for (int i = 0; i < str.Length; i++)
+                {
+                    <label class="glowchar">@str[i]</label>
+                }
+            }
+        </h1>
+        <div class="author">
+            @if (true)
+            {
+                var str = "By Carson Kompon";
+                for (int i = 0; i < str.Length; i++)
+                {
+                    if (str[i] == ' ')
+                    {
+                        <div class="space" />
+                    }
+                    else
+                    {
+                        <label class="glowchar">@str[i]</label>
+                    }
+                }
+            }
+        </div>
         <div class="splash-text">@SplashTexts[SplashIndex]</div>
     </div>
 
@@ -47,6 +72,11 @@
 "Also check out RATZ",
 "Instantaneous Giblification",
 "1 shot, 1 kill",
+"s&box oh s&box...",
+"🔫🔫🔫",
+"This is a video game",
+"Head Clicking Simulator",
+"aimtraining.exe"
     };
 
     public int SplashIndex = 0;

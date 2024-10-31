@@ -9,6 +9,7 @@ MainMenuPlayPage
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: Protest Strike;
     font-size: 24px;
 
     .lobby-list
@@ -115,6 +116,7 @@ MainMenuPlayPage
             width: 100%;
             justify-content: space-between;
             padding: 0px 8px;
+            flex-shrink: 0;
 
             .group
             {
@@ -127,21 +129,21 @@ MainMenuPlayPage
                 font-weight: 600;
                 padding: 8px 16px;
                 border-radius: 4px;
-                background-color: rgb(49, 49, 53);
-                color: white;
-                text-shadow: 0px 0px 8px black;
+                background-color: rgba(255, 255, 255, 0.2);
+                color: black;
+                text-shadow: 0px 0px 0px transparent;
                 transition: all 0.2s ease-out;
                 cursor: pointer;
 
                 &:hover
                 {
-                    background-color: rgb(64, 64, 68);
+                    background-color: white;
                     sound-in: ui.button.over;
                 }
 
                 &:active
                 {
-                    background-color: rgb(44, 44, 48);
+                    background-color: rgba(255, 255, 255, 0.1);
                     sound-in: ui.button.press;
                 }
             }
