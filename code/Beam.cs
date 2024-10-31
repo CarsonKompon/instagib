@@ -1,5 +1,7 @@
 using Sandbox;
 
+namespace Instagib;
+
 public sealed class Beam : Component
 {
 	public Vector3 StartPosition { get; set; }
@@ -14,16 +16,21 @@ public sealed class Beam : Component
 	protected override void OnStart()
 	{
 		timeSinceStart = 0;
-		OnFixedUpdate();
-		renderers = Components.GetAll<ModelRenderer>( FindMode.EverythingInSelfAndChildren ).ToList();
-		foreach ( var renderer in renderers )
-		{
-			renderer.Enabled = true;
-		}
 	}
 
 	protected override void OnFixedUpdate()
 	{
+		bool justEnabled = false;
+		if ( renderers.Count == 0 )
+		{
+			renderers = Components.GetAll<ModelRenderer>( FindMode.EverythingInSelfAndChildren ).ToList();
+			foreach ( var renderer in renderers )
+			{
+				renderer.Enabled = true;
+				justEnabled = true;
+			}
+		}
+
 		foreach ( var renderer in renderers )
 		{
 			if ( !renderer.IsValid() ) continue;
@@ -36,6 +43,13 @@ public sealed class Beam : Component
 			return;
 		}
 
+		UpdateBeam();
+
+		if ( justEnabled ) Transform.ClearInterpolation();
+	}
+
+	void UpdateBeam()
+	{
 		var distance = StartPosition.Distance( EndPosition );
 		var rotation = Rotation.LookAt( StartPosition - EndPosition );
 
