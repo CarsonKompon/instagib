@@ -114,7 +114,7 @@ public sealed class Player : Component
 			timeSinceLastKill = 0;
 		}
 
-		foreach ( var renderer in Body.Components.GetAll<SkinnedModelRenderer>( FindMode.EverythingInDescendants ) )
+		foreach ( var renderer in Body.Components.GetAll<SkinnedModelRenderer>( FindMode.EverythingInSelfAndDescendants ) )
 		{
 			if ( IsInvulnerable )
 			{

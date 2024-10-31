@@ -122,6 +122,8 @@
 
     public override void Tick()
     {
+        if(!CharacterCam.IsValid() || CameraTexture is null) return;
+        
         CharacterCam?.RenderToTexture(CameraTexture);
     }
 }
