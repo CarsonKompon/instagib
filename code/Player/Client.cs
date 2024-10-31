@@ -25,7 +25,7 @@ public class Client : Component
     [Sync] public int Shots { get; set; } = 0;
     [Sync] public RealTimeSince Playtime { get; set; } = 0;
     [HostSync] public bool IsBot { get; set; } = false;
-    [Sync] public string ColorString { get; set; }
+    [Sync] public string ColorString { get; set; } = "#000000";
     [Sync] public string Killstreak { get; set; } = "";
     [Sync] public int Team { get; set; } = 0;
     public float Aim => (float)Kills / (float)Shots;
