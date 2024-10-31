@@ -63,6 +63,6 @@
 
 @code
 {
-    bool IsShown => Input.Down("Score") || Input.Down("Info");
+    bool IsShown => Input.Down("Info");
     protected override int BuildHash() => System.HashCode.Combine(IsShown);
 }

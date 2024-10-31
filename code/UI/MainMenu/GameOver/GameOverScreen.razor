@@ -9,11 +9,11 @@
 	{
 		var clients = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills);
 
-		<div class="winner" style="color: @(GetWinnerColor())">
-			<h1>@GetWinnerName()</h1>
+		<div class="winner">
+			<h1 style="background-color: @(GetWinnerColor())">@GetWinnerName()</h1>
 			<label>wins the game</label>
 		</div>
-		<div class="container">
+		<div class=" container">
 			<div class="scoreboard">
 				<div class="header">
 					<label class="name">Player</label>
@@ -24,6 +24,7 @@
 				<div class="entries">
 					@foreach (var client in clients)
 					{
+						if (!client.IsValid()) continue;
 						<div class="entry @(client.Network.IsOwner ? "isme" : "")" style="background-color: @(client.ColorString)">
 							@if (client.IsBot)
 							{
@@ -119,8 +120,8 @@
 			return GameManager.GetTeamColor(team.Key).Hex;
 		}
 
-		var winner = Scene.GetAllComponents<Client>().OrderBy(x => -x.Kills).FirstOrDefault();
-		if (winner is null) return "#FFFFFF";
+		var winner = Scene.GetAllComponents<Client>().OrderBy(x => -(x?.Kills ?? 0f)).FirstOrDefault();
+		if (!winner.IsValid()) return "#FFFFFF";
 		return winner.ColorString;
 	}
 

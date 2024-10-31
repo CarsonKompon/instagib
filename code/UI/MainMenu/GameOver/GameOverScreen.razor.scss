@@ -5,7 +5,7 @@ GameOverScreen
 	left: 0;
 	right: 0;
 	bottom: 0;
-	font-family: Prompt;
+	font-family: Protest Strike;
 	font-size: 24px;
 	color: white;
 	flex-direction: column;
@@ -14,26 +14,34 @@ GameOverScreen
 	gap: 64px;
 	pointer-events: all;
 
-	h1
-	{
-		font-size: 92px;
-		font-weight: 800;
-	}
-
 	.winner
 	{
+		width: 100%;
 		flex-direction: column;
 		align-items: center;
 		margin: 0px;
-		gap: -32px;
+		gap: 8px;
 		text-shadow: 0px 0px 8px black;
+		
+		h1
+		{
+			justify-content: center;
+			width: 100%;
+			font-size: 92px;
+			font-weight: 800;
+			color: white;
+			padding: 8px;
+			box-shadow: 0px 0px 16px black;
+			text-shadow: 0px 0px 2px black;
+		}
+
 	}
 
 	.container
 	{
 		width: 100%;
 		height: 600px;
-		background-color: rgba(26, 27, 31, 0.664);
+		background-color: rgba(26, 27, 31, 0.94);
 		padding: 16px;
 
 		.scoreboard
@@ -141,6 +149,7 @@ GameOverScreen
 			{
 				width: 50%;
 				flex-direction: column;
+				gap: 8px;
 
 				PackageList
 				{
@@ -178,6 +187,7 @@ GameOverScreen
 			{
 				flex-grow: 1;
 				flex-direction: column;
+				gap: 8px;
 
 				.content
 				{
@@ -204,7 +214,10 @@ GameOverScreen
 
 	.timer
 	{
-		padding-bottom: 42px;
+		min-width: 350px;
+		padding: 12px 24px;
+		background-color: black;
+		justify-content: center;
 	}
 
 
