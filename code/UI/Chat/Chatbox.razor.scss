@@ -118,7 +118,7 @@ Chatbox
 ChatEntry
 {
 	color: white;
-	gap: 4px;
+	gap: 6px;
 	align-items: center;
 	flex-shrink: 0;
 	opacity: 1;
@@ -138,6 +138,7 @@ ChatEntry
 	{
 		width: 24px;
 		height: 24px;
+		box-shadow: 0px 0px 8px black;
 	}
 
 	.name
