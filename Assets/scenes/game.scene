@@ -8,7 +8,6 @@
       "Position": "59.23444,29.79265,113.2015",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Instagib.GameManager",
@@ -91,8 +90,6 @@
       "Name": "Main Camera",
       "Position": "-300,0,100",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.CameraComponent",
@@ -163,13 +160,14 @@
       "Flags": 0,
       "Name": "Map",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.MapInstance",
           "__guid": "ee180b64-37ca-4109-b2e3-eada7603d03c",
+          "__version": 1,
+          "EnableCollision": true,
           "MapName": "roblox.glasshouses",
+          "NoOrigin": true,
           "UseMapFromLaunch": true
         }
       ],
@@ -182,7 +180,6 @@
       "Position": "-6924.012,3173.315,731.5927",
       "Enabled": true,
       "NetworkMode": 1,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -212,8 +209,6 @@
       "Name": "Music Player",
       "Position": "149.995,149.995,-212.125",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -235,8 +230,6 @@
       "Name": "Pause Screen",
       "Position": "165.0451,-64.46587,-45.81265",
       "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
       "Components": [
         {
           "__type": "Sandbox.ScreenPanel",
@@ -278,7 +271,6 @@
   },
   "Title": "level_test_01",
   "Description": "",
-  "LastSaved": "2024-06-02T12:00:13.3362103-04:00",
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

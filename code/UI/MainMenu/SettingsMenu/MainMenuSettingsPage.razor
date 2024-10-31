@@ -3,7 +3,6 @@
 @using System.Linq;
 @using Sandbox;
 @using Sandbox.UI;
-@using Sandbox.UI.GameMenu;
 @using Sandbox.Network;
 @inherits Panel
 @attribute [StyleSheet]
@@ -60,7 +59,7 @@
                 {
                     <div class="setting">
                         <label class="name">@action.Name:</label>
-                        <KeyBind Game=@IGameInstance.Current Action=@action />
+                        <KeyBind Action=@action />
                     </div>
                 }
             </div>
