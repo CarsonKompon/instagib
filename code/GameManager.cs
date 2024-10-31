@@ -324,6 +324,14 @@ public partial class GameManager : Component, Component.INetworkListener
             FragLimit = InstagibPreferences.Settings.FragLimit;
         }
 
+        foreach ( var obj in MapInstance.GameObject.Children )
+        {
+            if ( obj.Name.Contains( "jumppad" ) )
+            {
+                obj.AddComponent<JumpPad>();
+            }
+        }
+
         Scene.NavMesh.Generate( Scene.PhysicsWorld );
 
         KillPlane = MapInstance.Bounds.Mins.z - 100f;

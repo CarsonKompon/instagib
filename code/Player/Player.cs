@@ -23,7 +23,7 @@ public sealed class Player : Component
 	private static Player _local;
 
 	// Properties
-	[RequireComponent] CharacterController CharacterController { get; set; }
+	[RequireComponent] public CharacterController CharacterController { get; set; }
 	[RequireComponent] CitizenAnimationHelper AnimationHelper { get; set; }
 	SkinnedModelRenderer BodyRenderer { get; set; }
 
