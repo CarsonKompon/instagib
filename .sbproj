@@ -8,6 +8,7 @@
   "Resources": "/Fonts/*\n/UI/*",
   "PackageReferences": [],
   "EditorReferences": null,
+  "IsWhitelistDisabled": false,
   "Metadata": {
     "MaxPlayers": 64,
     "MinPlayers": 1,
@@ -26,77 +27,6 @@
     "LaunchMode": "Normal",
     "ControlModes": {
       "Keyboard": true
-    },
-    "InputSettings": {
-      "Actions": [
-        {
-          "Name": "Forward",
-          "KeyboardCode": "W",
-          "GamepadCode": "None",
-          "GroupName": "Movement"
-        },
-        {
-          "Name": "Backward",
-          "KeyboardCode": "S",
-          "GamepadCode": "None",
-          "GroupName": "Movement"
-        },
-        {
-          "Name": "Left",
-          "KeyboardCode": "A",
-          "GamepadCode": "None",
-          "GroupName": "Movement"
-        },
-        {
-          "Name": "Right",
-          "KeyboardCode": "D",
-          "GamepadCode": "None",
-          "GroupName": "Movement"
-        },
-        {
-          "Name": "Jump",
-          "KeyboardCode": "space",
-          "GamepadCode": "A",
-          "GroupName": "Movement"
-        },
-        {
-          "Name": "Attack1",
-          "KeyboardCode": "mouse1",
-          "GamepadCode": "RightTrigger",
-          "GroupName": "Actions"
-        },
-        {
-          "Name": "Attack2",
-          "KeyboardCode": "mouse2",
-          "GamepadCode": "LeftTrigger",
-          "GroupName": "Actions"
-        },
-        {
-          "Name": "Voice",
-          "KeyboardCode": "v",
-          "GamepadCode": "None",
-          "GroupName": "Other"
-        },
-        {
-          "Name": "Info",
-          "KeyboardCode": "tab",
-          "GamepadCode": "SwitchLeftMenu",
-          "GroupName": "Other"
-        },
-        {
-          "Name": "Chat",
-          "KeyboardCode": "enter",
-          "GamepadCode": "None",
-          "GroupName": "Other"
-        },
-        {
-          "Name": "Zoom",
-          "KeyboardCode": "SHIFT",
-          "GamepadCode": "LeftJoystickButton",
-          "GroupName": "Actions"
-        }
-      ],
-      "__guid": "d5b006b1-39d2-4034-a6d2-a675da7849fe"
     }
   }
 }
