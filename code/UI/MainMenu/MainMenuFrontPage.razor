@@ -53,7 +53,7 @@
 
     void QuitToMainMenu()
     {
-        GameNetworkSystem.Disconnect();
+        Networking.Disconnect();
         Scene.Load(MainMenu.Instance.GameScene);
     }
     protected override void OnAfterTreeRender(bool firstTime)

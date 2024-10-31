@@ -20,14 +20,14 @@ public static class GlobalMusicPlayer
         set
         {
             _isPaused = value;
-            if ( LastHandle.IsValid() )
+            if (LastHandle.IsValid())
             {
-                if ( value )
+                if (value)
                 {
                     LastHandle.Pitch = 0;
                     LastHandle.Volume = 0;
                 }
-                else if ( !value )
+                else if (!value)
                 {
                     LastHandle.Pitch = 1;
                     LastHandle.Volume = 1;
@@ -41,45 +41,43 @@ public static class GlobalMusicPlayer
 
     public static void Start()
     {
-        MusicMixer ??= Mixer.FindMixerByName( "Music" );
+        MusicMixer ??= Mixer.FindMixerByName("Music");
 
         Queue = new();
         Played = new();
 
-        var songs = ResourceLibrary.GetAll<Song>().OrderBy( x => Random.Shared.Float() );
-        foreach ( var song in songs )
+        var songs = ResourceLibrary.GetAll<Song>().OrderBy(x => Random.Shared.Float());
+        foreach (var song in songs)
         {
-            Queue.Add( song );
+            Queue.Add(song);
         }
 
-        Sound.StopAll( 1f );
+        Sound.StopAll(1f);
         PlayNext();
     }
 
     public static void PlayNext()
     {
-        MusicMixer ??= Mixer.FindMixerByName( "Music" );
+        MusicMixer ??= Mixer.FindMixerByName("Music");
 
-        if ( Queue.Count == 0 )
+        if (Queue.Count == 0)
         {
-            Queue = Played.OrderBy( x => Random.Shared.Float() ).ToList();
+            Queue = Played.OrderBy(x => Random.Shared.Float()).ToList();
             Played.Clear();
         }
 
-        if ( Queue.Count == 0 )
+        if (Queue.Count == 0)
         {
             return;
         }
 
-        Log.Info( $"Playing {Queue[0].Name}... (Queue: {Queue.Count}, Played: {Played.Count})" );
-
         var song = Queue[0];
-        Queue.RemoveAt( 0 );
-        Played.Add( song );
+        Queue.RemoveAt(0);
+        Played.Add(song);
         CurrentSong = song;
 
-        LastHandle?.Stop( 1f );
-        var sound = Sound.Play( song.Sound );
+        LastHandle?.Stop(1f);
+        var sound = Sound.Play(song.Sound);
         sound.TargetMixer = MusicMixer;
         LastHandle = sound;
 
@@ -89,19 +87,19 @@ public static class GlobalMusicPlayer
 
     public static void CheckForNextSong()
     {
-        if ( IsPaused )
+        if (IsPaused)
         {
             TimeSinceLastSong -= Time.Delta;
         }
-        if ( TimeSinceLastSong < 2f ) return;
+        if (TimeSinceLastSong < 2f) return;
 
-        MusicMixer ??= Mixer.FindMixerByName( "Music" );
+        MusicMixer ??= Mixer.FindMixerByName("Music");
 
-        if ( CurrentSongProgress > 1f || CurrentSong is null )
+        if (CurrentSongProgress > 1f || CurrentSong is null)
         {
             PlayNext();
         }
-        else if ( CurrentSong == null || (Queue.Count == 0 && Played.Count == 0) )
+        else if (CurrentSong == null || (Queue.Count == 0 && Played.Count == 0))
         {
             Start();
         }

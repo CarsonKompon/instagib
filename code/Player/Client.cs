@@ -30,7 +30,7 @@ public class Client : Component
     [Sync] public int Team { get; set; } = 0;
     public float Aim => (float)Kills / (float)Shots;
     public Player Player => Scene.GetAllComponents<Player>().FirstOrDefault( x => x.GameObject.Name == GameObject.Id.ToString() );
-    public string Name => IsBot ? GameObject.Name : Network.OwnerConnection.DisplayName;
+    public string Name => IsBot ? GameObject.Name : Network.Owner.DisplayName;
 
 
     // Private Variables
@@ -118,7 +118,7 @@ public class Client : Component
             Vector3 center = Vector3.Zero;
             foreach ( var spawnPoint in spawnPoints )
             {
-                center += spawnPoint.Transform.Position;
+                center += spawnPoint.WorldPosition;
             }
             center /= spawnPoints.Count();
             Vector3 camPos = center + new Vector3(
@@ -128,16 +128,16 @@ public class Client : Component
             );
             center += Vector3.Up * 80f;
             var rotation = Rotation.LookAt( center - camPos, Vector3.Up );
-            Scene.Camera.Transform.Position = Scene.Camera.Transform.Position.LerpTo( camPos, 10 * Time.Delta );
-            Scene.Camera.Transform.Rotation = Rotation.Slerp( Scene.Camera.Transform.Rotation, rotation, 10 * Time.Delta );
+            Scene.Camera.WorldPosition = Scene.Camera.WorldPosition.LerpTo( camPos, 10 * Time.Delta );
+            Scene.Camera.WorldRotation = Rotation.Slerp( Scene.Camera.WorldRotation, rotation, 10 * Time.Delta );
         }
         else
         {
-            var nearestPlayer = Scene.GetAllComponents<Player>().OrderBy( x => -x.Transform.Position.Distance( Scene.Camera.Transform.Position ) ).FirstOrDefault();
+            var nearestPlayer = Scene.GetAllComponents<Player>().OrderBy( x => -x.WorldPosition.Distance( Scene.Camera.WorldPosition ) ).FirstOrDefault();
             Vector3 lookAt = Vector3.Zero;
             if ( nearestPlayer is not null )
             {
-                lookAt = nearestPlayer.Transform.Position;
+                lookAt = nearestPlayer.WorldPosition;
                 TimeSinceLastLookAt = 0f;
             }
             // else if ( Scene.GetAllComponents<InstagibGib>().OrderBy( x => x.Transform.Position.Distance( Scene.Camera.Transform.Position ) ).FirstOrDefault() is InstagibGib gib && Scene.Camera.Transform.Position.Distance( gib.Transform.Position ) < 700 )
@@ -147,7 +147,7 @@ public class Client : Component
             // }
             else if ( TimeSinceLastLookAt > 3f )
             {
-                lookAt = Scene.Camera.Transform.Position + new Vector3(
+                lookAt = Scene.Camera.WorldPosition + new Vector3(
                     MathF.Sin( Time.Now * 0.1f ) * 600,
                     MathF.Cos( Time.Now * 0.1f ) * 600,
                     0
@@ -156,9 +156,9 @@ public class Client : Component
 
             if ( lookAt != Vector3.Zero )
             {
-                deadCamRotation = Rotation.LookAt( lookAt - Scene.Camera.Transform.Position, Vector3.Up );
+                deadCamRotation = Rotation.LookAt( lookAt - Scene.Camera.WorldPosition, Vector3.Up );
             }
-            Scene.Camera.Transform.Rotation = Rotation.Slerp( Scene.Camera.Transform.Rotation, deadCamRotation, (lookAt == Vector3.Zero ? 4 : 10) * Time.Delta );
+            Scene.Camera.WorldRotation = Rotation.Slerp( Scene.Camera.WorldRotation, deadCamRotation, (lookAt == Vector3.Zero ? 4 : 10) * Time.Delta );
         }
     }
 

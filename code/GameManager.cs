@@ -90,11 +90,11 @@ public partial class GameManager : Component, Component.INetworkListener
         if ( Scene.IsEditor )
             return;
 
-        if ( !GameNetworkSystem.IsActive )
+        if ( !Networking.IsActive )
         {
             LoadingScreen.Title = "Creating Lobby";
             await Task.DelayRealtimeSeconds( 0.1f );
-            GameNetworkSystem.CreateLobby();
+            Networking.CreateLobby();
             for ( int i = 0; i < MathF.Min( InstagibPreferences.Settings.BotCount, InstagibPreferences.Settings.MaxPlayers - 1 ); i++ )
             {
                 AddBot();
@@ -345,7 +345,7 @@ public partial class GameManager : Component, Component.INetworkListener
             player.Components.Get<HumanController>().Destroy();
             player.Components.Create<BotController>();
         }
-        player.NetworkSpawn( client.Network.OwnerConnection );
+        player.NetworkSpawn( client.Network.Owner );
     }
 
     [Broadcast]

@@ -51,20 +51,20 @@ public class BotController : Component
     {
         if ( !Networking.IsHost ) return;
 
-        if ( timeSinceLastNavUpdate > 10f || Transform.Position.Distance( targetPosition ) < 200f )
+        if ( timeSinceLastNavUpdate > 10f || WorldPosition.Distance( targetPosition ) < 200f )
         {
-            var fallback = (Transform.Position + Vector3.Random.WithZ( 0 ) * 350f);
+            var fallback = (WorldPosition + Vector3.Random.WithZ( 0 ) * 350f);
             switch ( State )
             {
                 case BotState.Attacking:
                     var randomPlayer = Scene.GetAllComponents<Player>().OrderBy( x => Random.Shared.Float() ).FirstOrDefault();
                     if ( randomPlayer is not null )
                     {
-                        targetPosition = Scene.NavMesh.GetRandomPoint( randomPlayer.Transform.Position, 350f ) ?? fallback;
+                        targetPosition = Scene.NavMesh.GetRandomPoint( randomPlayer.WorldPosition, 350f ) ?? fallback;
                     }
                     break;
                 case BotState.Retreating:
-                    targetPosition = Scene.NavMesh.GetRandomPoint( Transform.Position, 1000f ) ?? fallback;
+                    targetPosition = Scene.NavMesh.GetRandomPoint( WorldPosition, 1000f ) ?? fallback;
                     break;
             }
 
@@ -80,10 +80,10 @@ public class BotController : Component
         Player.Direction = Player.Direction.LerpTo( Rotation.LookAt( Agent.WishVelocity.WithZ( Random.Shared.Float( -90f, 80 ) ), Vector3.Up ), 10 * Time.Delta );
 
         var players = Scene.GetAllComponents<Player>().Where( x => x != Player );
-        var nearest = players.OrderBy( x => x.Transform.Position.DistanceSquared( Transform.Position ) ).FirstOrDefault();
+        var nearest = players.OrderBy( x => x.WorldPosition.DistanceSquared( WorldPosition ) ).FirstOrDefault();
         if ( nearest is not null )
         {
-            Player.Direction = Rotation.Slerp( Player.Direction, Rotation.LookAt( (nearest.Transform.Position + Vector3.Random * 2f) - Transform.Position ), 10 * Time.Delta );
+            Player.Direction = Rotation.Slerp( Player.Direction, Rotation.LookAt( (nearest.WorldPosition + Vector3.Random * 2f) - WorldPosition ), 10 * Time.Delta );
         }
 
         Player.LookAngles = Player.Direction;

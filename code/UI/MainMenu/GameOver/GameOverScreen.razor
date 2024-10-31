@@ -31,7 +31,7 @@
 							}
 							else
 							{
-								<img src="@($"avatar:{client.Network.OwnerConnection.SteamId}")" class="avatar" />
+								<img src="@($"avatar:{client.Network.Owner.SteamId}")" class="avatar" />
 							}
 							<label class="name">@client.GameObject.Name</label>
 							<label class="aim">@client.Aim.ToString("P")</label>
@@ -80,10 +80,10 @@
 
 	void OnPackageSelected(Package package)
 	{
-		if(!(Client.Local?.IsValid() ?? false)) return;
-		if(!(GameManager.Instance?.IsValid() ?? false)) return;
-		
- 		GameManager.Instance.VoteMap(Client.Local.GameObject.Id, package.FullIdent);
+		if (!(Client.Local?.IsValid() ?? false)) return;
+		if (!(GameManager.Instance?.IsValid() ?? false)) return;
+
+		GameManager.Instance.VoteMap(Client.Local.GameObject.Id, package.FullIdent);
 	}
 
 	string GetMapVoteTimer()

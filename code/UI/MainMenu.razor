@@ -28,7 +28,7 @@
 
 	protected override void OnStart()
 	{
-		startingCamRot = Scene.Camera.Transform.Rotation;
+		startingCamRot = Scene.Camera.WorldRotation;
 
 		if (!IsPauseMenu)
 		{
@@ -51,7 +51,7 @@
 
 	protected override void OnFixedUpdate()
 	{
-		Scene.Camera.Transform.Rotation = startingCamRot + new Angles(
+		Scene.Camera.WorldRotation = startingCamRot + new Angles(
 		MathF.Cos(Time.Now * 0.45f) * 2f,
 		MathF.Sin(Time.Now * 0.5f) * 2f,
 		0f

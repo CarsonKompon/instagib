@@ -40,8 +40,8 @@ public sealed class Beam : Component
 		var rotation = Rotation.LookAt( StartPosition - EndPosition );
 
 		var size = (lifetime - timeSinceStart) / lifetime;
-		Transform.Position = StartPosition + (EndPosition - StartPosition) / 2f;
-		Transform.Rotation = rotation;
-		Transform.Scale = new Vector3( distance / 50f, size / 10f, size / 10f );
+		WorldPosition = StartPosition + (EndPosition - StartPosition) / 2f;
+		WorldRotation = rotation;
+		WorldScale = new Vector3( distance / 50f, size / 10f, size / 10f );
 	}
 }
