@@ -34,6 +34,16 @@ public class Client : Component
 
 
     // Private Variables
+    internal Player KilledBy
+    {
+        get => _killedBy;
+        set
+        {
+            _killedBy = value;
+            TimeSinceLastLookAt = 0f;
+        }
+    }
+    private Player _killedBy;
     internal TimeSince TimeSinceLastDeath = 5;
     private TimeSince TimeSinceLastLookAt = 0;
     private TimeSince TimeSinceKillstreak = 100f;
@@ -133,32 +143,19 @@ public class Client : Component
         }
         else
         {
-            var nearestPlayer = Scene.GetAllComponents<Player>().OrderBy( x => -x.WorldPosition.Distance( Scene.Camera.WorldPosition ) ).FirstOrDefault();
-            Vector3 lookAt = Vector3.Zero;
-            if ( nearestPlayer is not null )
+            var nearestPlayer = KilledBy;
+            if ( !nearestPlayer.IsValid() || TimeSinceLastLookAt > 5f )
             {
-                lookAt = nearestPlayer.WorldPosition;
-                TimeSinceLastLookAt = 0f;
+                nearestPlayer = Scene.GetAllComponents<Player>().OrderBy( x => x.WorldPosition.Distance( Scene.Camera.WorldPosition ) ).FirstOrDefault();
             }
-            // else if ( Scene.GetAllComponents<InstagibGib>().OrderBy( x => x.Transform.Position.Distance( Scene.Camera.Transform.Position ) ).FirstOrDefault() is InstagibGib gib && Scene.Camera.Transform.Position.Distance( gib.Transform.Position ) < 700 )
-            // {
-            //     lookAt = gib.Transform.Position;
-            //     TimeSinceLastLookAt = 0f;
-            // }
-            else if ( TimeSinceLastLookAt > 3f )
+            Vector3 lookAt = Vector3.Zero;
+            if ( nearestPlayer.IsValid() )
             {
-                lookAt = Scene.Camera.WorldPosition + new Vector3(
-                    MathF.Sin( Time.Now * 0.1f ) * 600,
-                    MathF.Cos( Time.Now * 0.1f ) * 600,
-                    0
-                );
+                lookAt = nearestPlayer.WorldPosition + Vector3.Up * 48f;
             }
 
-            if ( lookAt != Vector3.Zero )
-            {
-                deadCamRotation = Rotation.LookAt( lookAt - Scene.Camera.WorldPosition, Vector3.Up );
-            }
-            Scene.Camera.WorldRotation = Rotation.Slerp( Scene.Camera.WorldRotation, deadCamRotation, (lookAt == Vector3.Zero ? 4 : 10) * Time.Delta );
+            deadCamRotation = Rotation.LookAt( lookAt - Scene.Camera.WorldPosition, Vector3.Up );
+            Scene.Camera.WorldRotation = Rotation.Slerp( Scene.Camera.WorldRotation, deadCamRotation, 5f * Time.Delta );
         }
     }
 

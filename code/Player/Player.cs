@@ -248,7 +248,7 @@ public sealed class Player : Component
 		if ( !CanFire ) return;
 
 		var dir = (Client?.IsBot ?? true) ? Direction : visualDirection;
-		var tr = Scene.Trace.Ray( Head.WorldPosition, Head.WorldPosition + dir.Forward * 5000f )
+		var tr = Scene.Trace.Ray( Head.WorldPosition, Head.WorldPosition + dir.Forward * 10000f )
 			.IgnoreGameObjectHierarchy( GameObject )
 			.WithoutTags( "trigger" )
 			.Run();
@@ -323,6 +323,8 @@ public sealed class Player : Component
 			{
 				KillFeedPanel.Instance?.AddDeath( killerClient.Name );
 			}
+			Client.TimeSinceLastDeath = 0;
+			if ( killerClient.IsValid() ) Client.KilledBy = killerClient.Player;
 		}
 		if ( !Network.IsProxy )
 		{
@@ -331,7 +333,6 @@ public sealed class Player : Component
 				var killMsg = (killer == Guid.Empty) ? $"{Client.GameObject.Name} was killed" : $"{Client.Name} was killed by {killerClient.Name}";
 				Chatbox.Instance.AddMessage( "☠️", killMsg, "kill-feed" );
 			}
-			Client.TimeSinceLastDeath = 0;
 			GameObject.Destroy();
 
 			var player = Scene.GetAllComponents<Player>().FirstOrDefault( x => x.GameObject.Name == killer.ToString() );
