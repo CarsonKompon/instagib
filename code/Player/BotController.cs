@@ -22,11 +22,14 @@ public class BotController : Component
     TimeSince timeSinceLastInput = 0;
     Vector3 targetPosition = Vector3.Zero;
 
+    float Difficulty = 0.5f;
+
     protected override void OnStart()
     {
         Agent.UpdatePosition = false;
         Agent.UpdateRotation = false;
         timeSinceLastNavUpdate = 100;
+        Difficulty = Random.Shared.Float( 0.1f, 1f );
     }
 
     protected override void OnUpdate()
@@ -34,8 +37,8 @@ public class BotController : Component
         if ( !Networking.IsHost ) return;
 
         if ( Random.Shared.Float() < 0.01f ) Player?.Jump();
-        if ( Random.Shared.Float() < 0.0025f ) Player?.PrimaryFire();
-        if ( Random.Shared.Float() < 0.0025f ) Player?.SecondaryFire();
+        if ( Random.Shared.Float() < 0.01f * Difficulty ) Player?.PrimaryFire();
+        if ( Random.Shared.Float() < 0.01f * Difficulty ) Player?.SecondaryFire();
 
         if ( timeSinceLastStateChange > 1f )
         {
@@ -77,13 +80,16 @@ public class BotController : Component
             Player.BuildWishVelocity( Agent.WishVelocity.Normal, false );
             timeSinceLastInput = 0f;
         }
-        Player.Direction = Player.Direction.LerpTo( Rotation.LookAt( Agent.WishVelocity.WithZ( Random.Shared.Float( -90f, 80 ) ), Vector3.Up ), 10 * Time.Delta );
 
         var players = Scene.GetAllComponents<Player>().Where( x => x != Player );
         var nearest = players.OrderBy( x => x.WorldPosition.DistanceSquared( WorldPosition ) ).FirstOrDefault();
-        if ( nearest is not null )
+        if ( nearest.IsValid() )
         {
-            Player.Direction = Rotation.Slerp( Player.Direction, Rotation.LookAt( (nearest.WorldPosition + Vector3.Random * 2f) - WorldPosition ), 10 * Time.Delta );
+            Player.Direction = Rotation.Slerp( Player.Direction, Rotation.LookAt( (nearest.WorldPosition + Vector3.Random * 250f * (1f - Difficulty)) - WorldPosition ), 10 * Time.Delta );
+        }
+        else
+        {
+            Player.Direction = Player.Direction.LerpTo( Rotation.LookAt( Agent.WishVelocity.WithZ( Random.Shared.Float( -90f, 80f ) ), Vector3.Up ), 10 * Time.Delta );
         }
 
         Player.LookAngles = Player.Direction;
