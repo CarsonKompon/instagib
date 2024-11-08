@@ -35,6 +35,7 @@ public sealed class Beam : Component
 		{
 			if ( !renderer.IsValid() ) continue;
 			renderer.Tint = Color.WithAlpha( 0.8f );
+			renderer.RenderType = ModelRenderer.ShadowRenderType.Off;
 		}
 
 		if ( timeSinceStart > lifetime )
