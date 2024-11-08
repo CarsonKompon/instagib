@@ -51,11 +51,14 @@
 
 	protected override void OnFixedUpdate()
 	{
-		Scene.Camera.WorldRotation = startingCamRot + new Angles(
-		MathF.Cos(Time.Now * 0.45f) * 2f,
-		MathF.Sin(Time.Now * 0.5f) * 2f,
-		0f
-		);
+		if (!IsPauseMenu)
+		{
+			Scene.Camera.WorldRotation = startingCamRot + new Angles(
+			MathF.Cos(Time.Now * 0.45f) * 2f,
+			MathF.Sin(Time.Now * 0.5f) * 2f,
+			0f
+			);
+		}
 
 		Mixer.Master.Volume = InstagibPreferences.Settings.VolumeMaster / 100f;
 		foreach (var mixer in Mixer.Master.GetChildren())
