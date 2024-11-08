@@ -168,6 +168,14 @@ ChatEntry
     
     }
 
+	&.kill-feed
+	{
+		.message
+		{
+			color: #F5FA3C;
+		}
+	}
+
 	&.fade
 	{
 		opacity: 0;
