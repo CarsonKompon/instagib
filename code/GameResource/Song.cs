@@ -1,12 +1,14 @@
-using System;
-using Sandbox;
-
 namespace Instagib;
 
-[GameResource( "Instagib Song", "song", "Describes a song that can be played in the game.", Icon = "music_note" )]
+[AssetType( Name = "Instagib Song", Extension = "song", Category = "Instagib" )]
 public class Song : GameResource
 {
-    public string Name { get; set; } = "New Song";
-    public SoundEvent Sound { get; set; }
-    public float Length { get; set; } = 100f;
+	public string Name { get; set; } = "New Song";
+	public SoundEvent Sound { get; set; }
+	public float Length { get; set; } = 100f;
+
+	protected override Bitmap CreateAssetTypeIcon( int width, int height )
+	{
+		return CreateSimpleAssetTypeIcon( "music_note", width, height );
+	}
 }

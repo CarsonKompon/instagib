@@ -301,7 +301,7 @@ public sealed class Player : Component
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void Kill( Guid killer = default )
 	{
 		var killerClient = Scene.GetAllComponents<Client>().FirstOrDefault( x => x.GameObject.Id == killer );
@@ -350,7 +350,7 @@ public sealed class Player : Component
 		}
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public void OnKill( Guid killed )
 	{
 		timeSinceLastKill = 0;
@@ -424,13 +424,13 @@ public sealed class Player : Component
 		Shadow.WorldRotation = Rotation.LookAt( floorTr.Normal ) * Rotation.From( new Angles( 0, 0, 90 ) );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	void BroadcastJump()
 	{
 		AnimationHelper?.TriggerJump();
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	void BroadcastBeam( Vector3 startPos, Vector3 endPos )
 	{
 		var midpos = startPos + (endPos - startPos) / 2f;
@@ -473,7 +473,7 @@ public sealed class Player : Component
 		Sound.Play( "snd-fire", startPos );
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	void BroadcastBounce( Vector3 position, Vector3 normal )
 	{
 		Sound.Play( "snd-bounce", position );

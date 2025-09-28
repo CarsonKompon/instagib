@@ -69,7 +69,7 @@
         AddMessage(Sandbox.Utility.Steam.SteamId.ToString(), text);
     }
 
-    [Broadcast]
+    [Rpc.Broadcast]
     public void AddMessage(string sender, string message, string styles = "")
     {
         if (string.IsNullOrWhiteSpace(message)) return;
