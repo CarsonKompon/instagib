@@ -8,7 +8,8 @@
   "Resources": "/Fonts/*\n/UI/*",
   "PackageReferences": [],
   "EditorReferences": null,
-  "IsWhitelistDisabled": false,
+  "Mounts": null,
+  "IsStandaloneOnly": false,
   "Metadata": {
     "MaxPlayers": 64,
     "MinPlayers": 1,
