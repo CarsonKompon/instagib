@@ -417,11 +417,11 @@ public sealed class Player : Component
 	void UpdateShadow()
 	{
 		var floorTr = Scene.Trace.Ray( WorldPosition, WorldPosition + Vector3.Down * 5000f )
-			.WithoutTags( "trigger" )
+			.WithoutTags( "trigger", "player" )
 			.Run();
 
 		Shadow.WorldPosition = floorTr.Hit ? (floorTr.HitPosition + Vector3.Up) : floorTr.EndPosition;
-		Shadow.WorldRotation = Rotation.LookAt( floorTr.Normal ) * Rotation.From( new Angles( 0, 90, 90 ) );
+		Shadow.WorldRotation = Rotation.LookAt( floorTr.Normal ) * Rotation.From( new Angles( 0, 0, 90 ) );
 	}
 
 	[Broadcast]
@@ -453,12 +453,21 @@ public sealed class Player : Component
 
 		if ( InstagibPreferences.Settings.EnableDecals )
 		{
-			var decalRot = Rotation.LookAt( startPos - endPos, Vector3.Random ) * Rotation.From( new Angles( 180, 0, 0 ) );
-			var decalTransform = new Transform( endPos + decalRot.Backward * 4f, decalRot, Vector3.One );
-			var decalObj = GameManager.Instance.BeamDecal.Clone( decalTransform );
-			decalObj.NetworkMode = NetworkMode.Never;
-			var decal = decalObj.Components.Get<DecalRenderer>();
-			decal.TintColor = Color;
+			var norm = (startPos - endPos).Normal;
+			var tr = Scene.Trace.Ray( endPos + norm * 8f, endPos - norm * 8f )
+				.IgnoreGameObjectHierarchy( GameObject )
+				.WithoutTags( "trigger", "player" )
+				.Run();
+
+			if ( tr.Hit )
+			{
+				var decalRot = Rotation.LookAt( tr.Normal, Vector3.Up ) * Rotation.From( new Angles( 0, 180, 0 ) );
+				var decalTransform = new Transform( endPos, decalRot, Vector3.One );
+				var decalObj = GameManager.Instance.BeamDecal.Clone( decalTransform );
+				decalObj.NetworkMode = NetworkMode.Never;
+				var decal = decalObj.Components.Get<Decal>();
+				decal.ColorTint = Color;
+			}
 		}
 
 		Sound.Play( "snd-fire", startPos );
@@ -479,13 +488,21 @@ public sealed class Player : Component
 
 		if ( InstagibPreferences.Settings.EnableDecals )
 		{
-			var decalRot = Rotation.LookAt( normal, Vector3.Random ) * Rotation.From( new Angles( 180, 0, 0 ) );
-			var decalTransform = new Transform( position + decalRot.Backward * 4f, decalRot, Vector3.One );
-			var decalObj = GameManager.Instance.BounceDecal.Clone( decalTransform );
-			decalObj.NetworkMode = NetworkMode.Never;
-			var decal = decalObj.Components.Get<DecalRenderer>();
-			decal.TintColor = Color;
-			decal.Size = decal.Size * 3f;
+			var tr = Scene.Trace.Ray( position + normal * 8f, position - normal * 8f )
+				.IgnoreGameObjectHierarchy( GameObject )
+				.WithoutTags( "trigger", "player" )
+				.Run();
+
+			if ( tr.Hit )
+			{
+				var decalRot = Rotation.LookAt( tr.Normal, Vector3.Up ) * Rotation.From( new Angles( 0, 180, 0 ) );
+				var decalTransform = new Transform( position + decalRot.Backward * 4f, decalRot, Vector3.One );
+				var decalObj = GameManager.Instance.BounceDecal.Clone( decalTransform );
+				decalObj.NetworkMode = NetworkMode.Never;
+				var decal = decalObj.Components.Get<Decal>();
+				decal.ColorTint = Color;
+				decal.Size = decal.Size * 2f;
+			}
 		}
 	}
 }

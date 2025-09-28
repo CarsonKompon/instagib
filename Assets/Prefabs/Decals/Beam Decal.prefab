@@ -1,31 +1,717 @@
 {
   "RootObject": {
     "__guid": "0dc9be59-dba2-4e1c-86c7-e167f22a8282",
+    "__version": 1,
     "Flags": 0,
     "Name": "beam decal",
+    "Position": "0,0,0",
+    "Rotation": "0,0,0,1",
+    "Scale": "1,1,1",
     "Tags": "game-decal",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
+    "NetworkOrphaned": 0,
+    "OwnerTransfer": 1,
     "Components": [
       {
         "__type": "Sandbox.DecalRenderer",
         "__guid": "9aeb1f8f-c1cb-4bbf-8a09-66a03f367c6b",
-        "CutoffAngle": 60,
-        "CutoffAngleSoftness": 5,
-        "Material": "materials/decals/foam_projection.vmat",
-        "Mod2XBlending": false,
+        "__enabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "Size": "24,24,24",
         "TintColor": "1,1,1,1",
         "TriPlanar": false
+      },
+      {
+        "__type": "Sandbox.Decal",
+        "__guid": "532b56dc-bb2b-41c4-b86a-347d15903b91",
+        "__enabled": true,
+        "__version": 3,
+        "AttenuationAngle": 1,
+        "ColorMix": 1,
+        "ColorTint": {
+          "Type": "Constant",
+          "Evaluation": "Life",
+          "GradientA": {
+            "blend": "Linear",
+            "color": [
+              {
+                "t": 0.5,
+                "c": "1,1,1,1"
+              }
+            ],
+            "alpha": []
+          },
+          "GradientB": {
+            "blend": "Linear",
+            "color": [
+              {
+                "t": 0.5,
+                "c": "1,1,1,1"
+              }
+            ],
+            "alpha": []
+          },
+          "ConstantA": "1,1,1,1",
+          "ConstantB": "1,1,1,1"
+        },
+        "Decals": [
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat00.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat01.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat02.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat03.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat04.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat10.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat11.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat16.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat18.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat19.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          },
+          {
+            "$compiler": "embed",
+            "$source": null,
+            "data": {
+              "ColorTexture": {
+                "$compiler": "texture",
+                "$source": "imagefile",
+                "data": {
+                  "FilePath": "textures/decals/splat20.png",
+                  "MaxSize": 4096,
+                  "ConvertHeightToNormals": false,
+                  "NormalScale": 1,
+                  "Rotate": 0,
+                  "FlipVertical": false,
+                  "FlipHorizontal": false,
+                  "Cropping": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "Padding": {
+                    "Left": 0,
+                    "Top": 0,
+                    "Right": 0,
+                    "Bottom": 0
+                  },
+                  "InvertColor": false,
+                  "Tint": "1,1,1,1",
+                  "Blur": 0,
+                  "Sharpen": 0,
+                  "Brightness": 1,
+                  "Contrast": 1,
+                  "Saturation": 1,
+                  "Hue": 0,
+                  "Colorize": false,
+                  "TargetColor": "1,1,1,1",
+                  "CacheToDisk": true
+                },
+                "compiled": null
+              },
+              "NormalTexture": null,
+              "RoughMetalOcclusionTexture": null,
+              "HeightTexture": null,
+              "ParallaxStrength": 1,
+              "Tint": "1,1,1,1",
+              "ColorMix": 1,
+              "Width": 16,
+              "Height": 16,
+              "FilterMode": "Anisotropic",
+              "__references": null
+            },
+            "compiled": null
+          }
+        ],
+        "Depth": 16,
+        "LifeTime": 0,
+        "Looped": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "Parallax": 1,
+        "Rotation": {
+          "Type": "Range",
+          "Evaluation": "Seed",
+          "Constants": "0,360,0,0"
+        },
+        "Scale": 1,
+        "SequenceId": 0,
+        "SheetSequence": false,
+        "Size": "2,2",
+        "SortLayer": 0,
+        "Transient": false
       }
     ],
-    "Children": []
+    "Children": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    },
+    "__variables": []
   },
+  "ResourceVersion": 2,
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
-  "ResourceVersion": 1,
+  "DontBreakAsTemplate": false,
   "__references": [],
-  "__version": 1
+  "__version": 2
 }
