@@ -22,6 +22,11 @@ MainMenuStatsPage
         align-items: center;
         gap: 8px;
 
+        > .header
+        {
+            flex-shrink: 0;
+        }
+
         > .content
         {
             width: 100%;
@@ -39,6 +44,7 @@ MainMenuStatsPage
                 .tab
                 {
                     flex-grow: 1;
+                flex-shrink: 0;
                     background-color: rgb(24, 24, 27);
                     justify-content: center;
                     align-items: center;
@@ -66,13 +72,16 @@ MainMenuStatsPage
             {
                 flex-grow: 1;
                 flex-shrink: 0;
-                
+                padding: 16px;
+                background-color: rgb(56, 56, 59);
+
                 .row
                 {
                     flex-grow: 1;
                     height: 100%;
                     padding: 16px;
                     flex-direction: column;
+                    background-color: rgba(17, 17, 17, 0.3);
 
                     &.board
                     {
@@ -95,12 +104,18 @@ MainMenuStatsPage
                     .stat
                     {
                         width: 100%;
-                        justify-content: space-between;
                         align-items: center;
+                        gap: 8px;
 
                         &.indent
                         {
                             padding-left: 24px;
+                        }
+
+                        .value
+                        {
+                            flex-grow: 1;
+                            text-align: right;
                         }
                     }
 
@@ -135,7 +150,7 @@ MainMenuStatsPage
                         overflow-y: scroll;
                         flex-grow: 1;
                         height: 80%;
-                        
+
                         .entry
                         {
                             width: 100%;
@@ -163,14 +178,14 @@ MainMenuStatsPage
                             }
                         }
                     }
-                
+
                     &:nth-child(odd)
                     {
-                        background-color: rgba(17, 17, 17, 0.144);
+                        background-color: rgba(17, 17, 17, 0.5);
                     }
                 }
             }
-            
+
             .popup
             {
                 position: absolute;
@@ -189,6 +204,7 @@ MainMenuStatsPage
             width: 100%;
             justify-content: space-between;
             padding: 0px 8px;
+            flex-shrink: 0;
 
             .group
             {

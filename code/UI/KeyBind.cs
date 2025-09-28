@@ -1,103 +1,103 @@
-using Sandbox;
 using Sandbox.UI;
 using System;
-using System.Linq;
 
 namespace Instagib;
 
 public class KeyBind : Label
 {
-    public InputAction Action { get; set; }
-    bool Rebinding { get; set; }
-    string TargetKey { get; set; }
+	public InputAction Action { get; set; }
+	bool Rebinding { get; set; }
+	string TargetKey { get; set; }
 
-    public KeyBind()
-    {
-        AcceptsFocus = true;
-        BindClass("active", () => Rebinding);
-        BindClass("with-highlight", () => !string.IsNullOrEmpty(TargetKey));
-    }
+	public KeyBind()
+	{
+		AcceptsFocus = true;
+		BindClass( "active", () => Rebinding );
+		BindClass( "with-highlight", () => !string.IsNullOrEmpty( TargetKey ) );
+	}
 
-    public override void Tick()
-    {
-        if (Rebinding && TargetKey == null)
-        {
-            Text = "PRESS A BUTTON";
-            return;
-        }
+	public override void Tick()
+	{
+		if ( Rebinding && TargetKey == null )
+		{
+			Text = "PRESS A BUTTON";
+			return;
+		}
 
-        if (TargetKey != null)
-        {
-            Text = TargetKey.ToUpperInvariant();
-            return;
-        }
+		if ( TargetKey != null )
+		{
+			Text = TargetKey.ToUpperInvariant();
+			return;
+		}
 
-        var str = IGameInstance.Current.GetBind(Action.Name, out var isDefault, out var isCommon);
+		var str = IGameInstance.Current.GetBind( Action.Name, out var isDefault, out var isCommon );
 
-        if (str == null)
-        {
-            str = Action.KeyboardCode;
-            isDefault = true;
-            Text = "";
-            return;
-        }
+		if ( str == null )
+		{
+			str = Action.KeyboardCode;
+			isDefault = true;
+			Text = "";
+			return;
+		}
 
-        str = str.ToUpperInvariant();
+		str = str.ToUpperInvariant();
 
-        if (isDefault)
-        {
-            Text = $"{str} (default)";
-        }
-        else
-        {
-            Text = str;
-        }
-    }
+		if ( isDefault )
+		{
+			Text = $"{str} (default)";
+		}
+		else
+		{
+			Text = str;
+		}
+	}
 
-    protected override void OnMouseUp(MousePanelEvent e)
-    {
-        base.OnMouseUp(e);
+	protected override void OnMouseUp( MousePanelEvent e )
+	{
+		base.OnMouseUp( e );
 
-        if (e.Button == "mouseleft")
-        {
-            Rebinding = true;
-            TargetKey = null;
+		if ( e.Button == "mouseleft" )
+		{
+			Rebinding = true;
+			TargetKey = null;
 
-            IGameInstance.Current.TrapButtons((buttons) =>
-            {
-                if (buttons.Contains("ESCAPE", StringComparer.OrdinalIgnoreCase))
-                {
-                    Rebinding = false;
-                    TargetKey = null;
-                    CreateEvent("onchange");
-                    return;
-                }
+			IGameInstance.Current.TrapButtons( ( buttons ) =>
+			{
+				if ( buttons.Contains( "ESCAPE", StringComparer.OrdinalIgnoreCase ) )
+				{
+					Rebinding = false;
+					TargetKey = null;
+					CreateEvent( "onchange" );
+					return;
+				}
 
-                TargetKey = string.Join(" + ", buttons.OrderBy(x => x));
-                Rebinding = false;
-                CreateEvent("onchange");
-            });
-        }
+				TargetKey = string.Join( " + ", buttons.OrderBy( x => x ) );
+				Apply();
 
-        if (e.Button == "mouseright")
-        {
-            IGameInstance.Current.SetBind(Action.Name, null);
-            TargetKey = null;
-            CreateEvent("onchange");
-        }
-    }
+				Rebinding = false;
+				CreateEvent( "onchange" );
+			} );
+		}
 
-    public void Apply()
-    {
-        if (string.IsNullOrEmpty(TargetKey))
-            return;
+		if ( e.Button == "mouseright" )
+		{
+			IGameInstance.Current.SetBind( Action.Name, Action.KeyboardCode );
+			TargetKey = null;
+			CreateEvent( "onchange" );
+		}
+	}
 
-        IGameInstance.Current.SetBind(Action.Name, TargetKey);
-        TargetKey = null;
-    }
+	public void Apply()
+	{
+		if ( string.IsNullOrEmpty( TargetKey ) )
+			return;
 
-    public void Cancel()
-    {
-        TargetKey = null;
-    }
+		IGameInstance.Current.SetBind( Action.Name, TargetKey );
+		TargetKey = null;
+	}
+
+	public void Cancel()
+	{
+		TargetKey = null;
+	}
 }

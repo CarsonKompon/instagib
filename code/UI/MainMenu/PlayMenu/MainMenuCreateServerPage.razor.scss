@@ -151,17 +151,11 @@ MainMenuCreateServerPage
                             {
                                 justify-content: center;
                             }
+                            
                             .entry
                             {
                                 background-color: rgba(255, 255, 255, 0.02);
-                                padding: 0px 4px;
-                                
-                                .textentry
-                                {
-                                    align-items: center;
-                                    justify-content: center;
-                                    text-align: center;
-                                }
+                                font-size: 18px;
                             }
                         }
                     }
@@ -192,22 +186,40 @@ MainMenuCreateServerPage
     
                 PackageList
                 {
+                    flex-grow: 1;
     
                     PackageFilters
                     {
                         height: 24px;
                         justify-content: space-between;
+                        font-size: 14px;
+                        gap: 4px;
+
+                        .left
+                        {
+                            gap: 4px;
+                            flex-grow: 1;
+                        }
 
                         .right
                         {
-                            width: 300px;
+                            gap: 4px;
+                            flex-grow: 1;
                         }
     
                         PackageFilterFacet, PackageFilterOrder, TextEntry
                         {
-                            font-size: 16px;
+                            font-size: 14px;
                             padding: 2px 4px;
                             height: 32px;
+                        }
+
+                        PackageFilterOrder
+                        {
+                            > i.label.iconpanel
+                            {
+                                display: none;
+                            }
                         }
 
                         PackageFilterFacet
@@ -217,14 +229,6 @@ MainMenuCreateServerPage
                                 display: none;
                             }
                         }
-                    }
-    
-                    PackageCard
-                    {
-                        max-width: 200px;
-                        min-width: 200px;
-                        flex-shrink: 0;
-                        top: 42px;
                     }
 
                     TextEntry

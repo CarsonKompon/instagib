@@ -7,7 +7,7 @@ MainMenuFrontPage
     gap: 48px;
     justify-content: space-between;
     color: white;
-    text-shadow: 0px 0px 8px black;
+    text-shadow: 0px 0px 6px black;
 
     .logo-container
     {
@@ -64,7 +64,8 @@ MainMenuFrontPage
                 text-shadow: 0px 0px 16px white;
             }
 
-            &:active {
+            &:active
+            {
                 transform: scale(0.95);
                 sound-in: ui.button.over;
                 opacity: 0.4;
@@ -98,7 +99,6 @@ MainMenuFrontPage
         flex-direction: column;
         justify-content: center;
         gap: 16px;
-
         font-size: 42px;
         font-weight: 600;
 
@@ -111,7 +111,7 @@ MainMenuFrontPage
             width: 500px;
             padding: 16px;
             font-family: Protest Strike;
-            
+
             &:hover
             {
                 transform: translateX(8px) skewX(-5deg);
@@ -149,6 +149,7 @@ MainMenuFrontPage
             background-size: contain;
             background-repeat: no-repeat;
             margin-right: 32px;
+            filter: drop-shadow(0px 0px 16px black);
         }
 
         .player-name

@@ -1,5 +1,3 @@
-using Sandbox;
-
 namespace Instagib;
 
 [Category( "Instagib - Player" )]

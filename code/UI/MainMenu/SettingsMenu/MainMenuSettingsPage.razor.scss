@@ -28,7 +28,7 @@ MainMenuSettingsPage
             flex-grow: 1;
             background-color: rgb(34, 34, 36);
             gap: 8px;
-            
+
             .row
             {
                 flex-grow: 1;
@@ -57,6 +57,7 @@ MainMenuSettingsPage
                     SliderControl
                     {
                         align-items: center;
+
                         .inner
                         {
                             justify-content: center;
@@ -65,14 +66,7 @@ MainMenuSettingsPage
                         .entry
                         {
                             background-color: rgba(255, 255, 255, 0.02);
-                            padding: 1px;
-                            
-                            .textentry
-                            {
-                                align-items: center;
-                                justify-content: center;
-                                text-align: center;
-                            }
+                            font-size: 18px;
                         }
                     }
 
@@ -81,6 +75,18 @@ MainMenuSettingsPage
                         padding: 4px 8px;
                         text-shadow: 0px 0px 0 transparent;
                         background-color: rgba(255, 255, 255, 0.02);
+
+                        &:hover
+                        {
+                            background-color: rgba(255, 255, 255, 0.05);
+                            sound-in: ui.button.over;
+                        }
+
+                        &:active
+                        {
+                            background-color: rgba(255, 255, 255, 0.1);
+                            sound-in: ui.button.press;
+                        }
                     }
 
                     SwitchControl
@@ -96,9 +102,8 @@ MainMenuSettingsPage
                         }
                     }
                 }
-
             }
-            
+
             .popup
             {
                 position: absolute;

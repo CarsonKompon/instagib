@@ -22,22 +22,27 @@
                     <div class="row">
                         <h1>Gameplay Stats</h1>
                         <div class="stat">
+							<i>location_searching</i>
                             <label class="name">Total Kills:</label>
                             <label class="value">@InstagibPreferences.Stats.TotalKills</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>water_drop</i>
                             <label class="name">Total Deaths:</label>
                             <label class="value">@InstagibPreferences.Stats.TotalDeaths</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>crisis_alert</i>
                             <label class="name">Overall Accuracy:</label>
                             <label class="value">@(MathF.Floor(InstagibPreferences.Stats.OverallAccuracy * 10000f) / 100f)%</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>network_ping</i>
                             <label class="name">Total Shots Fired:</label>
                             <label class="value">@InstagibPreferences.Stats.TotalShotsFired</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>upgrade</i>
                             <label class="name">Total Bounces:</label>
                             <label class="value">@InstagibPreferences.Stats.TotalBounces</label>
                         </div>
@@ -45,47 +50,57 @@
                     <div class="row">
                         <h1>Gamemode Stats</h1>
                         <h2>Deathmatch</h2>
-                        <div class="stat indent">
+						<div class="stat indent">
+							<i>emoji_events</i>
                             <label class="name">Total Wins:</label>
                             <label class="value">@(InstagibPreferences.Stats.TotalWins.GetValueOrDefault(Gamemode.Deathmatch, 0))</label>
                         </div>
-                        <div class="stat indent">
+						<div class="stat indent">
+							<i>trending_down</i>
                             <label class="name">Total Losses:</label>
                             <label class="value">@(InstagibPreferences.Stats.TotalLosses.GetValueOrDefault(Gamemode.Deathmatch, 0))</label>
                         </div>
                         <h2>Team Deathmatch</h2>
-                        <div class="stat indent">
+						<div class="stat indent">
+							<i>emoji_events</i>
                             <label class="name">Total Wins:</label>
                             <label class="value">@(InstagibPreferences.Stats.TotalWins.GetValueOrDefault(Gamemode.TeamDeathmatch, 0))</label>
                         </div>
-                        <div class="stat indent">
+						<div class="stat indent">
+							<i>trending_down</i>
                             <label class="name">Total Losses:</label>
                             <label class="value">@(InstagibPreferences.Stats.TotalLosses.GetValueOrDefault(Gamemode.TeamDeathmatch, 0))</label>
                         </div>
                     </div>
                     <div class="row">
                         <h1>Killstreak Stats</h1>
-                        <div class="stat">
+						<div class="stat">
+							<i>2k</i>
                             <label class="name">Double Kills:</label>
                             <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(2, 0)</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>3k</i>
                             <label class="name">Triple Kills:</label>
                             <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(3, 0)</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>4k</i>
                             <label class="name">Mega Kills:</label>
                             <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(4, 0)</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>5k</i>
                             <label class="name">Hyper Kills:</label>
                             <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(5, 0)</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>6k</i>
                             <label class="name">Ultra Kills:</label>
                             <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(6, 0)</label>
                         </div>
-                        <div class="stat">
+						<div class="stat">
+							<i>7k</i>
                             <label class="name">Unstoppable:</label>
                             <label class="value">@InstagibPreferences.Stats.Killstreaks.GetValueOrDefault(7, 0)</label>
                         </div>
@@ -93,34 +108,36 @@
                 }
                 else
                 {
-                    @foreach (var board in Leaderboards)
-                    {
-                        <div class="row board">
-                            <h1>@(board?.DisplayName ?? "Leaderboard")</h1>
-                            <div class="header">
-                                <label class="rank">Rank</label>
-                                <label class="name">Name</label>
-                                <label class="value">Value</label>
-                            </div>
-                            <div class="entries">
-                                @foreach (var entry in board.Entries)
-                                {
-                                    <div class="entry">
-                                        <label class="rank">##@(entry.Rank)</label>
-                                        <label class="name">@entry.DisplayName</label>
-                                        @if (board == Leaderboards.FirstOrDefault())
-                                        {
-                                            <label class="value">@entry.Value.ToString("P")</label>
-                                        }
-                                        else
-                                        {
-                                            <label class="value">@entry.Value</label>
-                                        }
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    }
+					<div class="leaderboards">
+						@foreach (var board in Leaderboards)
+						{
+							<div class="row board">
+								<h1>@(board?.DisplayName ?? "Leaderboard")</h1>
+								<div class="header">
+									<label class="rank">Rank</label>
+									<label class="name">Name</label>
+									<label class="value">Value</label>
+								</div>
+								<div class="entries">
+									@foreach (var entry in board.Entries)
+									{
+										<div class="entry">
+											<label class="rank">##@(entry.Rank)</label>
+											<label class="name">@entry.DisplayName</label>
+											@if (board == Leaderboards.FirstOrDefault())
+											{
+												<label class="value">@entry.Value.ToString("P")</label>
+											}
+											else
+											{
+												<label class="value">@entry.Value</label>
+											}
+										</div>
+									}
+								</div>
+							</div>
+						}
+					</div>
                 }
             </div>
         </div>
