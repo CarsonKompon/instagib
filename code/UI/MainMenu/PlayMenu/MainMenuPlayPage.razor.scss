@@ -134,6 +134,8 @@ MainMenuPlayPage
                 text-shadow: 0px 0px 0px transparent;
                 transition: all 0.2s ease-out;
                 cursor: pointer;
+                align-items: center;
+                gap: 8px;
 
                 &:hover
                 {
