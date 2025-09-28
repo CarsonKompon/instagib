@@ -194,7 +194,7 @@ public sealed class Player : Component
 		float _shake = 0;
 		if ( !Input.Down( "Zoom" ) )
 		{
-			_shake = CharacterController.Velocity.Length / Speed;
+			_shake = CharacterController.Velocity.Length / Speed / 2.5f;
 			visualDirection.pitch += MathF.Sin( Time.Now * 10f ) * _shake;
 			visualDirection.yaw += MathF.Sin( Time.Now * 9.5f ) * _shake;
 		}
